@@ -29,13 +29,11 @@
     </Appenders>
 
     <Loggers>
-
-
-        <Root level="info">
+        <Root level="debug">
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFile" />
         </Root>
-        <Logger name="com.agri.mis" level="DEBUG">
+        <Logger name="com.agri.mis" level="debug">
             <AppenderRef ref="mongoAppender"/>
         </Logger>
     </Loggers>

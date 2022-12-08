@@ -26,10 +26,6 @@ public class UserController {
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/pageQuery")
-    public Mono<Page<User>> pageQuery(@RequestParam("nickName") String nickName, @RequestParam("mobile") String mobile, @RequestParam("page") int page, @RequestParam("size") int size) {
-        return userService.pageQuery(nickName,mobile, PageRequest.of(page, size));
-    }
 
     @PutMapping("/changePassword")
     public Mono<ResponseEntity<User>> changePassword(@RequestBody ResetPassword resetPassword) {

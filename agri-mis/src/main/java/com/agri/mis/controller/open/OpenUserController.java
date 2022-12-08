@@ -7,6 +7,8 @@ import com.agri.mis.service.UserService;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -51,5 +53,10 @@ public class OpenUserController {
     @RequestMapping(value = "/parser", method = RequestMethod.GET)
     public Mono<Map<String, Object>> parser(@RequestParam String jwt) {
        return Mono.just(jwtUtil.getAllClaimsFromToken(jwt));
+    }
+
+    @RequestMapping(value = "/pageQuery", method = RequestMethod.GET)
+    public Mono<Page<User>> pageQueryByExample(@RequestParam("nickName") String nickName, @RequestParam("mobile") String mobile,  @RequestParam("page") int page, @RequestParam("size") int size) {
+        return userService.pageQueryByExample(nickName,mobile, PageRequest.of(page, size));
     }
 }

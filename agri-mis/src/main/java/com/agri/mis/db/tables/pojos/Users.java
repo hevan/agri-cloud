@@ -25,6 +25,7 @@ public class Users implements Serializable {
     private LocalDateTime createdAt;
     private String headerUrl;
     private String nickName;
+    private String description;
 
     public Users() {}
 
@@ -38,6 +39,7 @@ public class Users implements Serializable {
         this.createdAt = value.createdAt;
         this.headerUrl = value.headerUrl;
         this.nickName = value.nickName;
+        this.description = value.description;
     }
 
     public Users(
@@ -49,7 +51,8 @@ public class Users implements Serializable {
         Boolean enabled,
         LocalDateTime createdAt,
         String headerUrl,
-        String nickName
+        String nickName,
+        String description
     ) {
         this.id = id;
         this.username = username;
@@ -60,6 +63,7 @@ public class Users implements Serializable {
         this.createdAt = createdAt;
         this.headerUrl = headerUrl;
         this.nickName = nickName;
+        this.description = description;
     }
 
     /**
@@ -197,6 +201,21 @@ public class Users implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.users.description</code>.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Setter for <code>public.users.description</code>.
+     */
+    public Users setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -260,6 +279,12 @@ public class Users implements Serializable {
         }
         else if (!this.nickName.equals(other.nickName))
             return false;
+        if (this.description == null) {
+            if (other.description != null)
+                return false;
+        }
+        else if (!this.description.equals(other.description))
+            return false;
         return true;
     }
 
@@ -276,6 +301,7 @@ public class Users implements Serializable {
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         result = prime * result + ((this.headerUrl == null) ? 0 : this.headerUrl.hashCode());
         result = prime * result + ((this.nickName == null) ? 0 : this.nickName.hashCode());
+        result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
         return result;
     }
 
@@ -292,6 +318,7 @@ public class Users implements Serializable {
         sb.append(", ").append(createdAt);
         sb.append(", ").append(headerUrl);
         sb.append(", ").append(nickName);
+        sb.append(", ").append(description);
 
         sb.append(")");
         return sb.toString();

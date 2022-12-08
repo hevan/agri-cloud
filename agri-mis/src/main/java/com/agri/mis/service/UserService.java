@@ -5,16 +5,16 @@ import com.agri.mis.repository.UserRepository;
 import com.agri.mis.util.AESUtil;
 import com.agri.mis.util.CustomException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+
 
 
 @Service
@@ -26,12 +26,10 @@ public class UserService {
     private UserRepository userRepository;
 
 
+
     public UserService() {
     }
 
-    public Mono<User> findByUsername( String username){
-        return userRepository.findByUsername(username);
-    }
 
     public Mono<User> findByMobile( String mobile){
         return userRepository.findByMobile(mobile);
@@ -41,6 +39,7 @@ public class UserService {
       return userRepository.findById(id);
     }
 
+    @Transactional
     public Mono<User> add(User user) {
 
         user.setUsername(UUID.randomUUID().toString());
@@ -51,7 +50,7 @@ public class UserService {
 
         user.setSignText(AESUtil.AESEncode("agri", user.getPassword() ));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setCreatedDate(LocalDateTime.now());
+        user.setCreatedAt(LocalDateTime.now());
 
         return userRepository.findByMobile(user.getMobile()).flatMap(exists -> (null == exists) ? Mono.error(new RuntimeException("用户已经存在")) : userRepository.save(user));
     }
@@ -86,23 +85,38 @@ public class UserService {
     }
 
 
-    public Mono<Page<User>> pageQuery(String nickName,String mobile, PageRequest pageRequest){
+    public Mono<Page<User>> pageQueryByExample(String nickName, String mobile, PageRequest pageRequest){
+
+        User user = new User();
+        user.setMobile(mobile);
+        user.setNickName(nickName);
+        ExampleMatcher exampleObjectMatcher = ExampleMatcher.matching()
+                .withMatcher("nickName", ExampleMatcher.GenericPropertyMatchers.contains())
+                .withMatcher("mobile", ExampleMatcher.GenericPropertyMatchers.contains());
+
+        /*
+        List<Criteria> listWeres = new ArrayList<Criteria>();
+
         if(StringUtils.hasLength(nickName)){
-            return this.userRepository.findAllByNickNameLike(nickName, pageRequest)
-                    .collectList()
-                    .zipWith(this.userRepository.countAllByNickNameLike(nickName))
-                    .map(t -> new PageImpl<>(t.getT1(), pageRequest, t.getT2()));
-        }else if(StringUtils.hasLength(mobile)){
-            return this.userRepository.findAllByMobileLike(mobile, pageRequest)
-                    .collectList()
-                    .zipWith(this.userRepository.countAllByMobileLike(mobile))
-                    .map(t -> new PageImpl<>(t.getT1(), pageRequest, t.getT2()));
-        }else{
-            return this.userRepository.findAllBy(pageRequest)
-                    .collectList()
-                    .zipWith(this.userRepository.count())
-                    .map(t -> new PageImpl<>(t.getT1(), pageRequest, t.getT2()));
+            listWeres.add(where("nick_name").like("%" + nickName + "%"));
         }
+        if(StringUtils.hasLength(nickName)){
+            listWeres.add(where("mobile").like("%" + mobile + "%"));
+        }
+        Query queryA = null;
+        if(listWeres.size() > 0){
+            queryA = Query.query(Criteria.from(listWeres)).offset((pageRequest.getPageNumber() - 1) * pageRequest.getPageSize()).limit(pageRequest.getPageSize()) ;
+
+        }else{
+            queryA =  Query.empty().offset((pageRequest.getPageNumber() - 1) * pageRequest.getPageSize()).limit(pageRequest.getPageSize()) ;
+        }
+
+         */
+
+        return this.userRepository.findAllBy(Example.of(user, exampleObjectMatcher), pageRequest).collectList()
+                .zipWith(this.userRepository.count(Example.of(user, exampleObjectMatcher)))
+                .map(t -> new PageImpl<>(t.getT1(), pageRequest, t.getT2()));
+
 
     }
 }
