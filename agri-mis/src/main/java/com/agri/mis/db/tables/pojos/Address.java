@@ -5,6 +5,7 @@ package com.agri.mis.db.tables.pojos;
 
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 /**
@@ -23,6 +24,7 @@ public class Address implements Serializable {
     private String linkName;
     private String linkMobile;
     private Object location;
+    private LocalDateTime createdAt;
 
     public Address() {}
 
@@ -35,6 +37,7 @@ public class Address implements Serializable {
         this.linkName = value.linkName;
         this.linkMobile = value.linkMobile;
         this.location = value.location;
+        this.createdAt = value.createdAt;
     }
 
     public Address(
@@ -45,7 +48,8 @@ public class Address implements Serializable {
         String lineDetail,
         String linkName,
         String linkMobile,
-        Object location
+        Object location,
+        LocalDateTime createdAt
     ) {
         this.id = id;
         this.province = province;
@@ -55,6 +59,7 @@ public class Address implements Serializable {
         this.linkName = linkName;
         this.linkMobile = linkMobile;
         this.location = location;
+        this.createdAt = createdAt;
     }
 
     /**
@@ -189,6 +194,21 @@ public class Address implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.address.created_at</code>.
+     */
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * Setter for <code>public.address.created_at</code>.
+     */
+    public Address setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -246,6 +266,12 @@ public class Address implements Serializable {
         }
         else if (!this.location.equals(other.location))
             return false;
+        if (this.createdAt == null) {
+            if (other.createdAt != null)
+                return false;
+        }
+        else if (!this.createdAt.equals(other.createdAt))
+            return false;
         return true;
     }
 
@@ -261,6 +287,7 @@ public class Address implements Serializable {
         result = prime * result + ((this.linkName == null) ? 0 : this.linkName.hashCode());
         result = prime * result + ((this.linkMobile == null) ? 0 : this.linkMobile.hashCode());
         result = prime * result + ((this.location == null) ? 0 : this.location.hashCode());
+        result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         return result;
     }
 
@@ -276,6 +303,7 @@ public class Address implements Serializable {
         sb.append(", ").append(linkName);
         sb.append(", ").append(linkMobile);
         sb.append(", ").append(location);
+        sb.append(", ").append(createdAt);
 
         sb.append(")");
         return sb.toString();

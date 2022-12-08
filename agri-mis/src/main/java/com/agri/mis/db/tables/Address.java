@@ -8,16 +8,17 @@ import com.agri.mis.db.Keys;
 import com.agri.mis.db.Public;
 import com.agri.mis.db.tables.records.AddressRecord;
 
+import java.time.LocalDateTime;
 import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function8;
+import org.jooq.Function9;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row8;
+import org.jooq.Row9;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -94,7 +95,12 @@ public class Address extends TableImpl<AddressRecord> {
      * configuration.
      */
     @Deprecated
-    public final TableField<AddressRecord, Object> LOCATION = createField(DSL.name("location"), org.jooq.impl.DefaultDataType.getDefaultDataType("\"pg_catalog\".\"point\"").nullable(false), this, "");
+    public final TableField<AddressRecord, Object> LOCATION = createField(DSL.name("location"), org.jooq.impl.DefaultDataType.getDefaultDataType("\"pg_catalog\".\"point\""), this, "");
+
+    /**
+     * The column <code>public.address.created_at</code>.
+     */
+    public final TableField<AddressRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private Address(Name alias, Table<AddressRecord> aliased) {
         this(alias, aliased, null);
@@ -184,18 +190,18 @@ public class Address extends TableImpl<AddressRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row8 type methods
+    // Row9 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row8<Long, String, String, String, String, String, String, Object> fieldsRow() {
-        return (Row8) super.fieldsRow();
+    public Row9<Long, String, String, String, String, String, String, Object, LocalDateTime> fieldsRow() {
+        return (Row9) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function8<? super Long, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Object, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function9<? super Long, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Object, ? super LocalDateTime, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -203,7 +209,7 @@ public class Address extends TableImpl<AddressRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super Long, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Object, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super Long, ? super String, ? super String, ? super String, ? super String, ? super String, ? super String, ? super Object, ? super LocalDateTime, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

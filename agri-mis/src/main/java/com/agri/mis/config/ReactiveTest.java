@@ -10,6 +10,7 @@ public class ReactiveTest {
                     if (i <= 3) return i;
                     throw new RuntimeException("Got to 4");
                 });
+
         ints.subscribe(i -> System.out.println(i),
                 error -> System.err.println("Error: " + error));
     }
