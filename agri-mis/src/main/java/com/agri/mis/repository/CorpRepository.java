@@ -9,5 +9,13 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 
 public interface CorpRepository extends ReactiveCrudRepository<Corp, Long>, ReactiveQueryByExampleExecutor<Corp> {
-  Flux<Corp> findAllBy(Example corp, Pageable pageable);
+  Flux<Corp> findBy(Example corp, Pageable pageable);
+
+   /* 按SQL语句去查查询
+   @Query("select id, name, code, address_id, description, created_at from corp c where c.lastname = :name")
+	Flux<Corp> findByName(String name);
+
+    @Query("select * from corp where name = $1")
+    Flux<Corp> findByName(String name);
+   */
 }
