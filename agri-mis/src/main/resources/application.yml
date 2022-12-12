@@ -2,6 +2,9 @@ server:
   port: 8080
 
 spring:
+  webflux:
+    problemdetails:
+      enabled: true
   r2dbc:
     url: r2dbc:pool:postgresql://127.0.0.1:5432/db_agri
     username: admin
