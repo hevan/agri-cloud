@@ -2,7 +2,6 @@ package com.agri.mis.controller.open;
 
 
 import com.agri.mis.domain.Corp;
-import com.agri.mis.dto.CorpWithAddress;
 import com.agri.mis.service.CorpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class OpenCorpController {
     }
 
     @GetMapping("/pageQuery")
-    public Mono<Page<CorpWithAddress>> pageQuery(@RequestParam("name") String name, @RequestParam("page") int page, @RequestParam("size") int size) {
+    public Mono<Page<Corp>> pageQuery(@RequestParam("name") String name, @RequestParam("page") int page, @RequestParam("size") int size) {
         return corpService.pageQuery(name, PageRequest.of(page, size));
     }
 

@@ -27,4 +27,8 @@ public class Corp {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDateTime createdAt;
+
+
+    @Transient
+    private Address address;
 }
