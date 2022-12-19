@@ -2,7 +2,6 @@ package com.agri.mis.service;
 
 import com.agri.mis.domain.Address;
 import com.agri.mis.domain.Corp;
-import com.agri.mis.dto.CorpWithAddress;
 import com.agri.mis.repository.CorpRepository;
 import lombok.val;
 import org.jooq.*;
@@ -50,7 +49,7 @@ public class CorpService {
         return corpRepository.delete(corp);
     }
 
-    public Mono<Page<CorpWithAddress>> pageQuery(String name, PageRequest pageRequest) {
+    public Mono<Page<Corp>> pageQuery(String name, PageRequest pageRequest) {
 
 
         com.agri.mis.db.tables.Corp ct = com.agri.mis.db.tables.Corp.CORP;
@@ -87,16 +86,15 @@ public class CorpService {
                 .zip(
                         Flux.from(dataSql)
                                 .map(r -> {
-                                   Corp corp = new Corp(r.getValue(ct.ID), r.getValue(ct.NAME), r.getValue(ct.CODE), r.getValue(ct.DESCRIPTION), r.getValue(ct.ADDRESS_ID), r.getValue(ct.CREATED_AT) );
+                                   Corp corp = new Corp(r.getValue(ct.ID), r.getValue(ct.NAME), r.getValue(ct.CODE), r.getValue(ct.DESCRIPTION), r.getValue(ct.ADDRESS_ID), r.getValue(ct.CREATED_AT), null);
 
                                    //Address convert from
                                     if(null != corp.getAddressId()) {
                                         Address address = new Address(r.getValue(at.ID), r.getValue(at.PROVINCE), r.getValue(at.CITY), r.getValue(at.REGION), r.getValue(at.LINE_DETAIL), r.getValue(at.LINK_NAME), r.getValue(at.LINK_MOBILE), null, r.getValue(ct.CREATED_AT));
-                                        return new CorpWithAddress(corp, address);
-                                    }else{
-                                        return new CorpWithAddress(corp, null);
+                                      corp.setAddress(address);
                                     }
 
+                                    return corp;
                                 })
                                 .collectList(),
                         Mono.from(countSql)
