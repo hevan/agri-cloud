@@ -38,9 +38,10 @@ public class CorpService {
         return corpRepository.findById(id)
                 .flatMap(s -> {
                     corp.setId(s.getId());
-                    corp.setName(s.getName());
-                    corp.setCode(s.getCode());
-                    corp.setDescription(s.getDescription());
+                    // 替换表中内容
+//                    corp.setName(s.getName());
+//                    corp.setCode(s.getCode());
+//                    corp.setDescription(s.getDescription());
                     return corpRepository.save(corp);
                 });
     }

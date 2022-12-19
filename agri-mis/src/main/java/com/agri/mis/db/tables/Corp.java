@@ -36,7 +36,6 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Corp extends TableImpl<CorpRecord> {
 
-    private static final long serialVersionUID = 1L;
 
     /**
      * The reference instance of <code>public.corp</code>
