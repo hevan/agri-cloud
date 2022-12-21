@@ -11,20 +11,8 @@ import com.agri.mis.db.tables.records.CorpRecord;
 import java.time.LocalDateTime;
 import java.util.function.Function;
 
-import org.jooq.Field;
-import org.jooq.ForeignKey;
-import org.jooq.Function6;
-import org.jooq.Identity;
-import org.jooq.Name;
+import org.jooq.*;
 import org.jooq.Record;
-import org.jooq.Records;
-import org.jooq.Row6;
-import org.jooq.Schema;
-import org.jooq.SelectField;
-import org.jooq.Table;
-import org.jooq.TableField;
-import org.jooq.TableOptions;
-import org.jooq.UniqueKey;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.jooq.impl.TableImpl;
@@ -41,6 +29,7 @@ public class Corp extends TableImpl<CorpRecord> {
      * The reference instance of <code>public.corp</code>
      */
     public static final Corp CORP = new Corp();
+    public static final SelectFieldOrAsterisk ADDRESS = new Address();
 
     /**
      * The class holding records for this type

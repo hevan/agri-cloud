@@ -4,6 +4,8 @@
 package com.agri.mis.db.tables.pojos;
 
 
+import com.agri.mis.domain.Address;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -22,6 +24,7 @@ public class Corp implements Serializable {
     private String description;
     private Long addressId;
     private LocalDateTime createdAt;
+    private Address address;
 
     public Corp() {}
 

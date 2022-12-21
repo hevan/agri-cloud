@@ -2,6 +2,7 @@ package com.agri.mis.service;
 
 
 
+import com.agri.mis.domain.Address;
 import com.agri.mis.domain.Corp;
 import com.agri.mis.domain.MisStore;
 import com.agri.mis.domain.MisStoreItem;
@@ -11,6 +12,7 @@ import com.agri.mis.dto.MisStoreWithAddressCorp;
 import com.agri.mis.repository.MisStoreItemRepository;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.Name;
 import org.jooq.Record1;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
@@ -106,7 +108,9 @@ public class MisStoreItemService {
                                 r.getValue(ct.CODE),
                                 r.getValue(ct.DESCRIPTION),
                                 r.getValue(ct.ADDRESS_ID),
-                                r.getValue(ct.CREATED_AT));
+                                r.getValue(ct.CREATED_AT),
+                                (Address) r.getValue((Name) ct.ADDRESS)
+                        );
                         return new MisStoreItemWithProductStoreCorp(misStoreItem, product, misStore, corp);
                     } else {
                         return new MisStoreItemWithProductStoreCorp(misStoreItem, null, null, null);

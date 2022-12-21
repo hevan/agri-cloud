@@ -6,6 +6,7 @@ import com.agri.mis.dto.MisStockPlaceWithProductStoreStockCrop;
 import com.agri.mis.repository.MisStockPlaceRepository;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.Name;
 import org.jooq.Record1;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
@@ -113,7 +114,7 @@ public class MisStockPlaceService {
                                         r.getValue(mst.UPDATED_BY),
                                         r.getValue(mst.CORP_ID));
                                 Corp corp = new Corp(
-                                        r.getValue(ct.ID), r.getValue(ct.NAME), r.getValue(ct.CODE), r.getValue(ct.DESCRIPTION), r.getValue(ct.ADDRESS_ID), r.getValue(ct.CREATED_AT));
+                                        r.getValue(ct.ID), r.getValue(ct.NAME), r.getValue(ct.CODE), r.getValue(ct.DESCRIPTION), r.getValue(ct.ADDRESS_ID), r.getValue(ct.CREATED_AT), (Address) r.getValue((Name) ct.ADDRESS));
                                 return new MisStockPlaceWithProductStoreStockCrop(misStockPlace, product, misStock1,misStore , corp);
                             }else {
                                 return new MisStockPlaceWithProductStoreStockCrop(misStockPlace,null,null,null,null);

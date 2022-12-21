@@ -1,14 +1,13 @@
 package com.agri.mis.service;
 
+import com.agri.mis.domain.Address;
 import com.agri.mis.domain.Corp;
 import com.agri.mis.domain.MisStock;
 import com.agri.mis.domain.MisStore;
 import com.agri.mis.dto.MisStockWithStoreCorp;
 import com.agri.mis.repository.MisStockRepository;
-import org.jooq.Condition;
-import org.jooq.DSLContext;
+import org.jooq.*;
 import org.jooq.Record;
-import org.jooq.Record1;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,7 +136,10 @@ public class MisStockService {
                                  r.getValue(ct.CODE),
                                  r.getValue(ct.DESCRIPTION),
                                  r.getValue(ct.ADDRESS_ID),
-                                 r.getValue(ct.CREATED_AT));
+                                 r.getValue(ct.CREATED_AT),
+                                 (Address) r.getValue((Name) ct.ADDRESS)
+                         );
+
                          return  new MisStockWithStoreCorp(misStock,misStore,corp);
                      }else{
                          return  new MisStockWithStoreCorp(misStock,null,null);
