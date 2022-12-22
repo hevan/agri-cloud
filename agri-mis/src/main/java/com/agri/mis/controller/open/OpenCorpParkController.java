@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 @RestController
 @Slf4j
 @RequestMapping("/open/corpPark")
-public class OpenCorpParkController {
+public class    OpenCorpParkController {
 
     @Autowired
     private CorpParkService corpParkService;

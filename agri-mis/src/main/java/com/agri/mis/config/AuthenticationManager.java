@@ -17,10 +17,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 @Slf4j
 @Component
-public class AuthenticationManager implements ReactiveAuthenticationManager {
+public class
+AuthenticationManager implements ReactiveAuthenticationManager {
 
     @Autowired
     private JwtUtil jwtUtil;
+
     @Override
     @SuppressWarnings("unchecked")
     public Mono<Authentication> authenticate(Authentication authentication) {

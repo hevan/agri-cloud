@@ -1,6 +1,4 @@
 package com.agri.mis.controller.open;
-
-
 import com.agri.mis.domain.Corp;
 import com.agri.mis.service.CorpService;
 import lombok.extern.slf4j.Slf4j;
