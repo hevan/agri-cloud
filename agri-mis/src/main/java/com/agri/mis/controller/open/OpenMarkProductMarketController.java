@@ -32,9 +32,10 @@ public class OpenMarkProductMarketController {
     }
 
     @GetMapping("/pageQuery")
-    public Mono<Page<MarkProductMarketWithProductWithMarket>> pageQuery(@RequestParam("priceWholesale") BigDecimal priceWholesale, @RequestParam("page") int page, @RequestParam("size") int size){
-        return service.pageQuery(priceWholesale, PageRequest.of(page,size));
+    public Mono<Page<MarkProductMarketWithProductWithMarket>> pageQuery(@RequestParam("unit") String  unit, @RequestParam("page") int page, @RequestParam("size") int size){
+        return service.pageQuery(unit, PageRequest.of(page,size));
     }
+
 
     @PostMapping("/add")
     public Mono<MarkProductMarket> add(@RequestBody MarkProductMarket markMarket){

@@ -71,7 +71,7 @@ public class MisStockItemService {
                         pt.ID, pt.NAME, pt.CODE, pt.CATEGORY_ID, pt.IMAGE_URL, pt.CALC_UNIT, pt.CORP_ID, pt.CREATED_AT, pt.CREATED_BY, pt.UPDATED_AT, pt.UPDATED_BY, pt.DESCRIPTION,
                         ms.ID, ms.NAME, ms.CODE, ms.DESCRIPTION, ms.ADDRESS_ID, ms.CATEGORY, ms.CREATED_AT, ms.CORP_ID,
                         mst.ID, mst.NAME, mst.ORDER_NO, mst.QUANTITY, mst.PRICE, mst.AMOUNT, mst.ORIGIN_ID, mst.ORIGIN_TYPE, mst.STORE_ID, mst.DIRECTION, mst.OCCUR_AT, mst.STATUS, mst.CREATED_AT, mst.CREATED_BY, mst.UPDTED_AT, mst.UPDATED_BY, mst.CORP_ID,
-                        ct.ID, ct.NAME, ct.CODE, ct.ADDRESS_ID, ct.DESCRIPTION, ct.CREATED_AT,ct.ADDRESS
+                        ct.ID, ct.NAME, ct.CODE, ct.ADDRESS_ID, ct.DESCRIPTION, ct.CREATED_AT
                 ).from(msi).leftJoin(pt).on(msi.PRODUCT_ID.eq(pt.ID)).leftJoin(ms).on(msi.STORE_ID.eq(ms.ID))
                 .rightJoin(mst).on(msi.STOCK_ID.eq(mst.ID)).rightJoin(ct).on(msi.CORP_ID.eq(ct.ID)).where(where)
                 .limit(pageRequest.getOffset(), pageRequest.getPageSize());
@@ -110,7 +110,7 @@ public class MisStockItemService {
                                 r.getValue(mst.CORP_ID));
 
                         Corp corp = new Corp(
-                                r.getValue(ct.ID), r.getValue(ct.NAME), r.getValue(ct.CODE), r.getValue(ct.DESCRIPTION), r.getValue(ct.ADDRESS_ID), r.getValue(ct.CREATED_AT), (Address) r.getValue((Name) ct.ADDRESS));
+                                r.getValue(ct.ID), r.getValue(ct.NAME), r.getValue(ct.CODE), r.getValue(ct.DESCRIPTION), r.getValue(ct.ADDRESS_ID), r.getValue(ct.CREATED_AT),null);
 
                         return new MisStockItemWithProductStoreStockCorp(misStockItem, product, misStock1,misStore , corp);
                     } else {

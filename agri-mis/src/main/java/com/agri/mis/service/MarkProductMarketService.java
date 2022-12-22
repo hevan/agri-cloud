@@ -54,15 +54,13 @@ public class MarkProductMarketService {
         return repository.delete(markProductCycle);
     }
 
-    public Mono<Page<MarkProductMarketWithProductWithMarket>> pageQuery(BigDecimal priceWholesale, PageRequest pageRequest){
-        com.agri.mis.db.tables.MarkProductMarket mpb =  com.agri.mis.db.tables.MarkProductMarket.MARK_PRODUCT_MARKET;
+    public Mono<Page<MarkProductMarketWithProductWithMarket>> pageQuery(String unit, PageRequest pageRequest){
+            com.agri.mis.db.tables.MarkProductMarket mpb =  com.agri.mis.db.tables.MarkProductMarket.MARK_PRODUCT_MARKET;
         com.agri.mis.db.tables.Product pt = com.agri.mis.db.tables.Product.PRODUCT;
         com.agri.mis.db.tables.MarkMarket us = com.agri.mis.db.tables.MarkMarket.MARK_MARKET;
-
         Condition where = DSL.trueCondition();
-
-        if(priceWholesale!=null){
-            where = where.and((Condition) mpb.PRICE_WHOLESALE.between(priceWholesale));
+        if(StringUtils.hasLength(unit)){
+            where = where.and(mpb.UNIT.eq(unit));
         }
         var dataSql = context.select(
                 mpb.PRODUCT_ID,
@@ -84,7 +82,6 @@ public class MarkProductMarketService {
                 pt.UPDATED_AT,
                 pt.UPDATED_BY,
                 pt.DESCRIPTION,
-
                 us.ID,
                 us.ADDRESS_ID,
                 us.CATEGORY_ID,
@@ -100,9 +97,6 @@ public class MarkProductMarketService {
                                     r.getValue(mpb.UNIT),r.getValue(mpb.ID),
                                     r.getValue(mpb.OCCUR_AT),r.getValue(mpb.PRICE_RETAL),
                                     r.getValue(mpb.MARKET_ID));
-
-
-
                             if(null!=markProductMarket.getId()){
                                 Product product = new Product(
                                         r.getValue(pt.ID),r.getValue(pt.NAME)
@@ -117,14 +111,11 @@ public class MarkProductMarketService {
                                        r.getValue(us.ADDRESS_ID),
                                        r.getValue(us.CATEGORY_ID)
                                );
-
                                 return new MarkProductMarketWithProductWithMarket(markProductMarket,product,markMarket1);
                             }else{
                                 return new MarkProductMarketWithProductWithMarket(markProductMarket,null,null);
                             }
-
                         }).collectList(),Mono.from(countSql).map(Record1::value1))
                 .map(it -> new PageImpl<>(it.getT1(),pageRequest,it.getT2()));
     }
-
 }

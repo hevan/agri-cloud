@@ -8,15 +8,18 @@ import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
+//业务层
 @Service
 public class MarkCategoryService {
 
     @Autowired
-    private MarkCategoryRepository markCategoryRepository;
+    private MarkCategoryRepository markCategoryRepository;//数据操作层
+
 
     public Mono<MarkCategory> findById(Long id) {
         return markCategoryRepository.findById(id);
     }
+
 
     public Mono<MarkCategory> add(MarkCategory markCategory){
         return markCategoryRepository.save(markCategory);

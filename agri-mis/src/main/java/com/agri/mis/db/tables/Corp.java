@@ -29,7 +29,7 @@ public class Corp extends TableImpl<CorpRecord> {
      * The reference instance of <code>public.corp</code>
      */
     public static final Corp CORP = new Corp();
-    public static final SelectFieldOrAsterisk ADDRESS = new Address();
+
 
     /**
      * The class holding records for this type

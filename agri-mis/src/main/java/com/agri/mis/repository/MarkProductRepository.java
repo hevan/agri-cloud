@@ -8,5 +8,5 @@ import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Flux;
 
 public interface MarkProductRepository extends ReactiveCrudRepository<MarkProduct,Long>, ReactiveQueryByExampleExecutor<MarkProduct> {
-    Flux<MarkProduct> findBy(Example example, Pageable pageable);
+    Flux<MarkProduct> findBy(Example example, Pageable pageable);//接口
 }

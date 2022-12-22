@@ -58,7 +58,7 @@ public class MarkProductCycleExpenseService {
         Condition where = DSL.trueCondition();
 
         if(StringUtils.hasLength(name)){
-            where = where.and(us.NAME.like("%"+name+"%"));
+            where = where.and(pce.CALC_UNIT.eq(name));
         }
         var dataSql = context.select(
                 mpb.ID,
@@ -100,7 +100,7 @@ public class MarkProductCycleExpenseService {
                 us.END_AT
         ).from(pce).leftJoin(mpb).on(pce.PRODUCT_BATCH_ID.eq(mpb.ID)).rightJoin(us).on(pce.CYCLE_ID.eq(us.ID)).where(where).limit(pageRequest.getOffset(),pageRequest.getPageSize());
         var countSql =  context.select(DSL.field("count(*)", SQLDataType.BIGINT))
-                .from(mpb)
+                .from(pce)
                 .where(where);
         return Mono.zip(Flux.from(dataSql)
                         .map(r->{

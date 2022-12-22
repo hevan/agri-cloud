@@ -68,7 +68,7 @@ public class MisStoreService {
         var dataSql = dslContext.select(
                         ms.ID, ms.NAME, ms.CODE, ms.DESCRIPTION, ms.ADDRESS_ID, ms.CATEGORY, ms.CREATED_AT, ms.CORP_ID,
                         at.ID, at.PROVINCE, at.CITY, at.REGION, at.LINE_DETAIL, at.LINK_NAME, at.LINK_MOBILE, at.CREATED_AT,
-                        ct.ID, ct.NAME, ct.CODE, ct.ADDRESS_ID, ct.DESCRIPTION, ct.CREATED_AT,ct.ADDRESS)
+                        ct.ID, ct.NAME, ct.CODE, ct.ADDRESS_ID, ct.DESCRIPTION, ct.CREATED_AT,null)
                 .from(ms).leftJoin(at).on(ms.ADDRESS_ID.eq(at.ID))
                 .rightJoin(ct).on(ms.CORP_ID.eq(ct.ID));
         val countSql = dslContext.select(DSL.field("count(*)", SQLDataType.BIGINT))
@@ -93,7 +93,7 @@ public class MisStoreService {
                                         r.getValue(ct.DESCRIPTION),
                                         r.getValue(ct.ADDRESS_ID),
                                         r.getValue(ct.CREATED_AT),
-                                        (Address) r.getValue((Name) ct.ADDRESS)
+                                        null
                                 );
                                 return new MisStoreWithAddressCorp(misStore, address, corp);
                             } else {

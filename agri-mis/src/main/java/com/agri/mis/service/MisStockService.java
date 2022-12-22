@@ -137,7 +137,7 @@ public class MisStockService {
                                  r.getValue(ct.DESCRIPTION),
                                  r.getValue(ct.ADDRESS_ID),
                                  r.getValue(ct.CREATED_AT),
-                                 (Address) r.getValue((Name) ct.ADDRESS)
+                                 null
                          );
 
                          return  new MisStockWithStoreCorp(misStock,misStore,corp);

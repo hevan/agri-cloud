@@ -102,7 +102,7 @@ public class MarkProductCycleService {
                 us.END_AT
         ).from(us).leftJoin(mpb).on(us.PRODUCT_BATCH_ID.eq(mpb.ID)).rightJoin(pt).on(us.PARENT_ID.eq(pt.ID)).where(where).limit(pageRequest.getOffset(),pageRequest.getPageSize());
         var countSql =  context.select(DSL.field("count(*)", SQLDataType.BIGINT))
-                .from(mpb)
+                .from(us)
                 .where(where);
         return Mono.zip(Flux.from(dataSql)
                         .map(r->{

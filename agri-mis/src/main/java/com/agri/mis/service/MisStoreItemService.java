@@ -109,7 +109,7 @@ public class MisStoreItemService {
                                 r.getValue(ct.DESCRIPTION),
                                 r.getValue(ct.ADDRESS_ID),
                                 r.getValue(ct.CREATED_AT),
-                                (Address) r.getValue((Name) ct.ADDRESS)
+                                null
                         );
                         return new MisStoreItemWithProductStoreCorp(misStoreItem, product, misStore, corp);
                     } else {
