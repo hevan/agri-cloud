@@ -9,21 +9,10 @@ import org.springframework.data.relational.core.mapping.Table;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table("sys_menu")
-public class SysMenu {
-    @Id
+@Table("sys_menu_action")
+public class SysMenuAction {
     private Long id;
-
+    private Long menuId;
     private String name;
-
     private String code;
-
-    private String path;
-
-    private String iconUrl;
-
-    private Long parentId;
-
-    private Long corpId;
-
 }

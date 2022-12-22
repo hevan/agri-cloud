@@ -2,6 +2,7 @@ package com.agri.mis.service;
 
 import com.agri.mis.domain.Address;
 import com.agri.mis.domain.Corp;
+import com.agri.mis.repository.AddressRepository;
 import com.agri.mis.repository.CorpRepository;
 import lombok.val;
 import org.jooq.*;
@@ -22,30 +23,68 @@ public class CorpService {
     private CorpRepository corpRepository;
 
     @Autowired
+    private AddressRepository addressRepository;
+
+    @Autowired
     private DSLContext dslContext;
 
     public Mono<Corp> findById(Long id) {
         return corpRepository.findById(id);
     }
 
+    public Mono<Corp> findWithAddressById(Long id) {
+        com.agri.mis.db.tables.Corp ct = com.agri.mis.db.tables.Corp.CORP;
+        com.agri.mis.db.tables.Address at =  com.agri.mis.db.tables.Address.ADDRESS;
+
+        var dataSql = dslContext.select(
+                ct.ID,
+                ct.NAME,
+                ct.CODE,
+                ct.ADDRESS_ID,
+                ct.DESCRIPTION,
+                ct.CREATED_AT,
+                at.ID,
+                at.PROVINCE,
+                at.CITY,
+                at.REGION,
+                at.LINE_DETAIL,
+                at.LINK_NAME,
+                at.LINK_MOBILE,
+                at.CREATED_AT
+
+        ).from(ct).leftJoin(at).on(ct.ADDRESS_ID.eq(at.ID)).where(ct.ADDRESS_ID.eq(id));
+
+
+       return Mono.from(dataSql).map(r -> {
+           Corp corp = new Corp(r.getValue(ct.ID), r.getValue(ct.NAME), r.getValue(ct.CODE), r.getValue(ct.DESCRIPTION), r.getValue(ct.ADDRESS_ID), r.getValue(ct.CREATED_AT), null);
+
+           //Address convert from
+           if(null != corp.getAddressId()) {
+               Address address = new Address(r.getValue(at.ID), r.getValue(at.PROVINCE), r.getValue(at.CITY), r.getValue(at.REGION), r.getValue(at.LINE_DETAIL), r.getValue(at.LINK_NAME), r.getValue(at.LINK_MOBILE), null, r.getValue(at.CREATED_AT));
+               corp.setAddress(address);
+           }
+
+           return corp;
+       });
+    }
+
 
     public Mono<Corp> add(Corp corp) {
-        return corpRepository.save(corp);
+        return addressRepository.save(corp.getAddress()).flatMap(s->{
+            corp.setAddressId(s.getId());
+            return  corpRepository.save(corp);
+        });
     }
 
     public Mono<Corp> update(Long id, Corp corp) {
-        return corpRepository.findById(id)
+        return addressRepository.save(corp.getAddress())
                 .flatMap(s -> {
-                    corp.setId(s.getId());
-                    corp.setName(s.getName());
-                    corp.setCode(s.getCode());
-                    corp.setDescription(s.getDescription());
                     return corpRepository.save(corp);
                 });
     }
 
     public Mono<Void> delete(Corp corp) {
-        return corpRepository.delete(corp);
+       return  addressRepository.deleteById(corp.getAddressId()).flatMap(s->corpRepository.delete(corp));
     }
 
     public Mono<Page<Corp>> pageQuery(String name, PageRequest pageRequest) {
@@ -89,7 +128,7 @@ public class CorpService {
 
                                    //Address convert from
                                     if(null != corp.getAddressId()) {
-                                        Address address = new Address(r.getValue(at.ID), r.getValue(at.PROVINCE), r.getValue(at.CITY), r.getValue(at.REGION), r.getValue(at.LINE_DETAIL), r.getValue(at.LINK_NAME), r.getValue(at.LINK_MOBILE), null, r.getValue(ct.CREATED_AT));
+                                        Address address = new Address(r.getValue(at.ID), r.getValue(at.PROVINCE), r.getValue(at.CITY), r.getValue(at.REGION), r.getValue(at.LINE_DETAIL), r.getValue(at.LINK_NAME), r.getValue(at.LINK_MOBILE), null, r.getValue(at.CREATED_AT));
                                       corp.setAddress(address);
                                     }
 
