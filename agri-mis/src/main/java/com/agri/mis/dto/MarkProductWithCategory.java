@@ -10,5 +10,5 @@ import lombok.*;
 @Setter
 public class MarkProductWithCategory {
     private MarkProduct markProduct;
-    private Category category;
+    private MarkCategory category;
 }

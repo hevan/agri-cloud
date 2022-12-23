@@ -1,6 +1,6 @@
 package com.agri.mis.service;
 
-import com.agri.mis.domain.Category;
+import com.agri.mis.domain.MarkCategory;
 import com.agri.mis.domain.MarkProduct;
 import com.agri.mis.dto.MarkProductWithCategory;
 import com.agri.mis.repository.MarkProductRepository;
@@ -48,7 +48,7 @@ public class MarkProductService {
 
     public Mono<Page<MarkProductWithCategory>> pageQuery(String name, PageRequest pageRequest){
         com.agri.mis.db.tables.MarkProduct mp = com.agri.mis.db.tables.MarkProduct.MARK_PRODUCT;
-        com.agri.mis.db.tables.Category ct = com.agri.mis.db.tables.Category.CATEGORY;
+        com.agri.mis.db.tables.MarkCategory ct = com.agri.mis.db.tables.MarkCategory.MARK_CATEGORY;
 
         Condition where = DSL.trueCondition();
 
@@ -64,11 +64,11 @@ public class MarkProductService {
                 mp.DESCRIPTION,
                 mp.IMAGE_URL,
                 ct.ID,
-                ct.PATH_NAME,
+
                 ct.NAME,
                 ct.IMAGE_URL,
-                ct.PARENT_ID,
-                ct.CORP_ID
+                ct.PARENT_ID
+
         ).from(mp).leftJoin(ct).on(mp.CATEGORY_ID.eq(ct.ID)).where(where).limit(pageRequest.getOffset(),pageRequest.getPageSize());
         var countSql =  context.select(DSL.field("count(*)", SQLDataType.BIGINT))
                 .from(mp)
@@ -80,9 +80,9 @@ public class MarkProductService {
                             r.getValue(mp.IMAGE_URL),r.getValue(mp.CALC_UNIT),r.getValue(mp.DESCRIPTION)
                     );
                     if(null!=markProduct.getId()){
-                        Category category1 = new Category(r.getValue(ct.ID),r.getValue(ct.PATH_NAME),r.getValue(ct.NAME),
+                        MarkCategory category1 = new MarkCategory(r.getValue(ct.ID),r.getValue(ct.NAME),
                                 r.getValue(ct.IMAGE_URL),r.getValue(ct.PARENT_ID)
-                                ,r.getValue(ct.CORP_ID));
+                                );
                         return new MarkProductWithCategory(markProduct,category1);
                     }else{
                         return new MarkProductWithCategory(markProduct,null);
