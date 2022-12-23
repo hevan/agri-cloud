@@ -1,7 +1,7 @@
 package com.agri.mis.service;
 
 import com.agri.mis.domain.Address;
-import com.agri.mis.domain.Category;
+import com.agri.mis.domain.MarkCategory;
 import com.agri.mis.domain.MarkMarket;
 import com.agri.mis.dto.MarkMarketWithCategoryWithAddress;
 import com.agri.mis.repository.MarkMarketRepository;
@@ -54,7 +54,7 @@ public class MarkMarketService {
 
         com.agri.mis.db.tables.Address address = com.agri.mis.db.tables.Address.ADDRESS;
 
-        com.agri.mis.db.tables.Category category = com.agri.mis.db.tables.Category.CATEGORY;
+        com.agri.mis.db.tables.MarkCategory category = com.agri.mis.db.tables.MarkCategory.MARK_CATEGORY;
 
         com.agri.mis.db.tables.MarkMarket markMarket = com.agri.mis.db.tables.MarkMarket.MARK_MARKET;
 
@@ -69,11 +69,11 @@ public class MarkMarketService {
                 markMarket.CATEGORY_ID,
                 markMarket.NAME,
                 category.ID,
-                category.PATH_NAME,
+
                 category.NAME,
                 category.IMAGE_URL,
                 category.PARENT_ID,
-                category.CORP_ID,
+
                 address.ID,
                 address.PROVINCE,
                 address.CITY,
@@ -97,9 +97,9 @@ public class MarkMarketService {
                                             );
                                     //category convert from
                                     if(null!=markMarket1.getId()){
-                                        Category category1 = new Category(r.getValue(category.ID                                       ),r.getValue(category.PATH_NAME),r.getValue(category.NAME),
+                                        MarkCategory category1 = new MarkCategory(r.getValue(category.ID),r.getValue(category.NAME),
                                                 r.getValue(category.IMAGE_URL),r.getValue(category.PARENT_ID)
-                                        ,r.getValue(category.CORP_ID));
+                                        );
 
                                         Address address1 = new Address(r.getValue(address.ID
                                         ),r.getValue(address.PROVINCE),r.getValue(address.CITY),
