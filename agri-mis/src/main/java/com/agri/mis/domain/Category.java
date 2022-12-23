@@ -18,9 +18,9 @@ public class Category {
 
     private String name;
 
-    private String image_url;
+    private String imageUrl;
 
-    private Long parent_id;
+    private Long parentId;
 
-    private Long corp_id;
+    private Long corpId;
 }
