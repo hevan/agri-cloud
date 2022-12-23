@@ -20,8 +20,7 @@ public class CmsResource implements Serializable {
     private String name;
     private String docType;
     private String docUrl;
-    private Long entityId;
-    private String entityName;
+    private Long blogId;
     private LocalDateTime createdAt;
     private Long createdBy;
     private Long createdUserId;
@@ -34,8 +33,7 @@ public class CmsResource implements Serializable {
         this.name = value.name;
         this.docType = value.docType;
         this.docUrl = value.docUrl;
-        this.entityId = value.entityId;
-        this.entityName = value.entityName;
+        this.blogId = value.blogId;
         this.createdAt = value.createdAt;
         this.createdBy = value.createdBy;
         this.createdUserId = value.createdUserId;
@@ -47,8 +45,7 @@ public class CmsResource implements Serializable {
         String name,
         String docType,
         String docUrl,
-        Long entityId,
-        String entityName,
+        Long blogId,
         LocalDateTime createdAt,
         Long createdBy,
         Long createdUserId,
@@ -58,8 +55,7 @@ public class CmsResource implements Serializable {
         this.name = name;
         this.docType = docType;
         this.docUrl = docUrl;
-        this.entityId = entityId;
-        this.entityName = entityName;
+        this.blogId = blogId;
         this.createdAt = createdAt;
         this.createdBy = createdBy;
         this.createdUserId = createdUserId;
@@ -127,32 +123,17 @@ public class CmsResource implements Serializable {
     }
 
     /**
-     * Getter for <code>public.cms_resource.entity_id</code>.
+     * Getter for <code>public.cms_resource.blog_id</code>.
      */
-    public Long getEntityId() {
-        return this.entityId;
+    public Long getBlogId() {
+        return this.blogId;
     }
 
     /**
-     * Setter for <code>public.cms_resource.entity_id</code>.
+     * Setter for <code>public.cms_resource.blog_id</code>.
      */
-    public CmsResource setEntityId(Long entityId) {
-        this.entityId = entityId;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.cms_resource.entity_name</code>.
-     */
-    public String getEntityName() {
-        return this.entityName;
-    }
-
-    /**
-     * Setter for <code>public.cms_resource.entity_name</code>.
-     */
-    public CmsResource setEntityName(String entityName) {
-        this.entityName = entityName;
+    public CmsResource setBlogId(Long blogId) {
+        this.blogId = blogId;
         return this;
     }
 
@@ -249,17 +230,11 @@ public class CmsResource implements Serializable {
         }
         else if (!this.docUrl.equals(other.docUrl))
             return false;
-        if (this.entityId == null) {
-            if (other.entityId != null)
+        if (this.blogId == null) {
+            if (other.blogId != null)
                 return false;
         }
-        else if (!this.entityId.equals(other.entityId))
-            return false;
-        if (this.entityName == null) {
-            if (other.entityName != null)
-                return false;
-        }
-        else if (!this.entityName.equals(other.entityName))
+        else if (!this.blogId.equals(other.blogId))
             return false;
         if (this.createdAt == null) {
             if (other.createdAt != null)
@@ -296,8 +271,7 @@ public class CmsResource implements Serializable {
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
         result = prime * result + ((this.docType == null) ? 0 : this.docType.hashCode());
         result = prime * result + ((this.docUrl == null) ? 0 : this.docUrl.hashCode());
-        result = prime * result + ((this.entityId == null) ? 0 : this.entityId.hashCode());
-        result = prime * result + ((this.entityName == null) ? 0 : this.entityName.hashCode());
+        result = prime * result + ((this.blogId == null) ? 0 : this.blogId.hashCode());
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         result = prime * result + ((this.createdBy == null) ? 0 : this.createdBy.hashCode());
         result = prime * result + ((this.createdUserId == null) ? 0 : this.createdUserId.hashCode());
@@ -313,8 +287,7 @@ public class CmsResource implements Serializable {
         sb.append(", ").append(name);
         sb.append(", ").append(docType);
         sb.append(", ").append(docUrl);
-        sb.append(", ").append(entityId);
-        sb.append(", ").append(entityName);
+        sb.append(", ").append(blogId);
         sb.append(", ").append(createdAt);
         sb.append(", ").append(createdBy);
         sb.append(", ").append(createdUserId);

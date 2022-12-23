@@ -13,12 +13,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function10;
+import org.jooq.Function9;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row10;
+import org.jooq.Row9;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -72,14 +72,9 @@ public class CmsResource extends TableImpl<CmsResourceRecord> {
     public final TableField<CmsResourceRecord, String> DOC_URL = createField(DSL.name("doc_url"), SQLDataType.VARCHAR(255), this, "");
 
     /**
-     * The column <code>public.cms_resource.entity_id</code>.
+     * The column <code>public.cms_resource.blog_id</code>.
      */
-    public final TableField<CmsResourceRecord, Long> ENTITY_ID = createField(DSL.name("entity_id"), SQLDataType.BIGINT, this, "");
-
-    /**
-     * The column <code>public.cms_resource.entity_name</code>.
-     */
-    public final TableField<CmsResourceRecord, String> ENTITY_NAME = createField(DSL.name("entity_name"), SQLDataType.VARCHAR(50), this, "");
+    public final TableField<CmsResourceRecord, Long> BLOG_ID = createField(DSL.name("blog_id"), SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>public.cms_resource.created_at</code>.
@@ -189,18 +184,18 @@ public class CmsResource extends TableImpl<CmsResourceRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row10 type methods
+    // Row9 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row10<Long, String, String, String, Long, String, LocalDateTime, Long, Long, String> fieldsRow() {
-        return (Row10) super.fieldsRow();
+    public Row9<Long, String, String, String, Long, LocalDateTime, Long, Long, String> fieldsRow() {
+        return (Row9) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function10<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super String, ? super LocalDateTime, ? super Long, ? super Long, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function9<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super LocalDateTime, ? super Long, ? super Long, ? super String, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -208,7 +203,7 @@ public class CmsResource extends TableImpl<CmsResourceRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function10<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super String, ? super LocalDateTime, ? super Long, ? super Long, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super LocalDateTime, ? super Long, ? super Long, ? super String, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

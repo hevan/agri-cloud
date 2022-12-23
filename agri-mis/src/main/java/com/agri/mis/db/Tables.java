@@ -19,7 +19,7 @@ import com.agri.mis.db.tables.CheckTrace;
 import com.agri.mis.db.tables.CmsBlog;
 import com.agri.mis.db.tables.CmsCategory;
 import com.agri.mis.db.tables.CmsResource;
-import com.agri.mis.db.tables.CmsVideo;
+import com.agri.mis.db.tables.CmsTag;
 import com.agri.mis.db.tables.Corp;
 import com.agri.mis.db.tables.CorpDepart;
 import com.agri.mis.db.tables.CorpManager;
@@ -146,9 +146,9 @@ public class Tables {
     public static final CmsResource CMS_RESOURCE = CmsResource.CMS_RESOURCE;
 
     /**
-     * The table <code>public.cms_video</code>.
+     * The table <code>public.cms_tag</code>.
      */
-    public static final CmsVideo CMS_VIDEO = CmsVideo.CMS_VIDEO;
+    public static final CmsTag CMS_TAG = CmsTag.CMS_TAG;
 
     /**
      * The table <code>public.corp</code>.

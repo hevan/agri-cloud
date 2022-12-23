@@ -14,12 +14,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function16;
+import org.jooq.Function17;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row16;
+import org.jooq.Row17;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -100,7 +100,7 @@ public class CmsBlog extends TableImpl<CmsBlogRecord> {
     /**
      * The column <code>public.cms_blog.created_by</code>.
      */
-    public final TableField<CmsBlogRecord, Short> CREATED_BY = createField(DSL.name("created_by"), SQLDataType.SMALLINT, this, "");
+    public final TableField<CmsBlogRecord, String> CREATED_BY = createField(DSL.name("created_by"), SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>public.cms_blog.tags</code>.
@@ -131,6 +131,11 @@ public class CmsBlog extends TableImpl<CmsBlogRecord> {
      * The column <code>public.cms_blog.image_url</code>.
      */
     public final TableField<CmsBlogRecord, String> IMAGE_URL = createField(DSL.name("image_url"), SQLDataType.VARCHAR(255), this, "");
+
+    /**
+     * The column <code>public.cms_blog.video_url</code>.
+     */
+    public final TableField<CmsBlogRecord, String> VIDEO_URL = createField(DSL.name("video_url"), SQLDataType.VARCHAR(255), this, "");
 
     private CmsBlog(Name alias, Table<CmsBlogRecord> aliased) {
         this(alias, aliased, null);
@@ -220,18 +225,18 @@ public class CmsBlog extends TableImpl<CmsBlogRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row16 type methods
+    // Row17 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row16<Long, String, Short, Short, String, Integer, Integer, Long, LocalDateTime, Short, String, String, Long, String, LocalDate, String> fieldsRow() {
-        return (Row16) super.fieldsRow();
+    public Row17<Long, String, Short, Short, String, Integer, Integer, Long, LocalDateTime, String, String, String, Long, String, LocalDate, String, String> fieldsRow() {
+        return (Row17) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function16<? super Long, ? super String, ? super Short, ? super Short, ? super String, ? super Integer, ? super Integer, ? super Long, ? super LocalDateTime, ? super Short, ? super String, ? super String, ? super Long, ? super String, ? super LocalDate, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function17<? super Long, ? super String, ? super Short, ? super Short, ? super String, ? super Integer, ? super Integer, ? super Long, ? super LocalDateTime, ? super String, ? super String, ? super String, ? super Long, ? super String, ? super LocalDate, ? super String, ? super String, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -239,7 +244,7 @@ public class CmsBlog extends TableImpl<CmsBlogRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super Long, ? super String, ? super Short, ? super Short, ? super String, ? super Integer, ? super Integer, ? super Long, ? super LocalDateTime, ? super Short, ? super String, ? super String, ? super Long, ? super String, ? super LocalDate, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function17<? super Long, ? super String, ? super Short, ? super Short, ? super String, ? super Integer, ? super Integer, ? super Long, ? super LocalDateTime, ? super String, ? super String, ? super String, ? super Long, ? super String, ? super LocalDate, ? super String, ? super String, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }
