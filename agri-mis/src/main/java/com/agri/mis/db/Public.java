@@ -19,7 +19,7 @@ import com.agri.mis.db.tables.CheckTrace;
 import com.agri.mis.db.tables.CmsBlog;
 import com.agri.mis.db.tables.CmsCategory;
 import com.agri.mis.db.tables.CmsResource;
-import com.agri.mis.db.tables.CmsVideo;
+import com.agri.mis.db.tables.CmsTag;
 import com.agri.mis.db.tables.Corp;
 import com.agri.mis.db.tables.CorpDepart;
 import com.agri.mis.db.tables.CorpManager;
@@ -161,9 +161,9 @@ public class Public extends SchemaImpl {
     public final CmsResource CMS_RESOURCE = CmsResource.CMS_RESOURCE;
 
     /**
-     * The table <code>public.cms_video</code>.
+     * The table <code>public.cms_tag</code>.
      */
-    public final CmsVideo CMS_VIDEO = CmsVideo.CMS_VIDEO;
+    public final CmsTag CMS_TAG = CmsTag.CMS_TAG;
 
     /**
      * The table <code>public.corp</code>.
@@ -394,6 +394,7 @@ public class Public extends SchemaImpl {
             Sequences.ACCOUNT_PEND_ID_SEQ,
             Sequences.ACCOUNT_TITLE_ID_SEQ,
             Sequences.CHECK_PROCESS_ID_SEQ,
+            Sequences.CMS_VIDEO_ID_SEQ,
             Sequences.CONTRACT_ID_SEQ,
             Sequences.CORP_MANAGE_ID_SEQ,
             Sequences.MARKET_ID_SEQ,
@@ -438,7 +439,7 @@ public class Public extends SchemaImpl {
             CmsBlog.CMS_BLOG,
             CmsCategory.CMS_CATEGORY,
             CmsResource.CMS_RESOURCE,
-            CmsVideo.CMS_VIDEO,
+            CmsTag.CMS_TAG,
             Corp.CORP,
             CorpDepart.CORP_DEPART,
             CorpManager.CORP_MANAGER,

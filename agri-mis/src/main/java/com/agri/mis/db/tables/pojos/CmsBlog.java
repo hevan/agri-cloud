@@ -26,13 +26,14 @@ public class CmsBlog implements Serializable {
     private Integer priseDown;
     private Long categoryId;
     private LocalDateTime createdAt;
-    private Short createdBy;
+    private String createdBy;
     private String tags;
     private String description;
     private Long createdUserId;
     private String content;
     private LocalDate publishAt;
     private String imageUrl;
+    private String videoUrl;
 
     public CmsBlog() {}
 
@@ -53,6 +54,7 @@ public class CmsBlog implements Serializable {
         this.content = value.content;
         this.publishAt = value.publishAt;
         this.imageUrl = value.imageUrl;
+        this.videoUrl = value.videoUrl;
     }
 
     public CmsBlog(
@@ -65,13 +67,14 @@ public class CmsBlog implements Serializable {
         Integer priseDown,
         Long categoryId,
         LocalDateTime createdAt,
-        Short createdBy,
+        String createdBy,
         String tags,
         String description,
         Long createdUserId,
         String content,
         LocalDate publishAt,
-        String imageUrl
+        String imageUrl,
+        String videoUrl
     ) {
         this.id = id;
         this.title = title;
@@ -89,6 +92,7 @@ public class CmsBlog implements Serializable {
         this.content = content;
         this.publishAt = publishAt;
         this.imageUrl = imageUrl;
+        this.videoUrl = videoUrl;
     }
 
     /**
@@ -229,14 +233,14 @@ public class CmsBlog implements Serializable {
     /**
      * Getter for <code>public.cms_blog.created_by</code>.
      */
-    public Short getCreatedBy() {
+    public String getCreatedBy() {
         return this.createdBy;
     }
 
     /**
      * Setter for <code>public.cms_blog.created_by</code>.
      */
-    public CmsBlog setCreatedBy(Short createdBy) {
+    public CmsBlog setCreatedBy(String createdBy) {
         this.createdBy = createdBy;
         return this;
     }
@@ -328,6 +332,21 @@ public class CmsBlog implements Serializable {
      */
     public CmsBlog setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.cms_blog.video_url</code>.
+     */
+    public String getVideoUrl() {
+        return this.videoUrl;
+    }
+
+    /**
+     * Setter for <code>public.cms_blog.video_url</code>.
+     */
+    public CmsBlog setVideoUrl(String videoUrl) {
+        this.videoUrl = videoUrl;
         return this;
     }
 
@@ -436,6 +455,12 @@ public class CmsBlog implements Serializable {
         }
         else if (!this.imageUrl.equals(other.imageUrl))
             return false;
+        if (this.videoUrl == null) {
+            if (other.videoUrl != null)
+                return false;
+        }
+        else if (!this.videoUrl.equals(other.videoUrl))
+            return false;
         return true;
     }
 
@@ -459,6 +484,7 @@ public class CmsBlog implements Serializable {
         result = prime * result + ((this.content == null) ? 0 : this.content.hashCode());
         result = prime * result + ((this.publishAt == null) ? 0 : this.publishAt.hashCode());
         result = prime * result + ((this.imageUrl == null) ? 0 : this.imageUrl.hashCode());
+        result = prime * result + ((this.videoUrl == null) ? 0 : this.videoUrl.hashCode());
         return result;
     }
 
@@ -482,6 +508,7 @@ public class CmsBlog implements Serializable {
         sb.append(", ").append(content);
         sb.append(", ").append(publishAt);
         sb.append(", ").append(imageUrl);
+        sb.append(", ").append(videoUrl);
 
         sb.append(")");
         return sb.toString();
