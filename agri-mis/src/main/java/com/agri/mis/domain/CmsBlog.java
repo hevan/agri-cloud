@@ -2,6 +2,7 @@ package com.agri.mis.domain;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDate;
@@ -33,4 +34,7 @@ public class CmsBlog {
     private LocalDate publishAt;
     private String imageUrl;
     private String videoUrl;
+
+    @Transient
+    private CmsCategory category;
 }
