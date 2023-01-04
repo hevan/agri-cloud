@@ -3,7 +3,6 @@ package com.agri.mis.domain;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
-
 import java.time.LocalDateTime;
 
 @Data
@@ -20,4 +19,8 @@ public class CorpManager {
     private Long corpId;
     private LocalDateTime createdAt;
     private String position;
+
+
+
 }
+
