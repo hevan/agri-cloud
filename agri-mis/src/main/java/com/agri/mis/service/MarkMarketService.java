@@ -5,7 +5,6 @@ import com.agri.mis.domain.MarkCategory;
 import com.agri.mis.domain.MarkMarket;
 import com.agri.mis.dto.MarkMarketWithCategoryWithAddress;
 import com.agri.mis.repository.MarkMarketRepository;
-import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;

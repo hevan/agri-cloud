@@ -4,7 +4,6 @@ import com.agri.mis.domain.*;
 
 import com.agri.mis.dto.MisStockPlaceWithProductStoreStockCrop;
 import com.agri.mis.repository.MisStockPlaceRepository;
-import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Name;

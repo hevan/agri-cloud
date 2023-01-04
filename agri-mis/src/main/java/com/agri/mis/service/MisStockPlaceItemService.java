@@ -3,7 +3,6 @@ import com.agri.mis.domain.MisStockPlaceItem;
 import com.agri.mis.domain.Product;
 import com.agri.mis.dto.MisStockPlaceItemWithStockPlaceProduct;
 import com.agri.mis.repository.MisStockPlaceItemRepository;
-import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;

@@ -3,7 +3,6 @@ package com.agri.mis.service;
 import com.agri.mis.domain.*;
 import com.agri.mis.repository.BatchCycleExpenseRepository;
 import lombok.val;
-import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;

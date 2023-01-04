@@ -6,7 +6,6 @@ import com.agri.mis.domain.BatchRisk;
 import com.agri.mis.domain.BatchTeam;
 import com.agri.mis.repository.BatchTeamRepository;
 import lombok.val;
-import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;

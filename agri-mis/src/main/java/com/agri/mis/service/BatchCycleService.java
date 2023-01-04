@@ -5,8 +5,6 @@ import com.agri.mis.domain.BatchCycle;
 import com.agri.mis.domain.BatchProduct;
 import com.agri.mis.repository.BatchCycleRepository;
 import lombok.val;
-
-import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Field;

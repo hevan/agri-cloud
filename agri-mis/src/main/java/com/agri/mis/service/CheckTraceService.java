@@ -3,7 +3,6 @@ package com.agri.mis.service;
 import com.agri.mis.domain.CheckTrace;
 import com.agri.mis.dto.CheckTraceInfo;
 import com.agri.mis.repository.CheckTraceRepository;
-import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;

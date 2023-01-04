@@ -4,7 +4,6 @@ import com.agri.mis.domain.MarkCategory;
 import com.agri.mis.domain.MarkProduct;
 import com.agri.mis.dto.MarkProductWithCategory;
 import com.agri.mis.repository.MarkProductRepository;
-import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;

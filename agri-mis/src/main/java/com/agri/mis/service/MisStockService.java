@@ -6,7 +6,6 @@ import com.agri.mis.domain.MisStock;
 import com.agri.mis.domain.MisStore;
 import com.agri.mis.dto.MisStockWithStoreCorp;
 import com.agri.mis.repository.MisStockRepository;
-import lombok.var;
 import org.jooq.*;
 import org.jooq.Record;
 import org.jooq.impl.DSL;

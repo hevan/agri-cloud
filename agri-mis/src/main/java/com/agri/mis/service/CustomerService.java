@@ -7,7 +7,6 @@ import com.agri.mis.repository.AddressRepository;
 import com.agri.mis.repository.CorpRepository;
 import com.agri.mis.repository.CustomerRepository;
 import lombok.val;
-import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;

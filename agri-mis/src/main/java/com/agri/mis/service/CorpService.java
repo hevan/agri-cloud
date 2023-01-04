@@ -5,7 +5,6 @@ import com.agri.mis.domain.Corp;
 import com.agri.mis.repository.AddressRepository;
 import com.agri.mis.repository.CorpRepository;
 import lombok.val;
-import lombok.var;
 import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;

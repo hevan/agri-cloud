@@ -3,7 +3,6 @@ package com.agri.mis.service;
 import com.agri.mis.domain.CheckTemp;
 import com.agri.mis.dto.UserInfo;
 import com.agri.mis.repository.CheckTempRepository;
-import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
