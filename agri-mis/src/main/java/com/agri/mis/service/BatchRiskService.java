@@ -4,6 +4,7 @@ import com.agri.mis.domain.*;
 import com.agri.mis.domain.BatchRisk;
 import com.agri.mis.repository.BatchRiskRepository;
 import lombok.val;
+import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;
@@ -160,7 +161,8 @@ public class BatchRiskService {
                                                 r.getValue(bp.CREATED_AT),
                                                 r.getValue(bp.DESCRIPTION),
                                                 r.getValue(bp.QUANTITY),
-                                                r.getValue(bp.STATUS));
+                                                r.getValue(bp.STATUS),
+                                                null);
                                         batchRisk.setBatchProduct(batchProduct);
                                     }
 

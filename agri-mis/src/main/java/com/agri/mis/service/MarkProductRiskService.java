@@ -4,6 +4,7 @@ import com.agri.mis.domain.MarkProductRisk;
 import com.agri.mis.dto.MarkProductRiskWithMarkProductBatch;
 import com.agri.mis.repository.MarkProductRiskRepository;
 import lombok.val;
+import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;

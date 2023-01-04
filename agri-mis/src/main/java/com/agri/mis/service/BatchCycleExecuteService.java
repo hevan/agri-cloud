@@ -4,6 +4,7 @@ import com.agri.mis.domain.*;
 import com.agri.mis.repository.BatchBaseRepository;
 import com.agri.mis.repository.BatchCycleExecuteRepository;
 import lombok.val;
+import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;
@@ -173,7 +174,8 @@ public class BatchCycleExecuteService {
                                                         r.getValue(bc.CREATED_USER_ID),
                                                         r.getValue(bc.CREATED_BY),
                                                         r.getValue(bc.CREATED_AT),
-                                                        r.getValue(bc.CYCLE_TYPE)
+                                                        r.getValue(bc.CYCLE_TYPE),
+                                                        null
                                                 );
                                                 batchCycleExecute.setBatchCycle(batchCycle);
                                             }
@@ -198,7 +200,8 @@ public class BatchCycleExecuteService {
                                                         r.getValue(bp.CREATED_AT),
                                                         r.getValue(bp.DESCRIPTION),
                                                         r.getValue(bp.QUANTITY),
-                                                        r.getValue(bp.STATUS));
+                                                        r.getValue(bp.STATUS),
+                                                        null);
                                                 batchCycleExecute.setBatchProduct(batchProduct);
                                             }
                                             if(null!=batchCycleExecute.getCorpId()){

@@ -4,6 +4,7 @@ import com.agri.mis.db.tables.MisStockPlaceItem;
 import com.agri.mis.domain.MisStockPlaceItemSub;
 import com.agri.mis.dto.MisStockPlaceItemSubWithStockPlaceItem;
 import com.agri.mis.repository.MisStockPlaceItemSubRepository;
+import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;

@@ -6,6 +6,7 @@ import com.agri.mis.domain.BatchRisk;
 import com.agri.mis.domain.BatchTeam;
 import com.agri.mis.repository.BatchTeamRepository;
 import lombok.val;
+import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;
@@ -127,7 +128,7 @@ public class BatchTeamService {
                                         r.getValue(bp.CREATED_AT),
                                         r.getValue(bp.DESCRIPTION),
                                         r.getValue(bp.QUANTITY),
-                                        r.getValue(bp.STATUS));
+                                        r.getValue(bp.STATUS),null);
                                 team.setBatchProduct(batchProduct);
                             }
                            return team;

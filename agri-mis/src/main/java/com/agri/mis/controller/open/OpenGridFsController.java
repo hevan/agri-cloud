@@ -3,6 +3,7 @@ package com.agri.mis.controller.open;
 import com.agri.mis.service.DocResourceService;
 import com.mongodb.BasicDBObjectBuilder;
 import lombok.AllArgsConstructor;
+import lombok.var;
 import org.springframework.data.mongodb.gridfs.ReactiveGridFsTemplate;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

@@ -6,6 +6,7 @@ import com.agri.mis.domain.CorpManager;
 import com.agri.mis.domain.CorpRole;
 import com.agri.mis.dto.CorpManagerInfo;
 import com.agri.mis.repository.CorpManagerRepository;
+import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;

@@ -7,6 +7,7 @@ import com.agri.mis.domain.Product;
 import com.agri.mis.dto.MarkProductCycleExpenseWithProductBatchWithCycle;
 import com.agri.mis.dto.MarkProductCycleWithPproductBatchWithParent;
 import com.agri.mis.repository.MarkProductCycleExpenseRepository;
+import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;

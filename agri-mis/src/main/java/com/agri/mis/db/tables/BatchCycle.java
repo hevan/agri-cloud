@@ -65,7 +65,7 @@ public class BatchCycle extends TableImpl<BatchCycleRecord> {
     /**
      * The column <code>public.batch_cycle.description</code>.
      */
-    public final TableField<BatchCycleRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(255), this, "");
+    public final TableField<BatchCycleRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(100), this, "");
 
     /**
      * The column <code>public.batch_cycle.image_url</code>.

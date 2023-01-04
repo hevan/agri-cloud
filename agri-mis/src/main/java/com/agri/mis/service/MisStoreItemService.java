@@ -10,6 +10,7 @@ import com.agri.mis.domain.MisStoreItem;
 import com.agri.mis.dto.MisStoreItemWithProductStoreCorp;
 import com.agri.mis.dto.MisStoreWithAddressCorp;
 import com.agri.mis.repository.MisStoreItemRepository;
+import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Name;

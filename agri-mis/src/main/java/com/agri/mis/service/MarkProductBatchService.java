@@ -5,6 +5,7 @@ import com.agri.mis.db.tables.Users;
 import com.agri.mis.dto.MarkProductBatchWithProductWithCreatedUser;
 
 import com.agri.mis.repository.MarkProductBatchRepository;
+import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;

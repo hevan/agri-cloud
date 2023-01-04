@@ -5,6 +5,7 @@ import com.agri.mis.domain.CmsCategory;
 import com.agri.mis.dto.CmsBlogInfo;
 import com.agri.mis.repository.CmsBlogRepository;
 import lombok.val;
+import lombok.var;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Record1;

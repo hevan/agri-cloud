@@ -14,6 +14,7 @@ import java.util.function.Function;
 import org.jooq.Field;
 import org.jooq.ForeignKey;
 import org.jooq.Function11;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
@@ -53,7 +54,7 @@ public class BatchCycleExpense extends TableImpl<BatchCycleExpenseRecord> {
     /**
      * The column <code>public.batch_cycle_expense.id</code>.
      */
-    public final TableField<BatchCycleExpenseRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<BatchCycleExpenseRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>public.batch_cycle_expense.batch_cycle_id</code>.
@@ -73,7 +74,7 @@ public class BatchCycleExpense extends TableImpl<BatchCycleExpenseRecord> {
     /**
      * The column <code>public.batch_cycle_expense.description</code>.
      */
-    public final TableField<BatchCycleExpenseRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(100), this, "");
+    public final TableField<BatchCycleExpenseRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.batch_cycle_expense.invest_amount</code>.
@@ -141,6 +142,11 @@ public class BatchCycleExpense extends TableImpl<BatchCycleExpenseRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
+    }
+
+    @Override
+    public Identity<BatchCycleExpenseRecord, Long> getIdentity() {
+        return (Identity<BatchCycleExpenseRecord, Long>) super.getIdentity();
     }
 
     @Override

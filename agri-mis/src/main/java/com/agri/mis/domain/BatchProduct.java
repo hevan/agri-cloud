@@ -3,13 +3,9 @@ package com.agri.mis.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-<<<<<<< HEAD
-=======
 import org.springframework.data.annotation.Transient;
->>>>>>> origin/master
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -50,10 +46,9 @@ public class BatchProduct {
     private String description;
     private Double quantity;
     private Integer status;
-<<<<<<< HEAD
-=======
+
 
     @Transient
     private Corp corp;
->>>>>>> origin/master
+
 }
