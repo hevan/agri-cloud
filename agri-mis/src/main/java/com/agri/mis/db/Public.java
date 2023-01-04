@@ -416,8 +416,7 @@ public class Public extends SchemaImpl {
             Sequences.STOCK_ID_SEQ,
             Sequences.STOCK_ITEM_ID_SEQ,
             Sequences.STORE_ID_SEQ,
-            Sequences.STORE_ITEM_ID_SEQ,
-            Sequences.USER_DOCUMENT_ID_SEQ
+            Sequences.STORE_ITEM_ID_SEQ
         );
     }
 

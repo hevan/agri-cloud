@@ -21,7 +21,6 @@ public class SysMenu implements Serializable {
     private String iconUrl;
     private Long parentId;
     private Long corpId;
-    private String code;
 
     public SysMenu() {}
 
@@ -32,7 +31,6 @@ public class SysMenu implements Serializable {
         this.iconUrl = value.iconUrl;
         this.parentId = value.parentId;
         this.corpId = value.corpId;
-        this.code = value.code;
     }
 
     public SysMenu(
@@ -41,8 +39,7 @@ public class SysMenu implements Serializable {
         String path,
         String iconUrl,
         Long parentId,
-        Long corpId,
-        String code
+        Long corpId
     ) {
         this.id = id;
         this.name = name;
@@ -50,7 +47,6 @@ public class SysMenu implements Serializable {
         this.iconUrl = iconUrl;
         this.parentId = parentId;
         this.corpId = corpId;
-        this.code = code;
     }
 
     /**
@@ -143,21 +139,6 @@ public class SysMenu implements Serializable {
         return this;
     }
 
-    /**
-     * Getter for <code>public.sys_menu.code</code>.
-     */
-    public String getCode() {
-        return this.code;
-    }
-
-    /**
-     * Setter for <code>public.sys_menu.code</code>.
-     */
-    public SysMenu setCode(String code) {
-        this.code = code;
-        return this;
-    }
-
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -203,12 +184,6 @@ public class SysMenu implements Serializable {
         }
         else if (!this.corpId.equals(other.corpId))
             return false;
-        if (this.code == null) {
-            if (other.code != null)
-                return false;
-        }
-        else if (!this.code.equals(other.code))
-            return false;
         return true;
     }
 
@@ -222,7 +197,6 @@ public class SysMenu implements Serializable {
         result = prime * result + ((this.iconUrl == null) ? 0 : this.iconUrl.hashCode());
         result = prime * result + ((this.parentId == null) ? 0 : this.parentId.hashCode());
         result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
-        result = prime * result + ((this.code == null) ? 0 : this.code.hashCode());
         return result;
     }
 
@@ -236,7 +210,6 @@ public class SysMenu implements Serializable {
         sb.append(", ").append(iconUrl);
         sb.append(", ").append(parentId);
         sb.append(", ").append(corpId);
-        sb.append(", ").append(code);
 
         sb.append(")");
         return sb.toString();

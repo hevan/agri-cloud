@@ -95,7 +95,7 @@ public class Address extends TableImpl<AddressRecord> {
      * configuration.
      */
     @Deprecated
-    public final TableField<AddressRecord, Object> LOCATION = createField(DSL.name("location"), org.jooq.impl.DefaultDataType.getDefaultDataType("\"pg_catalog\".\"point\""), this, "");
+    public final TableField<AddressRecord, Object> LOCATION = createField(DSL.name("location"), org.jooq.impl.DefaultDataType.getDefaultDataType("\"pg_catalog\".\"point\"").nullable(false), this, "");
 
     /**
      * The column <code>public.address.created_at</code>.

@@ -9,7 +9,7 @@ import com.agri.mis.db.Public;
 import com.agri.mis.db.tables.records.BatchCycleRecord;
 
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 import java.util.function.Function;
 
 import org.jooq.Field;
@@ -65,7 +65,7 @@ public class BatchCycle extends TableImpl<BatchCycleRecord> {
     /**
      * The column <code>public.batch_cycle.description</code>.
      */
-    public final TableField<BatchCycleRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(100), this, "");
+    public final TableField<BatchCycleRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>public.batch_cycle.image_url</code>.
@@ -120,7 +120,7 @@ public class BatchCycle extends TableImpl<BatchCycleRecord> {
     /**
      * The column <code>public.batch_cycle.created_at</code>.
      */
-    public final TableField<BatchCycleRecord, OffsetDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.TIMESTAMPWITHTIMEZONE(6), this, "");
+    public final TableField<BatchCycleRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(6), this, "");
 
     /**
      * The column <code>public.batch_cycle.cycle_type</code>.
@@ -219,14 +219,14 @@ public class BatchCycle extends TableImpl<BatchCycleRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row15<Long, String, String, String, Integer, LocalDate, LocalDate, Long, Short, Long, Double, Long, String, OffsetDateTime, Short> fieldsRow() {
+    public Row15<Long, String, String, String, Integer, LocalDate, LocalDate, Long, Short, Long, Double, Long, String, LocalDateTime, Short> fieldsRow() {
         return (Row15) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function15<? super Long, ? super String, ? super String, ? super String, ? super Integer, ? super LocalDate, ? super LocalDate, ? super Long, ? super Short, ? super Long, ? super Double, ? super Long, ? super String, ? super OffsetDateTime, ? super Short, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function15<? super Long, ? super String, ? super String, ? super String, ? super Integer, ? super LocalDate, ? super LocalDate, ? super Long, ? super Short, ? super Long, ? super Double, ? super Long, ? super String, ? super LocalDateTime, ? super Short, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -234,7 +234,7 @@ public class BatchCycle extends TableImpl<BatchCycleRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function15<? super Long, ? super String, ? super String, ? super String, ? super Integer, ? super LocalDate, ? super LocalDate, ? super Long, ? super Short, ? super Long, ? super Double, ? super Long, ? super String, ? super OffsetDateTime, ? super Short, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function15<? super Long, ? super String, ? super String, ? super String, ? super Integer, ? super LocalDate, ? super LocalDate, ? super Long, ? super Short, ? super Long, ? super Double, ? super Long, ? super String, ? super LocalDateTime, ? super Short, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

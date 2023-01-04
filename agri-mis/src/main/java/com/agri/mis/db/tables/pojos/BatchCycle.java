@@ -6,7 +6,7 @@ package com.agri.mis.db.tables.pojos;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.OffsetDateTime;
+import java.time.LocalDateTime;
 
 
 /**
@@ -30,7 +30,7 @@ public class BatchCycle implements Serializable {
     private Double progress;
     private Long createdUserId;
     private String createdBy;
-    private OffsetDateTime createdAt;
+    private LocalDateTime createdAt;
     private Short cycleType;
 
     public BatchCycle() {}
@@ -67,7 +67,7 @@ public class BatchCycle implements Serializable {
         Double progress,
         Long createdUserId,
         String createdBy,
-        OffsetDateTime createdAt,
+        LocalDateTime createdAt,
         Short cycleType
     ) {
         this.id = id;
@@ -285,14 +285,14 @@ public class BatchCycle implements Serializable {
     /**
      * Getter for <code>public.batch_cycle.created_at</code>.
      */
-    public OffsetDateTime getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return this.createdAt;
     }
 
     /**
      * Setter for <code>public.batch_cycle.created_at</code>.
      */
-    public BatchCycle setCreatedAt(OffsetDateTime createdAt) {
+    public BatchCycle setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
         return this;
     }

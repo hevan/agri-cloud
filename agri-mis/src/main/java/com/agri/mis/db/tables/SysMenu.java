@@ -12,12 +12,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function7;
+import org.jooq.Function6;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row7;
+import org.jooq.Row6;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -79,11 +79,6 @@ public class SysMenu extends TableImpl<SysMenuRecord> {
      * The column <code>public.sys_menu.corp_id</code>.
      */
     public final TableField<SysMenuRecord, Long> CORP_ID = createField(DSL.name("corp_id"), SQLDataType.BIGINT, this, "");
-
-    /**
-     * The column <code>public.sys_menu.code</code>.
-     */
-    public final TableField<SysMenuRecord, String> CODE = createField(DSL.name("code"), SQLDataType.VARCHAR(50), this, "");
 
     private SysMenu(Name alias, Table<SysMenuRecord> aliased) {
         this(alias, aliased, null);
@@ -173,18 +168,18 @@ public class SysMenu extends TableImpl<SysMenuRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row6 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<Long, String, String, String, Long, Long, String> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row6<Long, String, String, String, Long, Long> fieldsRow() {
+        return (Row6) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function7<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super Long, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function6<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super Long, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -192,7 +187,7 @@ public class SysMenu extends TableImpl<SysMenuRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super Long, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function6<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super Long, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }
