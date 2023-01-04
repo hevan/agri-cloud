@@ -78,7 +78,7 @@ public class Sequences {
     /**
      * The sequence <code>public.product_cycle_expense_id_seq</code>
      */
-    public static final Sequence<Integer> PRODUCT_CYCLE_EXPENSE_ID_SEQ = Internal.createSequence("product_cycle_expense_id_seq", Public.PUBLIC, SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
+    public static final Sequence<Long> PRODUCT_CYCLE_EXPENSE_ID_SEQ = Internal.createSequence("product_cycle_expense_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, 2147483647, false, null);
 
     /**
      * The sequence <code>public.product_cycle_id_seq</code>
@@ -144,9 +144,4 @@ public class Sequences {
      * The sequence <code>public.store_item_id_seq</code>
      */
     public static final Sequence<Long> STORE_ITEM_ID_SEQ = Internal.createSequence("store_item_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.user_document_id_seq</code>
-     */
-    public static final Sequence<Long> USER_DOCUMENT_ID_SEQ = Internal.createSequence("user_document_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
 }
