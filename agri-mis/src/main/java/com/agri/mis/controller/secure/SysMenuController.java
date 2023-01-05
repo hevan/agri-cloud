@@ -28,6 +28,11 @@ public class SysMenuController {
         return sysMenuService.findAllByCorpId(corpId);
     }
 
+    @GetMapping("/findAllSub")
+    public Flux<SysMenu> findAllSub(@RequestParam("corpId") long corpId) {
+        return sysMenuService.findAllByCorpIdAndSub(corpId);
+    }
+
 
     @PostMapping
     public Mono<SysMenu> add(@RequestBody SysMenu sysMenu) {

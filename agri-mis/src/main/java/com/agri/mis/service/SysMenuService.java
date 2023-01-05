@@ -23,6 +23,10 @@ public class SysMenuService {
         return sysMenuRepository.findAllByCorpIdOrderByParentIdDesc(corpId);
     }
 
+    public Flux<SysMenu> findAllByCorpIdAndSub(Long corpId) {
+        return sysMenuRepository.findAllByCorpIdAndParentIdIsNotNullOrderByParentIdAsc(corpId);
+    }
+
     public Mono<SysMenu> add(SysMenu sysMenu) {
         return sysMenuRepository.save(sysMenu);
     }

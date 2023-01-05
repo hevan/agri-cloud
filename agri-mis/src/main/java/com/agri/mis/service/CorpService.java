@@ -15,6 +15,8 @@ import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import static org.jooq.impl.DSL.select;
+
 
 @Service
 public class CorpService {
@@ -52,7 +54,7 @@ public class CorpService {
                 at.LINK_MOBILE,
                 at.CREATED_AT
 
-        ).from(ct).leftJoin(at).on(ct.ADDRESS_ID.eq(at.ID)).where(ct.ADDRESS_ID.eq(id));
+        ).from(ct).leftJoin(at).on(ct.ADDRESS_ID.eq(at.ID)).where(ct.ID.eq(id));
 
 
        return Mono.from(dataSql).map(r -> {
@@ -67,6 +69,47 @@ public class CorpService {
            return corp;
        });
     }
+
+    public Flux<Corp> findCorpByUserId(Long userId) {
+        com.agri.mis.db.tables.Corp ct = com.agri.mis.db.tables.Corp.CORP;
+        com.agri.mis.db.tables.Address at =  com.agri.mis.db.tables.Address.ADDRESS;
+
+        com.agri.mis.db.tables.CorpManager CORP_MANAGER = com.agri.mis.db.tables.CorpManager.CORP_MANAGER;
+
+        var dataSql = dslContext.select(
+                ct.ID,
+                ct.NAME,
+                ct.CODE,
+                ct.ADDRESS_ID,
+                ct.DESCRIPTION,
+                ct.CREATED_AT,
+                at.ID,
+                at.PROVINCE,
+                at.CITY,
+                at.REGION,
+                at.LINE_DETAIL,
+                at.LINK_NAME,
+                at.LINK_MOBILE,
+                at.CREATED_AT
+
+        ).from(ct).leftJoin(at).on(ct.ADDRESS_ID.eq(at.ID)).where(ct.ID.in(select(CORP_MANAGER.CORP_ID)
+                .from(CORP_MANAGER)
+                .where(CORP_MANAGER.USER_ID.eq(userId))));
+
+
+        return Flux.from(dataSql).map(r -> {
+            Corp corp = new Corp(r.getValue(ct.ID), r.getValue(ct.NAME), r.getValue(ct.CODE), r.getValue(ct.DESCRIPTION), r.getValue(ct.ADDRESS_ID), r.getValue(ct.CREATED_AT), null);
+
+            //Address convert from
+            if(null != corp.getAddressId()) {
+                Address address = new Address(r.getValue(at.ID), r.getValue(at.PROVINCE), r.getValue(at.CITY), r.getValue(at.REGION), r.getValue(at.LINE_DETAIL), r.getValue(at.LINK_NAME), r.getValue(at.LINK_MOBILE), null, r.getValue(at.CREATED_AT));
+                corp.setAddress(address);
+            }
+
+            return corp;
+        });
+    }
+
 
 
     public Mono<Corp> add(Corp corp) {
@@ -112,6 +155,7 @@ public class CorpService {
                 at.LINE_DETAIL,
                 at.LINK_NAME,
                 at.LINK_MOBILE,
+                at.LOCATION,
                 at.CREATED_AT
 
         ).from(ct).leftJoin(at).on(ct.ADDRESS_ID.eq(at.ID)).where(where).limit(pageRequest.getOffset(), pageRequest.getPageSize());

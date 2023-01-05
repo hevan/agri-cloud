@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -19,11 +20,16 @@ public class OpenCorpController {
     private CorpService corpService;
 
 
-    @GetMapping("/{id}")
+    @GetMapping("/find/{id}")
     public Mono<ResponseEntity<Corp>> find(@PathVariable Long id) {
         return corpService.findWithAddressById(id)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/findByUserId")
+    public Flux<Corp> findByUserId(Long userId) {
+        return corpService.findCorpByUserId(userId);
     }
 
     @GetMapping("/pageQuery")

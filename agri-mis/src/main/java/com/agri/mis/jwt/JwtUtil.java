@@ -54,12 +54,9 @@ public class JwtUtil {
         claims.put("role", user.getRoles());
         claims.put("userId", user.getId());
         claims.put("username", user.getUsername());
-        claims.put("mobile", user.getMobile());
-        claims.put("nickName", user.getNickName());
-        claims.put("headerUrl", user.getHeaderUrl());
         String token =  doGenerateToken(claims, user.getUsername(),createdDate, expirationDate);
 
-        return new LoginResponse(token, user.getId(), createdDate.getTime() + expirationTimeLong * 1000);
+        return new LoginResponse(token, user.getId(),user.getNickName(), user.getMobile(),user.getHeaderUrl(), expirationDate.getTime());
     }
 
     private String doGenerateToken(Map<String, Object> claims, String username, Date createdDate, Date expirationDate) {
