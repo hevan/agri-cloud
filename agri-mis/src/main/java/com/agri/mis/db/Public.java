@@ -393,7 +393,6 @@ public class Public extends SchemaImpl {
         return Arrays.asList(
             Sequences.ACCOUNT_PEND_ID_SEQ,
             Sequences.ACCOUNT_TITLE_ID_SEQ,
-            Sequences.BATCH_RISK_ID,
             Sequences.CHECK_PROCESS_ID_SEQ,
             Sequences.CMS_VIDEO_ID_SEQ,
             Sequences.CONTRACT_ID_SEQ,
@@ -417,7 +416,8 @@ public class Public extends SchemaImpl {
             Sequences.STOCK_ID_SEQ,
             Sequences.STOCK_ITEM_ID_SEQ,
             Sequences.STORE_ID_SEQ,
-            Sequences.STORE_ITEM_ID_SEQ
+            Sequences.STORE_ITEM_ID_SEQ,
+            Sequences.USER_DOCUMENT_ID_SEQ
         );
     }
 

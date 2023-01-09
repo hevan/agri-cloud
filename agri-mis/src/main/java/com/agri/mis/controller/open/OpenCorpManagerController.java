@@ -26,19 +26,25 @@ public class OpenCorpManagerController {
         return corpManagerService.findById(id);
     }
 
+    @GetMapping("/findInfoById")
+    public Mono<CorpManagerInfo> findInfoById( Long id) {
+        return corpManagerService.findInfoById(id);
+    }
+
+
     @GetMapping("/findAllByCorpId")
     public Flux<CorpManager> findAllByCorpId(@RequestParam("corpId") Long corpId) {
         return corpManagerService.findAllByCorpId(corpId);
     }
 
-    @GetMapping("/findInfoByCorpId")
-    public Flux<CorpManagerInfo> findInfoByCorpId(@RequestParam("corpId") Long corpId) {
+    @GetMapping("/findAllInfoByCorpId")
+    public Flux<CorpManagerInfo> findAllInfoByCorpId(@RequestParam("corpId") Long corpId) {
         return corpManagerService.findAllInfoByCorpId(corpId);
     }
 
     @PostMapping("/add")
-    public Mono<CorpManager> save( @RequestBody CorpManager corpManager) {
-        return corpManagerService.add(corpManager);
+    public Mono<CorpManager> save( @RequestBody CorpManagerInfo corpManagerinfo) {
+        return corpManagerService.add(corpManagerinfo);
     }
 
     @PutMapping("/{id}")

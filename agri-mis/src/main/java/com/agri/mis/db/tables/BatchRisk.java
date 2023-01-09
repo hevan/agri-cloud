@@ -55,7 +55,7 @@ public class BatchRisk extends TableImpl<BatchRiskRecord> {
     /**
      * The column <code>public.batch_risk.id</code>.
      */
-    public final TableField<BatchRiskRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).defaultValue(DSL.field("nextval('batch_risk_id'::regclass)", SQLDataType.BIGINT)), this, "");
+    public final TableField<BatchRiskRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>public.batch_risk.product_id</code>.

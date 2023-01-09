@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 public class CorpManagerInfo {
 
+    private Long id;
     private Long corpId;
     private Long userId;
     private String position;

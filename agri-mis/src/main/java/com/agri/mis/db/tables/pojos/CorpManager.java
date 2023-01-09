@@ -18,7 +18,6 @@ public class CorpManager implements Serializable {
 
     private Long id;
     private Long userId;
-    private Boolean isManager;
     private Long corpId;
     private LocalDateTime createdAt;
     private String position;
@@ -28,7 +27,6 @@ public class CorpManager implements Serializable {
     public CorpManager(CorpManager value) {
         this.id = value.id;
         this.userId = value.userId;
-        this.isManager = value.isManager;
         this.corpId = value.corpId;
         this.createdAt = value.createdAt;
         this.position = value.position;
@@ -37,14 +35,12 @@ public class CorpManager implements Serializable {
     public CorpManager(
         Long id,
         Long userId,
-        Boolean isManager,
         Long corpId,
         LocalDateTime createdAt,
         String position
     ) {
         this.id = id;
         this.userId = userId;
-        this.isManager = isManager;
         this.corpId = corpId;
         this.createdAt = createdAt;
         this.position = position;
@@ -77,21 +73,6 @@ public class CorpManager implements Serializable {
      */
     public CorpManager setUserId(Long userId) {
         this.userId = userId;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.corp_manager.is_manager</code>.
-     */
-    public Boolean getIsManager() {
-        return this.isManager;
-    }
-
-    /**
-     * Setter for <code>public.corp_manager.is_manager</code>.
-     */
-    public CorpManager setIsManager(Boolean isManager) {
-        this.isManager = isManager;
         return this;
     }
 
@@ -161,12 +142,6 @@ public class CorpManager implements Serializable {
         }
         else if (!this.userId.equals(other.userId))
             return false;
-        if (this.isManager == null) {
-            if (other.isManager != null)
-                return false;
-        }
-        else if (!this.isManager.equals(other.isManager))
-            return false;
         if (this.corpId == null) {
             if (other.corpId != null)
                 return false;
@@ -194,7 +169,6 @@ public class CorpManager implements Serializable {
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.userId == null) ? 0 : this.userId.hashCode());
-        result = prime * result + ((this.isManager == null) ? 0 : this.isManager.hashCode());
         result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         result = prime * result + ((this.position == null) ? 0 : this.position.hashCode());
@@ -207,7 +181,6 @@ public class CorpManager implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(userId);
-        sb.append(", ").append(isManager);
         sb.append(", ").append(corpId);
         sb.append(", ").append(createdAt);
         sb.append(", ").append(position);
