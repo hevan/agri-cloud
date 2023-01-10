@@ -121,7 +121,7 @@ public class MarkProductBatchService {
                                         r.getValue(pt.CALC_UNIT),r.getValue(pt.CORP_ID),
                                         r.getValue(pt.CREATED_AT),r.getValue(pt.CREATED_BY),
                                         r.getValue(pt.UPDATED_AT),r.getValue(pt.UPDATED_BY),
-                                        r.getValue(pt.DESCRIPTION)
+                                        r.getValue(pt.DESCRIPTION),null
                                         );
                                 User user = new User(
                                         r.getValue(us.ID),r.getValue(us.USERNAME),

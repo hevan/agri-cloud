@@ -15,6 +15,10 @@ import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import static org.jooq.impl.DSL.select;
 
 
@@ -113,6 +117,8 @@ public class CorpService {
 
 
     public Mono<Corp> add(Corp corp) {
+
+        corp.setCreatedAt(LocalDateTime.now());
         return addressRepository.save(corp.getAddress()).flatMap(s->{
             corp.setAddressId(s.getId());
             return  corpRepository.save(corp);
@@ -183,20 +189,16 @@ public class CorpService {
                                 .map(Record1::value1)
                 )
                 .map(it -> new PageImpl<>(it.getT1(), pageRequest, it.getT2()));
-
         /*
         Corp corp = new Corp();
         corp.setName(name);
         ExampleMatcher exampleObjectMatcher = ExampleMatcher.matching()
                 .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.contains());
-
-
         return this.corpRepository.findBy(Example.of(corp, exampleObjectMatcher), pageRequest)
                 .collectList()
                 .zipWith(this.corpRepository.count(Example.of(corp, exampleObjectMatcher)))
                 .map(t -> new PageImpl<>(t.getT1(), pageRequest, t.getT2()));
 
          */
-
     }
 }

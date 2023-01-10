@@ -1,6 +1,7 @@
 package com.agri.mis.controller.open;
 
 
+import com.agri.mis.domain.Corp;
 import com.agri.mis.domain.Product;
 import com.agri.mis.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -52,4 +54,10 @@ public class OpenProductController {
                 )
                 .defaultIfEmpty(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    @GetMapping("/findByCorpId")
+    public Flux<Product> findByUserId(Long corpId,String name) {
+        return productService.findProductByUserId(corpId,name);
+    }
+
 }
