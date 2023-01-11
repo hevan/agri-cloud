@@ -19,7 +19,6 @@ public class CorpDepartService {
       return corpDepartRepository.findById(id);
     }
 
-
     public Flux<CorpDepart> findAllByCorpId(Long corpId) {
         return corpDepartRepository.findAllByCorpId(corpId);
     }
