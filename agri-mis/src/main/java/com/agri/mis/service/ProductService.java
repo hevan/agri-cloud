@@ -1,6 +1,8 @@
 package com.agri.mis.service;
 
+import com.agri.mis.domain.Address;
 import com.agri.mis.domain.Category;
+import com.agri.mis.domain.Corp;
 import com.agri.mis.domain.Product;
 import com.agri.mis.repository.ProductRepository;
 import org.jooq.Condition;
@@ -110,6 +112,67 @@ public class ProductService {
                 );
                 product.setCategory(category);
             }
+            return product;
+        });
+    }
+
+
+    public Mono<Product> findProductById(Long productId) {
+        com.agri.mis.db.tables.Product pt = com.agri.mis.db.tables.Product.PRODUCT;
+
+        com.agri.mis.db.tables.Category cy = com.agri.mis.db.tables.Category.CATEGORY;
+        var dataSql = dslContext.select(
+                pt.ID,
+                pt.NAME,
+                pt.CODE,
+                pt.CATEGORY_ID,
+                pt.IMAGE_URL,
+                pt.CALC_UNIT,
+                pt.CORP_ID,
+                pt.CREATED_AT,
+                pt.CREATED_BY,
+                pt.UPDATED_AT,
+                pt.UPDATED_BY,
+                pt.DESCRIPTION,
+
+                cy.ID,
+                cy.PATH_NAME,
+                cy.NAME,
+                cy.IMAGE_URL,
+                cy.PARENT_ID,
+                cy.CORP_ID
+
+        ).from(pt).leftJoin(cy).on(pt.CATEGORY_ID.eq(cy.ID)).where(pt.ID.eq(productId));
+        return Mono.from(dataSql).map(r -> {
+            Product product = new Product(
+                    r.getValue(pt.ID),
+                    r.getValue(pt.NAME),
+                    r.getValue(pt.CODE),
+                    r.getValue(pt.CATEGORY_ID),
+                    r.getValue(pt.IMAGE_URL),
+                    r.getValue(pt.CALC_UNIT),
+                    r.getValue(pt.CORP_ID),
+                    r.getValue(pt.CREATED_AT),
+                    r.getValue(pt.CREATED_BY),
+                    r.getValue(pt.UPDATED_AT),
+                    r.getValue(pt.UPDATED_BY),
+                    r.getValue(pt.DESCRIPTION),
+                    null
+            );
+
+            //Address convert from
+            if(null != product.getCategoryId()) {
+                Category category = new Category(
+                        r.getValue(cy.ID),
+                        r.getValue(cy.PATH_NAME),
+                        r.getValue(cy.NAME),
+                        r.getValue(cy.IMAGE_URL),
+                        r.getValue(cy.PARENT_ID),
+                        r.getValue(cy.CORP_ID)
+                );
+                product.setCategory(category);
+            }
+
             return product;
         });
     }

@@ -12,4 +12,6 @@ import reactor.core.publisher.Flux;
 public interface ProductRepository extends ReactiveCrudRepository<Product, Long>, ReactiveQueryByExampleExecutor<Product> {
     Flux<Product> findAllByCorpId(Long corpId);
     Flux<Product> findBy(Example product, Pageable pageable);
+
+
 }

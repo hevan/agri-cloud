@@ -60,4 +60,9 @@ public class OpenProductController {
         return productService.findProductByUserId(corpId,name);
     }
 
+
+    @GetMapping("/findByProductId/{productId}")
+    public Mono<Product> findByProductById(@PathVariable Long productId) {
+        return productService.findProductById(productId);
+    }
 }
