@@ -91,7 +91,7 @@ public class MisStockPlaceService {
                             if (null != misStockPlace.getProductId()) {
                                 Product product = new Product(
                                         r.getValue(pt.ID), r.getValue(pt.NAME), r.getValue(pt.CODE), r.getValue(pt.CATEGORY_ID), r.getValue(pt.IMAGE_URL), r.getValue(pt.CALC_UNIT), r.getValue(pt.CORP_ID), r.getValue(pt.CREATED_AT),
-                                        r.getValue(pt.CREATED_BY), r.getValue(pt.UPDATED_AT), r.getValue(pt.UPDATED_BY), r.getValue(pt.DESCRIPTION));
+                                        r.getValue(pt.CREATED_BY), r.getValue(pt.UPDATED_AT), r.getValue(pt.UPDATED_BY), r.getValue(pt.DESCRIPTION),null);
                                 MisStore misStore = new MisStore(
                                         r.getValue(ms.ID), r.getValue(ms.NAME), r.getValue(ms.CODE), r.getValue(ms.DESCRIPTION), r.getValue(ms.ADDRESS_ID),
                                         r.getValue(ms.CATEGORY), r.getValue(ms.CREATED_AT), r.getValue(ms.CORP_ID));

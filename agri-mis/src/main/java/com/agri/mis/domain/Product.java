@@ -3,6 +3,7 @@ package com.agri.mis.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -35,4 +36,7 @@ public class Product {
     private LocalDateTime updatedAt;
     private String updatedBy;
     private String description;
+
+    @Transient
+    private Category category;
 }
