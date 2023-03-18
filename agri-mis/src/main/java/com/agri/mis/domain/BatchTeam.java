@@ -28,7 +28,7 @@ public class BatchTeam {
     private LocalDateTime createdAt;
 
     @Transient
-    private BatchProduct batchProduct;
+    private User user;
 
 
 }

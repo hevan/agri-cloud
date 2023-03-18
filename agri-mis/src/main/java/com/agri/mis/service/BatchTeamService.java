@@ -51,49 +51,35 @@ public class BatchTeamService {
     }
 
 
-    public Mono<Page<BatchTeam>> pageQuery(String name, PageRequest pageRequest){
+    public Mono<Page<BatchTeam>> pageQuery(Long batchId, String name, PageRequest pageRequest){
         com.agri.mis.db.tables.BatchTeam bt = com.agri.mis.db.tables.BatchTeam.BATCH_TEAM;
 
-        com.agri.mis.db.tables.BatchProduct bp = com.agri.mis.db.tables.BatchProduct.BATCH_PRODUCT;
-
-
+        com.agri.mis.db.tables.Users us = com.agri.mis.db.tables.Users.USERS;
 
         Condition where = DSL.trueCondition();
 
         if(StringUtils.hasLength(name)){
-            where = where.and(bp.NAME.like("%" + name +"%"));
+            where = where.and(us.NICK_NAME.like("%" + name +"%"));
         }
+
+        if(null != batchId){
+            where = where.and(bt.BATCH_ID.eq(batchId));
+        }
+
         var dataSql = dslContext.select(
                 bt.ID,
                 bt.BATCH_ID,
                 bt.USER_ID,
                 bt.IS_MANAGER,
                 bt.CREATED_AT,
-
-                bp.ID,
-                bp.NAME,
-                bp.CODE,
-                bp.PRODUCT_ID,
-                bp.START_AT,
-                bp.END_AT,
-                bp.DAYS,
-                bp.PRODUCTION_ESTIMATED,
-                bp.PRODUCTION_REAL,
-                bp.INVEST_ESTIMATED,
-                bp.INVEST_REAL,
-                bp.CORP_ID,
-                bp.CALC_UNIT,
-                bp.PARK_ID,
-                bp.CREATED_USER_ID,
-                bp.CREATED_BY,
-                bp.CREATED_AT,
-                bp.DESCRIPTION,
-                bp.QUANTITY,
-                bp.STATUS
-        ).from(bt).leftJoin(bp).on(bt.BATCH_ID.eq(bp.ID)).where(where).limit(pageRequest.getOffset(),pageRequest.getPageSize());
+                us.ID,
+                us.NICK_NAME,
+                us.HEADER_URL,
+                us.MOBILE
+        ).from(bt).leftJoin(us).on(bt.USER_ID.eq(us.ID)).where(where).limit(pageRequest.getOffset(),pageRequest.getPageSize());
 
         val countSql = dslContext.select(DSL.field("count(*)", SQLDataType.BIGINT))
-                .from(bt).leftJoin(bp).on(bt.BATCH_ID.eq(bp.ID))
+                .from(bt).leftJoin(us).on(bt.USER_ID.eq(us.ID))
                 .where(where);
         return Mono.zip(
                 Flux.from(dataSql).map(
@@ -106,29 +92,13 @@ public class BatchTeamService {
                                     r.getValue(bt.CREATED_AT),
                                     null
                             );
-                            if(null!=team.getBatchId()){
-                                com.agri.mis.domain.BatchProduct batchProduct = new com.agri.mis.domain.BatchProduct(
-                                        r.getValue(bp.ID),
-                                        r.getValue(bp.NAME),
-                                        r.getValue(bp.CODE),
-                                        r.getValue(bp.PRODUCT_ID),
-                                        r.getValue(bp.START_AT),
-                                        r.getValue(bp.END_AT),
-                                        r.getValue(bp.DAYS),
-                                        r.getValue(bp.PRODUCTION_ESTIMATED),
-                                        r.getValue(bp.PRODUCTION_REAL),
-                                        r.getValue(bp.INVEST_ESTIMATED),
-                                        r.getValue(bp.INVEST_REAL),
-                                        r.getValue(bp.CORP_ID),
-                                        r.getValue(bp.CALC_UNIT),
-                                        r.getValue(bp.PARK_ID),
-                                        r.getValue(bp.CREATED_USER_ID),
-                                        r.getValue(bp.CREATED_BY),
-                                        r.getValue(bp.CREATED_AT),
-                                        r.getValue(bp.DESCRIPTION),
-                                        r.getValue(bp.QUANTITY),
-                                        r.getValue(bp.STATUS),null);
-                                team.setBatchProduct(batchProduct);
+                            if(null!=team.getUserId()){
+                                com.agri.mis.domain.User user = new com.agri.mis.domain.User();
+                                user.setId(team.getUserId());
+                                user.setHeaderUrl(r.getValue(us.HEADER_URL));
+                                user.setNickName(r.getValue(us.NICK_NAME));
+                                user.setMobile(r.getValue(us.MOBILE));
+                                team.setUser(user);
                             }
                            return team;
                         }).collectList(),Mono.from(countSql).map(Record1::value1))

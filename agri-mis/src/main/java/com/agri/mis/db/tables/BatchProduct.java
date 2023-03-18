@@ -15,12 +15,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function20;
+import org.jooq.Function18;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row20;
+import org.jooq.Row18;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -129,11 +129,6 @@ public class BatchProduct extends TableImpl<BatchProductRecord> {
     public final TableField<BatchProductRecord, Long> CREATED_USER_ID = createField(DSL.name("created_user_id"), SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.batch_product.created_by</code>.
-     */
-    public final TableField<BatchProductRecord, String> CREATED_BY = createField(DSL.name("created_by"), SQLDataType.VARCHAR(100), this, "");
-
-    /**
      * The column <code>public.batch_product.created_at</code>.
      */
     public final TableField<BatchProductRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(6), this, "");
@@ -142,11 +137,6 @@ public class BatchProduct extends TableImpl<BatchProductRecord> {
      * The column <code>public.batch_product.description</code>.
      */
     public final TableField<BatchProductRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(500).nullable(false), this, "");
-
-    /**
-     * The column <code>public.batch_product.quantity</code>.
-     */
-    public final TableField<BatchProductRecord, Double> QUANTITY = createField(DSL.name("quantity"), SQLDataType.DOUBLE, this, "");
 
     /**
      * The column <code>public.batch_product.status</code>.
@@ -241,18 +231,18 @@ public class BatchProduct extends TableImpl<BatchProductRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row20 type methods
+    // Row18 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row20<Long, String, String, Long, LocalDate, LocalDate, Integer, Double, Double, BigDecimal, BigDecimal, Long, String, Long, Long, String, LocalDateTime, String, Double, Integer> fieldsRow() {
-        return (Row20) super.fieldsRow();
+    public Row18<Long, String, String, Long, LocalDate, LocalDate, Integer, Double, Double, BigDecimal, BigDecimal, Long, String, Long, Long, LocalDateTime, String, Integer> fieldsRow() {
+        return (Row18) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function20<? super Long, ? super String, ? super String, ? super Long, ? super LocalDate, ? super LocalDate, ? super Integer, ? super Double, ? super Double, ? super BigDecimal, ? super BigDecimal, ? super Long, ? super String, ? super Long, ? super Long, ? super String, ? super LocalDateTime, ? super String, ? super Double, ? super Integer, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function18<? super Long, ? super String, ? super String, ? super Long, ? super LocalDate, ? super LocalDate, ? super Integer, ? super Double, ? super Double, ? super BigDecimal, ? super BigDecimal, ? super Long, ? super String, ? super Long, ? super Long, ? super LocalDateTime, ? super String, ? super Integer, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -260,7 +250,7 @@ public class BatchProduct extends TableImpl<BatchProductRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function20<? super Long, ? super String, ? super String, ? super Long, ? super LocalDate, ? super LocalDate, ? super Integer, ? super Double, ? super Double, ? super BigDecimal, ? super BigDecimal, ? super Long, ? super String, ? super Long, ? super Long, ? super String, ? super LocalDateTime, ? super String, ? super Double, ? super Integer, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function18<? super Long, ? super String, ? super String, ? super Long, ? super LocalDate, ? super LocalDate, ? super Integer, ? super Double, ? super Double, ? super BigDecimal, ? super BigDecimal, ? super Long, ? super String, ? super Long, ? super Long, ? super LocalDateTime, ? super String, ? super Integer, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

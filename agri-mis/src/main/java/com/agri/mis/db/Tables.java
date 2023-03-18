@@ -5,10 +5,12 @@ package com.agri.mis.db;
 
 
 import com.agri.mis.db.tables.Address;
+import com.agri.mis.db.tables.AuthorizationConsent;
 import com.agri.mis.db.tables.BatchBase;
 import com.agri.mis.db.tables.BatchCycle;
 import com.agri.mis.db.tables.BatchCycleExecute;
 import com.agri.mis.db.tables.BatchCycleExpense;
+import com.agri.mis.db.tables.BatchCycleExpenseItem;
 import com.agri.mis.db.tables.BatchProduct;
 import com.agri.mis.db.tables.BatchRisk;
 import com.agri.mis.db.tables.BatchTeam;
@@ -58,7 +60,11 @@ import com.agri.mis.db.tables.MisStockPlaceItem;
 import com.agri.mis.db.tables.MisStockPlaceItemSub;
 import com.agri.mis.db.tables.MisStore;
 import com.agri.mis.db.tables.MisStoreItem;
+import com.agri.mis.db.tables.Oauth2Authorization;
+import com.agri.mis.db.tables.Oauth2RegisteredClient;
 import com.agri.mis.db.tables.Product;
+import com.agri.mis.db.tables.SysConst;
+import com.agri.mis.db.tables.SysConstItem;
 import com.agri.mis.db.tables.SysMenu;
 import com.agri.mis.db.tables.SysMenuAction;
 import com.agri.mis.db.tables.Users;
@@ -74,6 +80,11 @@ public class Tables {
      * The table <code>public.address</code>.
      */
     public static final Address ADDRESS = Address.ADDRESS;
+
+    /**
+     * The table <code>public.authorization_consent</code>.
+     */
+    public static final AuthorizationConsent AUTHORIZATION_CONSENT = AuthorizationConsent.AUTHORIZATION_CONSENT;
 
     /**
      * The table <code>public.batch_base</code>.
@@ -94,6 +105,11 @@ public class Tables {
      * The table <code>public.batch_cycle_expense</code>.
      */
     public static final BatchCycleExpense BATCH_CYCLE_EXPENSE = BatchCycleExpense.BATCH_CYCLE_EXPENSE;
+
+    /**
+     * The table <code>public.batch_cycle_expense_item</code>.
+     */
+    public static final BatchCycleExpenseItem BATCH_CYCLE_EXPENSE_ITEM = BatchCycleExpenseItem.BATCH_CYCLE_EXPENSE_ITEM;
 
     /**
      * The table <code>public.batch_product</code>.
@@ -341,9 +357,29 @@ public class Tables {
     public static final MisStoreItem MIS_STORE_ITEM = MisStoreItem.MIS_STORE_ITEM;
 
     /**
+     * The table <code>public.oauth2_authorization</code>.
+     */
+    public static final Oauth2Authorization OAUTH2_AUTHORIZATION = Oauth2Authorization.OAUTH2_AUTHORIZATION;
+
+    /**
+     * The table <code>public.oauth2_registered_client</code>.
+     */
+    public static final Oauth2RegisteredClient OAUTH2_REGISTERED_CLIENT = Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT;
+
+    /**
      * The table <code>public.product</code>.
      */
     public static final Product PRODUCT = Product.PRODUCT;
+
+    /**
+     * The table <code>public.sys_const</code>.
+     */
+    public static final SysConst SYS_CONST = SysConst.SYS_CONST;
+
+    /**
+     * The table <code>public.sys_const_item</code>.
+     */
+    public static final SysConstItem SYS_CONST_ITEM = SysConstItem.SYS_CONST_ITEM;
 
     /**
      * The table <code>public.sys_menu</code>.

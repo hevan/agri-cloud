@@ -33,10 +33,8 @@ public class BatchProduct implements Serializable {
     private String calcUnit;
     private Long parkId;
     private Long createdUserId;
-    private String createdBy;
     private LocalDateTime createdAt;
     private String description;
-    private Double quantity;
     private Integer status;
 
     public BatchProduct() {}
@@ -57,10 +55,8 @@ public class BatchProduct implements Serializable {
         this.calcUnit = value.calcUnit;
         this.parkId = value.parkId;
         this.createdUserId = value.createdUserId;
-        this.createdBy = value.createdBy;
         this.createdAt = value.createdAt;
         this.description = value.description;
-        this.quantity = value.quantity;
         this.status = value.status;
     }
 
@@ -80,10 +76,8 @@ public class BatchProduct implements Serializable {
         String calcUnit,
         Long parkId,
         Long createdUserId,
-        String createdBy,
         LocalDateTime createdAt,
         String description,
-        Double quantity,
         Integer status
     ) {
         this.id = id;
@@ -101,10 +95,8 @@ public class BatchProduct implements Serializable {
         this.calcUnit = calcUnit;
         this.parkId = parkId;
         this.createdUserId = createdUserId;
-        this.createdBy = createdBy;
         this.createdAt = createdAt;
         this.description = description;
-        this.quantity = quantity;
         this.status = status;
     }
 
@@ -334,21 +326,6 @@ public class BatchProduct implements Serializable {
     }
 
     /**
-     * Getter for <code>public.batch_product.created_by</code>.
-     */
-    public String getCreatedBy() {
-        return this.createdBy;
-    }
-
-    /**
-     * Setter for <code>public.batch_product.created_by</code>.
-     */
-    public BatchProduct setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-        return this;
-    }
-
-    /**
      * Getter for <code>public.batch_product.created_at</code>.
      */
     public LocalDateTime getCreatedAt() {
@@ -375,21 +352,6 @@ public class BatchProduct implements Serializable {
      */
     public BatchProduct setDescription(String description) {
         this.description = description;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.batch_product.quantity</code>.
-     */
-    public Double getQuantity() {
-        return this.quantity;
-    }
-
-    /**
-     * Setter for <code>public.batch_product.quantity</code>.
-     */
-    public BatchProduct setQuantity(Double quantity) {
-        this.quantity = quantity;
         return this;
     }
 
@@ -507,12 +469,6 @@ public class BatchProduct implements Serializable {
         }
         else if (!this.createdUserId.equals(other.createdUserId))
             return false;
-        if (this.createdBy == null) {
-            if (other.createdBy != null)
-                return false;
-        }
-        else if (!this.createdBy.equals(other.createdBy))
-            return false;
         if (this.createdAt == null) {
             if (other.createdAt != null)
                 return false;
@@ -524,12 +480,6 @@ public class BatchProduct implements Serializable {
                 return false;
         }
         else if (!this.description.equals(other.description))
-            return false;
-        if (this.quantity == null) {
-            if (other.quantity != null)
-                return false;
-        }
-        else if (!this.quantity.equals(other.quantity))
             return false;
         if (this.status == null) {
             if (other.status != null)
@@ -559,10 +509,8 @@ public class BatchProduct implements Serializable {
         result = prime * result + ((this.calcUnit == null) ? 0 : this.calcUnit.hashCode());
         result = prime * result + ((this.parkId == null) ? 0 : this.parkId.hashCode());
         result = prime * result + ((this.createdUserId == null) ? 0 : this.createdUserId.hashCode());
-        result = prime * result + ((this.createdBy == null) ? 0 : this.createdBy.hashCode());
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
-        result = prime * result + ((this.quantity == null) ? 0 : this.quantity.hashCode());
         result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
         return result;
     }
@@ -586,10 +534,8 @@ public class BatchProduct implements Serializable {
         sb.append(", ").append(calcUnit);
         sb.append(", ").append(parkId);
         sb.append(", ").append(createdUserId);
-        sb.append(", ").append(createdBy);
         sb.append(", ").append(createdAt);
         sb.append(", ").append(description);
-        sb.append(", ").append(quantity);
         sb.append(", ").append(status);
 
         sb.append(")");

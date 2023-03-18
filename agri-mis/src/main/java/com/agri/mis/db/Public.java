@@ -5,10 +5,12 @@ package com.agri.mis.db;
 
 
 import com.agri.mis.db.tables.Address;
+import com.agri.mis.db.tables.AuthorizationConsent;
 import com.agri.mis.db.tables.BatchBase;
 import com.agri.mis.db.tables.BatchCycle;
 import com.agri.mis.db.tables.BatchCycleExecute;
 import com.agri.mis.db.tables.BatchCycleExpense;
+import com.agri.mis.db.tables.BatchCycleExpenseItem;
 import com.agri.mis.db.tables.BatchProduct;
 import com.agri.mis.db.tables.BatchRisk;
 import com.agri.mis.db.tables.BatchTeam;
@@ -58,7 +60,11 @@ import com.agri.mis.db.tables.MisStockPlaceItem;
 import com.agri.mis.db.tables.MisStockPlaceItemSub;
 import com.agri.mis.db.tables.MisStore;
 import com.agri.mis.db.tables.MisStoreItem;
+import com.agri.mis.db.tables.Oauth2Authorization;
+import com.agri.mis.db.tables.Oauth2RegisteredClient;
 import com.agri.mis.db.tables.Product;
+import com.agri.mis.db.tables.SysConst;
+import com.agri.mis.db.tables.SysConstItem;
 import com.agri.mis.db.tables.SysMenu;
 import com.agri.mis.db.tables.SysMenuAction;
 import com.agri.mis.db.tables.Users;
@@ -91,6 +97,11 @@ public class Public extends SchemaImpl {
     public final Address ADDRESS = Address.ADDRESS;
 
     /**
+     * The table <code>public.authorization_consent</code>.
+     */
+    public final AuthorizationConsent AUTHORIZATION_CONSENT = AuthorizationConsent.AUTHORIZATION_CONSENT;
+
+    /**
      * The table <code>public.batch_base</code>.
      */
     public final BatchBase BATCH_BASE = BatchBase.BATCH_BASE;
@@ -109,6 +120,11 @@ public class Public extends SchemaImpl {
      * The table <code>public.batch_cycle_expense</code>.
      */
     public final BatchCycleExpense BATCH_CYCLE_EXPENSE = BatchCycleExpense.BATCH_CYCLE_EXPENSE;
+
+    /**
+     * The table <code>public.batch_cycle_expense_item</code>.
+     */
+    public final BatchCycleExpenseItem BATCH_CYCLE_EXPENSE_ITEM = BatchCycleExpenseItem.BATCH_CYCLE_EXPENSE_ITEM;
 
     /**
      * The table <code>public.batch_product</code>.
@@ -356,9 +372,29 @@ public class Public extends SchemaImpl {
     public final MisStoreItem MIS_STORE_ITEM = MisStoreItem.MIS_STORE_ITEM;
 
     /**
+     * The table <code>public.oauth2_authorization</code>.
+     */
+    public final Oauth2Authorization OAUTH2_AUTHORIZATION = Oauth2Authorization.OAUTH2_AUTHORIZATION;
+
+    /**
+     * The table <code>public.oauth2_registered_client</code>.
+     */
+    public final Oauth2RegisteredClient OAUTH2_REGISTERED_CLIENT = Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT;
+
+    /**
      * The table <code>public.product</code>.
      */
     public final Product PRODUCT = Product.PRODUCT;
+
+    /**
+     * The table <code>public.sys_const</code>.
+     */
+    public final SysConst SYS_CONST = SysConst.SYS_CONST;
+
+    /**
+     * The table <code>public.sys_const_item</code>.
+     */
+    public final SysConstItem SYS_CONST_ITEM = SysConstItem.SYS_CONST_ITEM;
 
     /**
      * The table <code>public.sys_menu</code>.
@@ -393,6 +429,7 @@ public class Public extends SchemaImpl {
         return Arrays.asList(
             Sequences.ACCOUNT_PEND_ID_SEQ,
             Sequences.ACCOUNT_TITLE_ID_SEQ,
+            Sequences.BATCH_CYCLE_EXPENSE_SEQ,
             Sequences.CHECK_PROCESS_ID_SEQ,
             Sequences.CMS_VIDEO_ID_SEQ,
             Sequences.CONTRACT_ID_SEQ,
@@ -425,10 +462,12 @@ public class Public extends SchemaImpl {
     public final List<Table<?>> getTables() {
         return Arrays.asList(
             Address.ADDRESS,
+            AuthorizationConsent.AUTHORIZATION_CONSENT,
             BatchBase.BATCH_BASE,
             BatchCycle.BATCH_CYCLE,
             BatchCycleExecute.BATCH_CYCLE_EXECUTE,
             BatchCycleExpense.BATCH_CYCLE_EXPENSE,
+            BatchCycleExpenseItem.BATCH_CYCLE_EXPENSE_ITEM,
             BatchProduct.BATCH_PRODUCT,
             BatchRisk.BATCH_RISK,
             BatchTeam.BATCH_TEAM,
@@ -478,7 +517,11 @@ public class Public extends SchemaImpl {
             MisStockPlaceItemSub.MIS_STOCK_PLACE_ITEM_SUB,
             MisStore.MIS_STORE,
             MisStoreItem.MIS_STORE_ITEM,
+            Oauth2Authorization.OAUTH2_AUTHORIZATION,
+            Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT,
             Product.PRODUCT,
+            SysConst.SYS_CONST,
+            SysConstItem.SYS_CONST_ITEM,
             SysMenu.SYS_MENU,
             SysMenuAction.SYS_MENU_ACTION,
             Users.USERS

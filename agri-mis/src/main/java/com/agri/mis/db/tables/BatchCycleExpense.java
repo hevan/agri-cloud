@@ -9,15 +9,17 @@ import com.agri.mis.db.Public;
 import com.agri.mis.db.tables.records.BatchCycleExpenseRecord;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function11;
+import org.jooq.Function13;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row11;
+import org.jooq.Row13;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -53,22 +55,7 @@ public class BatchCycleExpense extends TableImpl<BatchCycleExpenseRecord> {
     /**
      * The column <code>public.batch_cycle_expense.id</code>.
      */
-    public final TableField<BatchCycleExpenseRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false), this, "");
-
-    /**
-     * The column <code>public.batch_cycle_expense.batch_cycle_id</code>.
-     */
-    public final TableField<BatchCycleExpenseRecord, Long> BATCH_CYCLE_ID = createField(DSL.name("batch_cycle_id"), SQLDataType.BIGINT, this, "");
-
-    /**
-     * The column <code>public.batch_cycle_expense.invest_product_id</code>.
-     */
-    public final TableField<BatchCycleExpenseRecord, Long> INVEST_PRODUCT_ID = createField(DSL.name("invest_product_id"), SQLDataType.BIGINT, this, "");
-
-    /**
-     * The column <code>public.batch_cycle_expense.invest_product_name</code>.
-     */
-    public final TableField<BatchCycleExpenseRecord, String> INVEST_PRODUCT_NAME = createField(DSL.name("invest_product_name"), SQLDataType.VARCHAR(100), this, "");
+    public final TableField<BatchCycleExpenseRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>public.batch_cycle_expense.description</code>.
@@ -76,19 +63,9 @@ public class BatchCycleExpense extends TableImpl<BatchCycleExpenseRecord> {
     public final TableField<BatchCycleExpenseRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(100), this, "");
 
     /**
-     * The column <code>public.batch_cycle_expense.invest_amount</code>.
+     * The column <code>public.batch_cycle_expense.amount</code>.
      */
-    public final TableField<BatchCycleExpenseRecord, BigDecimal> INVEST_AMOUNT = createField(DSL.name("invest_amount"), SQLDataType.NUMERIC(12, 2), this, "");
-
-    /**
-     * The column <code>public.batch_cycle_expense.invest_price</code>.
-     */
-    public final TableField<BatchCycleExpenseRecord, BigDecimal> INVEST_PRICE = createField(DSL.name("invest_price"), SQLDataType.NUMERIC(12, 2), this, "");
-
-    /**
-     * The column <code>public.batch_cycle_expense.invest_quantity</code>.
-     */
-    public final TableField<BatchCycleExpenseRecord, Double> INVEST_QUANTITY = createField(DSL.name("invest_quantity"), SQLDataType.DOUBLE, this, "");
+    public final TableField<BatchCycleExpenseRecord, BigDecimal> AMOUNT = createField(DSL.name("amount"), SQLDataType.NUMERIC(12, 2), this, "");
 
     /**
      * The column <code>public.batch_cycle_expense.corp_id</code>.
@@ -103,7 +80,42 @@ public class BatchCycleExpense extends TableImpl<BatchCycleExpenseRecord> {
     /**
      * The column <code>public.batch_cycle_expense.expense_type</code>.
      */
-    public final TableField<BatchCycleExpenseRecord, Short> EXPENSE_TYPE = createField(DSL.name("expense_type"), SQLDataType.SMALLINT, this, "");
+    public final TableField<BatchCycleExpenseRecord, String> EXPENSE_TYPE = createField(DSL.name("expense_type"), SQLDataType.VARCHAR(50), this, "");
+
+    /**
+     * The column <code>public.batch_cycle_expense.name</code>.
+     */
+    public final TableField<BatchCycleExpenseRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
+
+    /**
+     * The column <code>public.batch_cycle_expense.created_at</code>.
+     */
+    public final TableField<BatchCycleExpenseRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "");
+
+    /**
+     * The column <code>public.batch_cycle_expense.created_user_id</code>.
+     */
+    public final TableField<BatchCycleExpenseRecord, Long> CREATED_USER_ID = createField(DSL.name("created_user_id"), SQLDataType.BIGINT.nullable(false), this, "");
+
+    /**
+     * The column <code>public.batch_cycle_expense.code</code>.
+     */
+    public final TableField<BatchCycleExpenseRecord, String> CODE = createField(DSL.name("code"), SQLDataType.VARCHAR(50).nullable(false), this, "");
+
+    /**
+     * The column <code>public.batch_cycle_expense.cycle_name</code>.
+     */
+    public final TableField<BatchCycleExpenseRecord, String> CYCLE_NAME = createField(DSL.name("cycle_name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
+
+    /**
+     * The column <code>public.batch_cycle_expense.status</code>.
+     */
+    public final TableField<BatchCycleExpenseRecord, Integer> STATUS = createField(DSL.name("status"), SQLDataType.INTEGER.nullable(false), this, "");
+
+    /**
+     * The column <code>public.batch_cycle_expense.check_status</code>.
+     */
+    public final TableField<BatchCycleExpenseRecord, Integer> CHECK_STATUS = createField(DSL.name("check_status"), SQLDataType.INTEGER.nullable(false), this, "");
 
     private BatchCycleExpense(Name alias, Table<BatchCycleExpenseRecord> aliased) {
         this(alias, aliased, null);
@@ -141,6 +153,11 @@ public class BatchCycleExpense extends TableImpl<BatchCycleExpenseRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
+    }
+
+    @Override
+    public Identity<BatchCycleExpenseRecord, Long> getIdentity() {
+        return (Identity<BatchCycleExpenseRecord, Long>) super.getIdentity();
     }
 
     @Override
@@ -188,18 +205,18 @@ public class BatchCycleExpense extends TableImpl<BatchCycleExpenseRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row13 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<Long, Long, Long, String, String, BigDecimal, BigDecimal, Double, Long, Long, Short> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row13<Long, String, BigDecimal, Long, Long, String, String, LocalDateTime, Long, String, String, Integer, Integer> fieldsRow() {
+        return (Row13) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function11<? super Long, ? super Long, ? super Long, ? super String, ? super String, ? super BigDecimal, ? super BigDecimal, ? super Double, ? super Long, ? super Long, ? super Short, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function13<? super Long, ? super String, ? super BigDecimal, ? super Long, ? super Long, ? super String, ? super String, ? super LocalDateTime, ? super Long, ? super String, ? super String, ? super Integer, ? super Integer, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -207,7 +224,7 @@ public class BatchCycleExpense extends TableImpl<BatchCycleExpenseRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function11<? super Long, ? super Long, ? super Long, ? super String, ? super String, ? super BigDecimal, ? super BigDecimal, ? super Double, ? super Long, ? super Long, ? super Short, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function13<? super Long, ? super String, ? super BigDecimal, ? super Long, ? super Long, ? super String, ? super String, ? super LocalDateTime, ? super Long, ? super String, ? super String, ? super Integer, ? super Integer, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

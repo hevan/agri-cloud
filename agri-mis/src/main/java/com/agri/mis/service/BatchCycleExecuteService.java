@@ -54,11 +54,7 @@ public class BatchCycleExecuteService {
 
         com.agri.mis.db.tables.BatchCycle bc = com.agri.mis.db.tables.BatchCycle.BATCH_CYCLE;
 
-        com.agri.mis.db.tables.Corp c = com.agri.mis.db.tables.Corp.CORP;
-
         com.agri.mis.db.tables.BatchProduct bp =  com.agri.mis.db.tables.BatchProduct.BATCH_PRODUCT;
-
-        com.agri.mis.db.tables.Address at =  com.agri.mis.db.tables.Address.ADDRESS;
 
         Condition where = DSL.trueCondition();
 
@@ -80,59 +76,20 @@ public class BatchCycleExecuteService {
                 bce.CORP_ID,
                 bce.BATCH_ID,
 
-                c.ID,
-                c.NAME,
-                c.CODE,
-                c.ADDRESS_ID,
-                c.DESCRIPTION,
-                c.CREATED_AT,
 
                 bc.ID,
                 bc.NAME,
                 bc.DESCRIPTION,
                 bc.IMAGE_URL,
-                bc.DAYS,
                 bc.START_AT,
                 bc.END_AT,
-                bc.BATCH_ID,
                 bc.STATUS,
-                bc.PARENT_ID,
-                bc.PROGRESS,
-                bc.CREATED_USER_ID,
-                bc.CREATED_BY,
-                bc.CREATED_AT,
-                bc.CYCLE_TYPE,
 
                 bp.ID,
                 bp.NAME,
                 bp.CODE,
-                bp.PRODUCT_ID,
-                bp.START_AT,
-                bp.END_AT,
-                bp.DAYS,
-                bp.PRODUCTION_ESTIMATED,
-                bp.PRODUCTION_REAL,
-                bp.INVEST_ESTIMATED,
-                bp.INVEST_REAL,
-                bp.CORP_ID,
-                bp.CALC_UNIT,
-                bp.PARK_ID,
-                bp.CREATED_USER_ID,
-                bp.CREATED_BY,
-                bp.CREATED_AT,
-                bp.DESCRIPTION,
-                bp.QUANTITY,
-                bp.STATUS,
-
-                at.ID,
-                at.PROVINCE,
-                at.CITY,
-                at.REGION,
-                at.LINE_DETAIL,
-                at.LINK_NAME,
-                at.LINK_MOBILE,
-                at.CREATED_AT
-        ).from(bce).leftJoin(bc).on(bce.BATCH_CYCLE_ID.eq(bc.ID)).rightJoin(c).on(bce.CORP_ID.eq(c.ID)).rightJoin(bp).on(bce.BATCH_ID.eq(bp.ID)).rightJoin(at).on(c.ADDRESS_ID.eq(at.ID)).where(where).limit(pageRequest.getOffset(),pageRequest.getPageSize());
+                bp.STATUS
+        ).from(bce).leftJoin(bc).on(bce.BATCH_CYCLE_ID.eq(bc.ID)).rightJoin(bp).on(bce.BATCH_ID.eq(bp.ID)).where(where).limit(pageRequest.getOffset(),pageRequest.getPageSize());
         val countSql = dslContext.select(DSL.field("count(*)", SQLDataType.BIGINT))
                 .from(bce)
                 .where(where);
@@ -156,61 +113,25 @@ public class BatchCycleExecuteService {
                                                     r.getValue(bce.CORP_ID),
                                                     r.getValue(bce.BATCH_ID),
                                                     null,
-                                                    null,
                                                     null);
                                             if(null!=batchCycleExecute.getBatchCycleId()){
-                                                BatchCycle batchCycle = new BatchCycle(
-                                                        r.getValue(bc.ID),
-                                                        r.getValue(bc.NAME),
-                                                        r.getValue(bc.DESCRIPTION),
-                                                        r.getValue(bc.IMAGE_URL),
-                                                        r.getValue(bc.DAYS),
-                                                        r.getValue(bc.START_AT),
-                                                        r.getValue(bc.END_AT),
-                                                        r.getValue(bc.BATCH_ID),
-                                                        r.getValue(bc.STATUS),
-                                                        r.getValue(bc.PARENT_ID),
-                                                        r.getValue(bc.PROGRESS),
-                                                        r.getValue(bc.CREATED_USER_ID),
-                                                        r.getValue(bc.CREATED_BY),
-                                                        r.getValue(bc.CREATED_AT),
-                                                        r.getValue(bc.CYCLE_TYPE),
-                                                        null
-                                                );
+                                                BatchCycle batchCycle = new BatchCycle();
+                                                batchCycle.setId(batchCycleExecute.getBatchCycleId());
+                                                batchCycle.setName(r.getValue(bc.NAME));
+                                                batchCycle.setImageUrl(r.getValue(bc.IMAGE_URL));
+                                                batchCycle.setDescription(r.getValue(bc.DESCRIPTION));
+                                                batchCycle.setStartAt(r.getValue(bc.START_AT));
+                                                batchCycle.setEndAt(r.getValue(bc.END_AT));
+                                                batchCycle.setStatus(r.getValue(bc.STATUS));
                                                 batchCycleExecute.setBatchCycle(batchCycle);
                                             }
                                             if(null!=batchCycleExecute.getBatchId()){
-                                                BatchProduct batchProduct = new BatchProduct(
-                                                        r.getValue(bp.ID),
-                                                        r.getValue(bp.NAME),
-                                                        r.getValue(bp.CODE),
-                                                        r.getValue(bp.PRODUCT_ID),
-                                                        r.getValue(bp.START_AT),
-                                                        r.getValue(bp.END_AT),
-                                                        r.getValue(bp.DAYS),
-                                                        r.getValue(bp.PRODUCTION_ESTIMATED),
-                                                        r.getValue(bp.PRODUCTION_REAL),
-                                                        r.getValue(bp.INVEST_ESTIMATED),
-                                                        r.getValue(bp.INVEST_REAL),
-                                                        r.getValue(bp.CORP_ID),
-                                                        r.getValue(bp.CALC_UNIT),
-                                                        r.getValue(bp.PARK_ID),
-                                                        r.getValue(bp.CREATED_USER_ID),
-                                                        r.getValue(bp.CREATED_BY),
-                                                        r.getValue(bp.CREATED_AT),
-                                                        r.getValue(bp.DESCRIPTION),
-                                                        r.getValue(bp.QUANTITY),
-                                                        r.getValue(bp.STATUS),
-                                                        null);
+                                                BatchProduct batchProduct = new BatchProduct();
+                                                batchProduct.setId(batchCycleExecute.getBatchId());
+                                                batchProduct.setName(r.getValue(bp.NAME));
+                                                batchProduct.setCode(r.getValue(bp.CODE));
+                                                batchProduct.setStatus(r.getValue(bp.STATUS));
                                                 batchCycleExecute.setBatchProduct(batchProduct);
-                                            }
-                                            if(null!=batchCycleExecute.getCorpId()){
-                                                Corp corp = new Corp(r.getValue(c.ID), r.getValue(c.NAME), r.getValue(c.CODE), r.getValue(c.DESCRIPTION), r.getValue(c.ADDRESS_ID), r.getValue(c.CREATED_AT), null);
-                                                if(null!=corp.getAddressId()){
-                                                    Address address = new Address(r.getValue(at.ID), r.getValue(at.PROVINCE), r.getValue(at.CITY), r.getValue(at.REGION), r.getValue(at.LINE_DETAIL), r.getValue(at.LINK_NAME), r.getValue(at.LINK_MOBILE), null, r.getValue(at.CREATED_AT));
-                                                    corp.setAddress(address);
-                                                }
-                                                batchCycleExecute.setCorp(corp);
                                             }
 
                                             return batchCycleExecute;

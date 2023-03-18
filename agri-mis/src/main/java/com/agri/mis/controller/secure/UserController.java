@@ -5,11 +5,8 @@ import com.agri.mis.domain.User;
 import com.agri.mis.dto.ResetPassword;
 import com.agri.mis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -25,7 +22,6 @@ public class UserController {
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
-
 
     @PutMapping("/changePassword")
     public Mono<ResponseEntity<User>> changePassword(@RequestBody ResetPassword resetPassword) {

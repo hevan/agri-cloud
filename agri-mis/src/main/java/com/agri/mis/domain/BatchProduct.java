@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -26,7 +27,6 @@ public class BatchProduct {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate startAt;
-
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate endAt;
@@ -39,16 +39,19 @@ public class BatchProduct {
     private String calcUnit;
     private Long parkId;
     private Long createdUserId;
-    private String createdBy;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDateTime createdAt;
     private String description;
-    private Double quantity;
     private Integer status;
-
 
     @Transient
     private Corp corp;
+
+    @Transient
+    private Product product;
+
+    @Transient
+    private  CorpPark park;
 
 }

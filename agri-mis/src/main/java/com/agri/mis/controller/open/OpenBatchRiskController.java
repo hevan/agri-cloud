@@ -21,8 +21,8 @@ public class OpenBatchRiskController {
     private BatchRiskService batchRiskService;
 
     @GetMapping("/pageQuery")
-    public Mono<Page<BatchRisk>> pageQuery(@RequestParam("name") String name, @RequestParam("page") int page, @RequestParam("size") int size) {
-        return batchRiskService.pageQuery(name, PageRequest.of(page, size));
+    public Mono<Page<BatchRisk>> pageQuery(@RequestParam("batchId") Long batchId,  @RequestParam("name") String name, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return batchRiskService.pageQuery(batchId, name, PageRequest.of(page, size));
     }
 
     @GetMapping("/{id}")
@@ -31,8 +31,6 @@ public class OpenBatchRiskController {
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
-
-
 
     @PostMapping("/add")
     public Mono<BatchRisk> save( @RequestBody BatchRisk batchRisk) {

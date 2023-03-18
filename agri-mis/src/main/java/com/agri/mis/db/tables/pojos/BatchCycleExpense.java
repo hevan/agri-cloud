@@ -6,6 +6,7 @@ package com.agri.mis.db.tables.pojos;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 
 /**
@@ -17,57 +18,65 @@ public class BatchCycleExpense implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private Long batchCycleId;
-    private Long investProductId;
-    private String investProductName;
     private String description;
-    private BigDecimal investAmount;
-    private BigDecimal investPrice;
-    private Double investQuantity;
+    private BigDecimal amount;
     private Long corpId;
     private Long batchId;
-    private Short expenseType;
+    private String expenseType;
+    private String name;
+    private LocalDateTime createdAt;
+    private Long createdUserId;
+    private String code;
+    private String cycleName;
+    private Integer status;
+    private Integer checkStatus;
 
     public BatchCycleExpense() {}
 
     public BatchCycleExpense(BatchCycleExpense value) {
         this.id = value.id;
-        this.batchCycleId = value.batchCycleId;
-        this.investProductId = value.investProductId;
-        this.investProductName = value.investProductName;
         this.description = value.description;
-        this.investAmount = value.investAmount;
-        this.investPrice = value.investPrice;
-        this.investQuantity = value.investQuantity;
+        this.amount = value.amount;
         this.corpId = value.corpId;
         this.batchId = value.batchId;
         this.expenseType = value.expenseType;
+        this.name = value.name;
+        this.createdAt = value.createdAt;
+        this.createdUserId = value.createdUserId;
+        this.code = value.code;
+        this.cycleName = value.cycleName;
+        this.status = value.status;
+        this.checkStatus = value.checkStatus;
     }
 
     public BatchCycleExpense(
         Long id,
-        Long batchCycleId,
-        Long investProductId,
-        String investProductName,
         String description,
-        BigDecimal investAmount,
-        BigDecimal investPrice,
-        Double investQuantity,
+        BigDecimal amount,
         Long corpId,
         Long batchId,
-        Short expenseType
+        String expenseType,
+        String name,
+        LocalDateTime createdAt,
+        Long createdUserId,
+        String code,
+        String cycleName,
+        Integer status,
+        Integer checkStatus
     ) {
         this.id = id;
-        this.batchCycleId = batchCycleId;
-        this.investProductId = investProductId;
-        this.investProductName = investProductName;
         this.description = description;
-        this.investAmount = investAmount;
-        this.investPrice = investPrice;
-        this.investQuantity = investQuantity;
+        this.amount = amount;
         this.corpId = corpId;
         this.batchId = batchId;
         this.expenseType = expenseType;
+        this.name = name;
+        this.createdAt = createdAt;
+        this.createdUserId = createdUserId;
+        this.code = code;
+        this.cycleName = cycleName;
+        this.status = status;
+        this.checkStatus = checkStatus;
     }
 
     /**
@@ -82,51 +91,6 @@ public class BatchCycleExpense implements Serializable {
      */
     public BatchCycleExpense setId(Long id) {
         this.id = id;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.batch_cycle_expense.batch_cycle_id</code>.
-     */
-    public Long getBatchCycleId() {
-        return this.batchCycleId;
-    }
-
-    /**
-     * Setter for <code>public.batch_cycle_expense.batch_cycle_id</code>.
-     */
-    public BatchCycleExpense setBatchCycleId(Long batchCycleId) {
-        this.batchCycleId = batchCycleId;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.batch_cycle_expense.invest_product_id</code>.
-     */
-    public Long getInvestProductId() {
-        return this.investProductId;
-    }
-
-    /**
-     * Setter for <code>public.batch_cycle_expense.invest_product_id</code>.
-     */
-    public BatchCycleExpense setInvestProductId(Long investProductId) {
-        this.investProductId = investProductId;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.batch_cycle_expense.invest_product_name</code>.
-     */
-    public String getInvestProductName() {
-        return this.investProductName;
-    }
-
-    /**
-     * Setter for <code>public.batch_cycle_expense.invest_product_name</code>.
-     */
-    public BatchCycleExpense setInvestProductName(String investProductName) {
-        this.investProductName = investProductName;
         return this;
     }
 
@@ -146,47 +110,17 @@ public class BatchCycleExpense implements Serializable {
     }
 
     /**
-     * Getter for <code>public.batch_cycle_expense.invest_amount</code>.
+     * Getter for <code>public.batch_cycle_expense.amount</code>.
      */
-    public BigDecimal getInvestAmount() {
-        return this.investAmount;
+    public BigDecimal getAmount() {
+        return this.amount;
     }
 
     /**
-     * Setter for <code>public.batch_cycle_expense.invest_amount</code>.
+     * Setter for <code>public.batch_cycle_expense.amount</code>.
      */
-    public BatchCycleExpense setInvestAmount(BigDecimal investAmount) {
-        this.investAmount = investAmount;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.batch_cycle_expense.invest_price</code>.
-     */
-    public BigDecimal getInvestPrice() {
-        return this.investPrice;
-    }
-
-    /**
-     * Setter for <code>public.batch_cycle_expense.invest_price</code>.
-     */
-    public BatchCycleExpense setInvestPrice(BigDecimal investPrice) {
-        this.investPrice = investPrice;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.batch_cycle_expense.invest_quantity</code>.
-     */
-    public Double getInvestQuantity() {
-        return this.investQuantity;
-    }
-
-    /**
-     * Setter for <code>public.batch_cycle_expense.invest_quantity</code>.
-     */
-    public BatchCycleExpense setInvestQuantity(Double investQuantity) {
-        this.investQuantity = investQuantity;
+    public BatchCycleExpense setAmount(BigDecimal amount) {
+        this.amount = amount;
         return this;
     }
 
@@ -223,15 +157,120 @@ public class BatchCycleExpense implements Serializable {
     /**
      * Getter for <code>public.batch_cycle_expense.expense_type</code>.
      */
-    public Short getExpenseType() {
+    public String getExpenseType() {
         return this.expenseType;
     }
 
     /**
      * Setter for <code>public.batch_cycle_expense.expense_type</code>.
      */
-    public BatchCycleExpense setExpenseType(Short expenseType) {
+    public BatchCycleExpense setExpenseType(String expenseType) {
         this.expenseType = expenseType;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_cycle_expense.name</code>.
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Setter for <code>public.batch_cycle_expense.name</code>.
+     */
+    public BatchCycleExpense setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_cycle_expense.created_at</code>.
+     */
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * Setter for <code>public.batch_cycle_expense.created_at</code>.
+     */
+    public BatchCycleExpense setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_cycle_expense.created_user_id</code>.
+     */
+    public Long getCreatedUserId() {
+        return this.createdUserId;
+    }
+
+    /**
+     * Setter for <code>public.batch_cycle_expense.created_user_id</code>.
+     */
+    public BatchCycleExpense setCreatedUserId(Long createdUserId) {
+        this.createdUserId = createdUserId;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_cycle_expense.code</code>.
+     */
+    public String getCode() {
+        return this.code;
+    }
+
+    /**
+     * Setter for <code>public.batch_cycle_expense.code</code>.
+     */
+    public BatchCycleExpense setCode(String code) {
+        this.code = code;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_cycle_expense.cycle_name</code>.
+     */
+    public String getCycleName() {
+        return this.cycleName;
+    }
+
+    /**
+     * Setter for <code>public.batch_cycle_expense.cycle_name</code>.
+     */
+    public BatchCycleExpense setCycleName(String cycleName) {
+        this.cycleName = cycleName;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_cycle_expense.status</code>.
+     */
+    public Integer getStatus() {
+        return this.status;
+    }
+
+    /**
+     * Setter for <code>public.batch_cycle_expense.status</code>.
+     */
+    public BatchCycleExpense setStatus(Integer status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_cycle_expense.check_status</code>.
+     */
+    public Integer getCheckStatus() {
+        return this.checkStatus;
+    }
+
+    /**
+     * Setter for <code>public.batch_cycle_expense.check_status</code>.
+     */
+    public BatchCycleExpense setCheckStatus(Integer checkStatus) {
+        this.checkStatus = checkStatus;
         return this;
     }
 
@@ -250,47 +289,17 @@ public class BatchCycleExpense implements Serializable {
         }
         else if (!this.id.equals(other.id))
             return false;
-        if (this.batchCycleId == null) {
-            if (other.batchCycleId != null)
-                return false;
-        }
-        else if (!this.batchCycleId.equals(other.batchCycleId))
-            return false;
-        if (this.investProductId == null) {
-            if (other.investProductId != null)
-                return false;
-        }
-        else if (!this.investProductId.equals(other.investProductId))
-            return false;
-        if (this.investProductName == null) {
-            if (other.investProductName != null)
-                return false;
-        }
-        else if (!this.investProductName.equals(other.investProductName))
-            return false;
         if (this.description == null) {
             if (other.description != null)
                 return false;
         }
         else if (!this.description.equals(other.description))
             return false;
-        if (this.investAmount == null) {
-            if (other.investAmount != null)
+        if (this.amount == null) {
+            if (other.amount != null)
                 return false;
         }
-        else if (!this.investAmount.equals(other.investAmount))
-            return false;
-        if (this.investPrice == null) {
-            if (other.investPrice != null)
-                return false;
-        }
-        else if (!this.investPrice.equals(other.investPrice))
-            return false;
-        if (this.investQuantity == null) {
-            if (other.investQuantity != null)
-                return false;
-        }
-        else if (!this.investQuantity.equals(other.investQuantity))
+        else if (!this.amount.equals(other.amount))
             return false;
         if (this.corpId == null) {
             if (other.corpId != null)
@@ -310,6 +319,48 @@ public class BatchCycleExpense implements Serializable {
         }
         else if (!this.expenseType.equals(other.expenseType))
             return false;
+        if (this.name == null) {
+            if (other.name != null)
+                return false;
+        }
+        else if (!this.name.equals(other.name))
+            return false;
+        if (this.createdAt == null) {
+            if (other.createdAt != null)
+                return false;
+        }
+        else if (!this.createdAt.equals(other.createdAt))
+            return false;
+        if (this.createdUserId == null) {
+            if (other.createdUserId != null)
+                return false;
+        }
+        else if (!this.createdUserId.equals(other.createdUserId))
+            return false;
+        if (this.code == null) {
+            if (other.code != null)
+                return false;
+        }
+        else if (!this.code.equals(other.code))
+            return false;
+        if (this.cycleName == null) {
+            if (other.cycleName != null)
+                return false;
+        }
+        else if (!this.cycleName.equals(other.cycleName))
+            return false;
+        if (this.status == null) {
+            if (other.status != null)
+                return false;
+        }
+        else if (!this.status.equals(other.status))
+            return false;
+        if (this.checkStatus == null) {
+            if (other.checkStatus != null)
+                return false;
+        }
+        else if (!this.checkStatus.equals(other.checkStatus))
+            return false;
         return true;
     }
 
@@ -318,16 +369,18 @@ public class BatchCycleExpense implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
-        result = prime * result + ((this.batchCycleId == null) ? 0 : this.batchCycleId.hashCode());
-        result = prime * result + ((this.investProductId == null) ? 0 : this.investProductId.hashCode());
-        result = prime * result + ((this.investProductName == null) ? 0 : this.investProductName.hashCode());
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
-        result = prime * result + ((this.investAmount == null) ? 0 : this.investAmount.hashCode());
-        result = prime * result + ((this.investPrice == null) ? 0 : this.investPrice.hashCode());
-        result = prime * result + ((this.investQuantity == null) ? 0 : this.investQuantity.hashCode());
+        result = prime * result + ((this.amount == null) ? 0 : this.amount.hashCode());
         result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
         result = prime * result + ((this.batchId == null) ? 0 : this.batchId.hashCode());
         result = prime * result + ((this.expenseType == null) ? 0 : this.expenseType.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
+        result = prime * result + ((this.createdUserId == null) ? 0 : this.createdUserId.hashCode());
+        result = prime * result + ((this.code == null) ? 0 : this.code.hashCode());
+        result = prime * result + ((this.cycleName == null) ? 0 : this.cycleName.hashCode());
+        result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
+        result = prime * result + ((this.checkStatus == null) ? 0 : this.checkStatus.hashCode());
         return result;
     }
 
@@ -336,16 +389,18 @@ public class BatchCycleExpense implements Serializable {
         StringBuilder sb = new StringBuilder("BatchCycleExpense (");
 
         sb.append(id);
-        sb.append(", ").append(batchCycleId);
-        sb.append(", ").append(investProductId);
-        sb.append(", ").append(investProductName);
         sb.append(", ").append(description);
-        sb.append(", ").append(investAmount);
-        sb.append(", ").append(investPrice);
-        sb.append(", ").append(investQuantity);
+        sb.append(", ").append(amount);
         sb.append(", ").append(corpId);
         sb.append(", ").append(batchId);
         sb.append(", ").append(expenseType);
+        sb.append(", ").append(name);
+        sb.append(", ").append(createdAt);
+        sb.append(", ").append(createdUserId);
+        sb.append(", ").append(code);
+        sb.append(", ").append(cycleName);
+        sb.append(", ").append(status);
+        sb.append(", ").append(checkStatus);
 
         sb.append(")");
         return sb.toString();

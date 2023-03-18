@@ -1,13 +1,11 @@
 package com.agri.authserver.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
-import java.util.function.Supplier;
 
 @Entity(name = "users")
 @Data
@@ -31,8 +29,15 @@ public class User implements Serializable {
 
     private String signText;
 
-    private Long corpId;
+    private String headerUrl;
 
-    private LocalDateTime createdDate;
+    private String nickName;
+
+    private String description;
+
+    private String  appId;
+
+    private Instant createdAt;
+
 
 }

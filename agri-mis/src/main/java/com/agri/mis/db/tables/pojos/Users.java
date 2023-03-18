@@ -26,6 +26,7 @@ public class Users implements Serializable {
     private String headerUrl;
     private String nickName;
     private String description;
+    private String appId;
 
     public Users() {}
 
@@ -40,6 +41,7 @@ public class Users implements Serializable {
         this.headerUrl = value.headerUrl;
         this.nickName = value.nickName;
         this.description = value.description;
+        this.appId = value.appId;
     }
 
     public Users(
@@ -52,7 +54,8 @@ public class Users implements Serializable {
         LocalDateTime createdAt,
         String headerUrl,
         String nickName,
-        String description
+        String description,
+        String appId
     ) {
         this.id = id;
         this.username = username;
@@ -64,6 +67,7 @@ public class Users implements Serializable {
         this.headerUrl = headerUrl;
         this.nickName = nickName;
         this.description = description;
+        this.appId = appId;
     }
 
     /**
@@ -216,6 +220,21 @@ public class Users implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.users.app_id</code>.
+     */
+    public String getAppId() {
+        return this.appId;
+    }
+
+    /**
+     * Setter for <code>public.users.app_id</code>.
+     */
+    public Users setAppId(String appId) {
+        this.appId = appId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -285,6 +304,12 @@ public class Users implements Serializable {
         }
         else if (!this.description.equals(other.description))
             return false;
+        if (this.appId == null) {
+            if (other.appId != null)
+                return false;
+        }
+        else if (!this.appId.equals(other.appId))
+            return false;
         return true;
     }
 
@@ -302,6 +327,7 @@ public class Users implements Serializable {
         result = prime * result + ((this.headerUrl == null) ? 0 : this.headerUrl.hashCode());
         result = prime * result + ((this.nickName == null) ? 0 : this.nickName.hashCode());
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+        result = prime * result + ((this.appId == null) ? 0 : this.appId.hashCode());
         return result;
     }
 
@@ -319,6 +345,7 @@ public class Users implements Serializable {
         sb.append(", ").append(headerUrl);
         sb.append(", ").append(nickName);
         sb.append(", ").append(description);
+        sb.append(", ").append(appId);
 
         sb.append(")");
         return sb.toString();

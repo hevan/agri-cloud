@@ -13,27 +13,20 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table("batch_cycle_expense")
-public class BatchCycleExpense {
+@Table("batch_cycle_expense_item")
+public class BatchCycleExpenseItem {
 
     @Id
     private Long id;
-    private String cycleName;
-    private String name;
-    private String code;
-    private String expenseType;
-    private BigDecimal amount;
+    private Long expenseId;
+    private Long productId;
+    private String productSku;
     private String description;
-    private Long corpId;
-    private Long batchId;
-    private Integer checkStatus;
-    private Integer status;
+    private BigDecimal amount;
+    private BigDecimal price;
+    private Double quantity;
     private LocalDateTime createdAt;
-    private Long createdUserId;
 
     @Transient
-    private BatchProduct batchProduct;
-
-    @Transient
-    private User createdUser;
+    private Product product;
 }

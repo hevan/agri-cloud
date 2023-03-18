@@ -6,7 +6,10 @@ spring:
     url: jdbc:postgresql://localhost:5432/db_agri
     username: admin
     password: password
-
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
 
 logging:
   level:

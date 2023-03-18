@@ -26,6 +26,11 @@ public class Sequences {
     public static final Sequence<Long> ACCOUNT_TITLE_ID_SEQ = Internal.createSequence("account_title_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
 
     /**
+     * The sequence <code>public.batch_cycle_expense_seq</code>
+     */
+    public static final Sequence<Long> BATCH_CYCLE_EXPENSE_SEQ = Internal.createSequence("batch_cycle_expense_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
+
+    /**
      * The sequence <code>public.check_process_id_seq</code>
      */
     public static final Sequence<Long> CHECK_PROCESS_ID_SEQ = Internal.createSequence("check_process_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);

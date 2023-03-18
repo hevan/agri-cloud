@@ -40,7 +40,4 @@ public class BatchRisk {
 
     @Transient
     private BatchProduct batchProduct;
-
-    @Transient
-    private Corp corp;
 }

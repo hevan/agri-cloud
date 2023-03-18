@@ -4,8 +4,7 @@ import com.agri.authserver.domain.Client;
 import com.agri.authserver.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ClientService {
@@ -15,7 +14,7 @@ public class ClientService {
 
     @Transactional
     public void delete(String clientId){
-       Client client =  this.clientRepository.findByClientId(clientId);
+       Client client =  this.clientRepository.findByClientId(clientId).get();
        if(null != client){
            this.clientRepository.delete(client);
        }

@@ -40,9 +40,6 @@ public class BatchCycleExecute {
     private Long batchId;
 
     @Transient
-    private Corp corp;
-
-    @Transient
     private BatchProduct batchProduct;
 
     @Transient

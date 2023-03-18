@@ -21,8 +21,8 @@ public class OpenBatchTeamController {
     private BatchTeamService batchTeamService;
 
     @GetMapping("/pageQuery")
-    public Mono<Page<BatchTeam>> pageQuery(@RequestParam("name") String name, @RequestParam("page") int page, @RequestParam("size") int size) {
-        return batchTeamService.pageQuery(name, PageRequest.of(page, size));
+    public Mono<Page<BatchTeam>> pageQuery(@RequestParam("batchId") Long batchId, @RequestParam("name") String name, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return batchTeamService.pageQuery(batchId, name, PageRequest.of(page, size));
     }
 
     @GetMapping("/{id}")

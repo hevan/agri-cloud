@@ -1,9 +1,10 @@
 package com.agri.mis.service;
 
-import com.agri.mis.domain.Address;
 import com.agri.mis.domain.BatchProduct;
 
 import com.agri.mis.domain.Corp;
+import com.agri.mis.domain.CorpPark;
+import com.agri.mis.domain.Product;
 import com.agri.mis.repository.BatchProductRepository;
 import lombok.val;
 import org.jooq.Condition;
@@ -57,18 +58,19 @@ public class BatchProductService {
     public Mono<Page<BatchProduct>> pageQuery(String name, PageRequest pageRequest) {
         com.agri.mis.db.tables.BatchProduct bp = com.agri.mis.db.tables.BatchProduct.BATCH_PRODUCT;
         com.agri.mis.db.tables.Corp ct =  com.agri.mis.db.tables.Corp.CORP;
-        com.agri.mis.db.tables.Address at = com.agri.mis.db.tables.Address.ADDRESS;
+        com.agri.mis.db.tables.Product pt =  com.agri.mis.db.tables.Product.PRODUCT;
+        com.agri.mis.db.tables.CorpPark pk =  com.agri.mis.db.tables.CorpPark.CORP_PARK;
+
         Condition where = DSL.trueCondition();
         if (StringUtils.hasLength(name)) {
             where = where.and(bp.NAME.like("%" + name + "%"));
         }
         var dataSql = dslContext.select(
                 bp.ID, bp.NAME, bp.CODE, bp.PRODUCT_ID, bp.START_AT, bp.END_AT, bp.DAYS, bp.PRODUCTION_ESTIMATED, bp.PRODUCTION_REAL,
-                bp.INVEST_ESTIMATED, bp.INVEST_REAL, bp.CORP_ID, bp.CALC_UNIT, bp.PARK_ID, bp.CREATED_USER_ID, bp.CREATED_BY,
-                bp.CREATED_AT, bp.DESCRIPTION, bp.QUANTITY, bp.STATUS,
-                ct.ID, ct.NAME, ct.CODE, ct.DESCRIPTION, ct.ADDRESS_ID,ct.CREATED_AT,
-                at.ID, at.PROVINCE, at.CITY, at.REGION, at.LINE_DETAIL, at.LINK_NAME, at.LINK_MOBILE
-        ).from(bp).leftJoin(ct).on(bp.CORP_ID.eq(ct.ID)).rightJoin(at).on(ct.ADDRESS_ID.eq(at.ID)).where(where).limit(pageRequest.getOffset(), pageRequest.getPageSize());
+                bp.INVEST_ESTIMATED, bp.INVEST_REAL, bp.CORP_ID, bp.CALC_UNIT, bp.PARK_ID, bp.CREATED_USER_ID,
+                bp.CREATED_AT, bp.DESCRIPTION, bp.STATUS,
+                ct.ID, ct.NAME, ct.CODE, pt.ID, pt.NAME, pt.CODE, pt.IMAGE_URL, pk.ID, pk.NAME
+        ).from(bp).leftJoin(ct).on(bp.CORP_ID.eq(ct.ID)).leftJoin(pt).on(bp.PRODUCT_ID.eq(pt.ID)).leftJoin(pk).on(bp.PARK_ID.eq(pk.ID)).where(where).limit(pageRequest.getOffset(), pageRequest.getPageSize());
         val countSql = dslContext.select(DSL.field("count(*)", SQLDataType.BIGINT))
                 .from(bp)
                 .where(where);
@@ -91,20 +93,33 @@ public class BatchProductService {
                                       r.getValue(bp.CALC_UNIT),
                                       r.getValue(bp.PARK_ID),
                                       r.getValue(bp.CREATED_USER_ID),
-                                      r.getValue(bp.CREATED_BY),
                                       r.getValue(bp.CREATED_AT),
                                       r.getValue(bp.DESCRIPTION),
-                                      r.getValue(bp.QUANTITY),
                                       r.getValue(bp.STATUS),
-                                      null);
+                                      null, null, null);
 
                               if (null != batchProduct.getCorpId()){
-                                  Corp corp = new Corp(r.getValue(ct.ID), r.getValue(ct.NAME), r.getValue(ct.CODE), r.getValue(ct.DESCRIPTION), r.getValue(ct.ADDRESS_ID), r.getValue(ct.CREATED_AT), null);
-                                  if(null!=corp.getAddressId()){
-                                      Address address = new Address(r.getValue(at.ID), r.getValue(at.PROVINCE), r.getValue(at.CITY), r.getValue(at.REGION), r.getValue(at.LINE_DETAIL), r.getValue(at.LINK_NAME), r.getValue(at.LINK_MOBILE), null, r.getValue(at.CREATED_AT));
-                                      corp.setAddress(address);
-                                  }
+                                  Corp corp = new Corp();
+                                  corp.setId(batchProduct.getCorpId());
+                                  corp.setName(r.getValue(ct.NAME));
+                                  corp.setCode(r.getValue(ct.CODE));
+
                                      batchProduct.setCorp(corp);
+                              }
+                              if (null != batchProduct.getProductId()){
+                                  Product product = new Product();
+                                  product.setId(batchProduct.getCorpId());
+                                  product.setName(r.getValue(ct.NAME));
+                                  product.setCode(r.getValue(ct.CODE));
+
+                                  batchProduct.setProduct(product);
+                              }
+                              if (null != batchProduct.getParkId()){
+                                  CorpPark corpPark = new CorpPark();
+                                  corpPark.setId(batchProduct.getParkId());
+                                  corpPark.setName(r.getValue(pk.NAME));
+
+                                  batchProduct.setPark(corpPark);
                               }
                               return batchProduct;
 
