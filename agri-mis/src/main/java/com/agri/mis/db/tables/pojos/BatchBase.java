@@ -5,6 +5,7 @@ package com.agri.mis.db.tables.pojos;
 
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 
 /**
@@ -19,6 +20,11 @@ public class BatchBase implements Serializable {
     private Long batchId;
     private Long parkBaseId;
     private Double area;
+    private Double quantity;
+    private String description;
+    private LocalDateTime createdAt;
+    private Long corpId;
+    private String imageUrl;
 
     public BatchBase() {}
 
@@ -27,18 +33,33 @@ public class BatchBase implements Serializable {
         this.batchId = value.batchId;
         this.parkBaseId = value.parkBaseId;
         this.area = value.area;
+        this.quantity = value.quantity;
+        this.description = value.description;
+        this.createdAt = value.createdAt;
+        this.corpId = value.corpId;
+        this.imageUrl = value.imageUrl;
     }
 
     public BatchBase(
         Long id,
         Long batchId,
         Long parkBaseId,
-        Double area
+        Double area,
+        Double quantity,
+        String description,
+        LocalDateTime createdAt,
+        Long corpId,
+        String imageUrl
     ) {
         this.id = id;
         this.batchId = batchId;
         this.parkBaseId = parkBaseId;
         this.area = area;
+        this.quantity = quantity;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.corpId = corpId;
+        this.imageUrl = imageUrl;
     }
 
     /**
@@ -101,6 +122,81 @@ public class BatchBase implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.batch_base.quantity</code>.
+     */
+    public Double getQuantity() {
+        return this.quantity;
+    }
+
+    /**
+     * Setter for <code>public.batch_base.quantity</code>.
+     */
+    public BatchBase setQuantity(Double quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_base.description</code>.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
+     * Setter for <code>public.batch_base.description</code>.
+     */
+    public BatchBase setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_base.created_at</code>.
+     */
+    public LocalDateTime getCreatedAt() {
+        return this.createdAt;
+    }
+
+    /**
+     * Setter for <code>public.batch_base.created_at</code>.
+     */
+    public BatchBase setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_base.corp_id</code>.
+     */
+    public Long getCorpId() {
+        return this.corpId;
+    }
+
+    /**
+     * Setter for <code>public.batch_base.corp_id</code>.
+     */
+    public BatchBase setCorpId(Long corpId) {
+        this.corpId = corpId;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_base.image_url</code>.
+     */
+    public String getImageUrl() {
+        return this.imageUrl;
+    }
+
+    /**
+     * Setter for <code>public.batch_base.image_url</code>.
+     */
+    public BatchBase setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -134,6 +230,36 @@ public class BatchBase implements Serializable {
         }
         else if (!this.area.equals(other.area))
             return false;
+        if (this.quantity == null) {
+            if (other.quantity != null)
+                return false;
+        }
+        else if (!this.quantity.equals(other.quantity))
+            return false;
+        if (this.description == null) {
+            if (other.description != null)
+                return false;
+        }
+        else if (!this.description.equals(other.description))
+            return false;
+        if (this.createdAt == null) {
+            if (other.createdAt != null)
+                return false;
+        }
+        else if (!this.createdAt.equals(other.createdAt))
+            return false;
+        if (this.corpId == null) {
+            if (other.corpId != null)
+                return false;
+        }
+        else if (!this.corpId.equals(other.corpId))
+            return false;
+        if (this.imageUrl == null) {
+            if (other.imageUrl != null)
+                return false;
+        }
+        else if (!this.imageUrl.equals(other.imageUrl))
+            return false;
         return true;
     }
 
@@ -145,6 +271,11 @@ public class BatchBase implements Serializable {
         result = prime * result + ((this.batchId == null) ? 0 : this.batchId.hashCode());
         result = prime * result + ((this.parkBaseId == null) ? 0 : this.parkBaseId.hashCode());
         result = prime * result + ((this.area == null) ? 0 : this.area.hashCode());
+        result = prime * result + ((this.quantity == null) ? 0 : this.quantity.hashCode());
+        result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+        result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
+        result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
+        result = prime * result + ((this.imageUrl == null) ? 0 : this.imageUrl.hashCode());
         return result;
     }
 
@@ -156,6 +287,11 @@ public class BatchBase implements Serializable {
         sb.append(", ").append(batchId);
         sb.append(", ").append(parkBaseId);
         sb.append(", ").append(area);
+        sb.append(", ").append(quantity);
+        sb.append(", ").append(description);
+        sb.append(", ").append(createdAt);
+        sb.append(", ").append(corpId);
+        sb.append(", ").append(imageUrl);
 
         sb.append(")");
         return sb.toString();

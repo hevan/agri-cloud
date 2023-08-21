@@ -9,9 +9,9 @@ import org.springframework.data.mongodb.gridfs.ReactiveGridFsTemplate;
 @Configuration
 class GridFsConfiguration {
 
+
     @Bean
     public ReactiveGridFsTemplate reactiveGridFsTemplate(ReactiveMongoDatabaseFactory reactiveMongoDbFactory, MappingMongoConverter mappingMongoConverter) {
         return new ReactiveGridFsTemplate(reactiveMongoDbFactory, mappingMongoConverter);
     }
-
 }

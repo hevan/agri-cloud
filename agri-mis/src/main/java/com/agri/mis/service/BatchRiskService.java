@@ -31,6 +31,10 @@ public class BatchRiskService {
         return batchRiskRepository.findById(id);
     }
 
+    public Flux<BatchRisk> findAllByBatchId(Long batchId){
+        return batchRiskRepository.findAllByBatchId(batchId);
+    }
+
     public Mono<BatchRisk> add(BatchRisk batchRisk){
         return batchRiskRepository.save(batchRisk);
     }
@@ -65,11 +69,12 @@ public class BatchRiskService {
 
         var dataSql = dslContext.select(
                 br.ID,
+                br.NAME,
                 br.PRODUCT_ID,
                 br.BATCH_ID,
                 br.CYCLE_NAME,
                 br.RISK_CATEGORY,
-                br.DISCRIPTION,
+                br.DESCRIPTION,
                 br.SOLUTION,
                 br.FEE_AMOUNT,
                 br.CREATED_USER_ID,
@@ -90,22 +95,23 @@ public class BatchRiskService {
                 Flux.from(dataSql)
                         .map(
                                 r->{
-                                    BatchRisk batchRisk = new BatchRisk(
-                                            r.getValue(br.ID),
-                                            r.getValue(br.PRODUCT_ID),
-                                            r.getValue(br.BATCH_ID),
-                                            r.getValue(br.CYCLE_NAME),
-                                            r.getValue(br.RISK_CATEGORY),
-                                            r.getValue(br.DISCRIPTION),
-                                            r.getValue(br.SOLUTION),
-                                            r.getValue(br.FEE_AMOUNT),
-                                            r.getValue(br.CREATED_USER_ID),
-                                            r.getValue(br.CREATED_BY),
-                                            r.getValue(br.OCCUR_DATE),
-                                            r.getValue(br.CREATED_AT),
-                                            r.getValue(br.CORP_ID),
-                                            null
-                                    );
+                                    BatchRisk batchRisk = new BatchRisk();
+                                    batchRisk.setId(r.getValue(br.ID));
+                                    batchRisk.setProductId(r.getValue(br.PRODUCT_ID));
+                                    batchRisk.setBatchId(r.getValue(br.BATCH_ID));
+                                    batchRisk.setCycleName(r.getValue(br.CYCLE_NAME));
+                                    batchRisk.setRiskCategory(r.getValue(br.RISK_CATEGORY));
+                                    batchRisk.setDescription(r.getValue(br.DESCRIPTION));
+                                    batchRisk.setSolution(r.getValue(br.SOLUTION));
+                                    batchRisk.setFeeAmount(r.getValue(br.FEE_AMOUNT));
+
+                                    batchRisk.setCreatedUserId(r.getValue(br.CREATED_USER_ID));
+                                    batchRisk.setCreatedBy(r.getValue(br.CREATED_BY));
+
+                                    batchRisk.setOccurDate(r.getValue(br.OCCUR_DATE));
+                                    batchRisk.setCreatedAt(r.getValue(br.CREATED_AT));
+                                    batchRisk.setCorpId(r.getValue(br.CORP_ID));
+
                                     if(null!=batchRisk.getBatchId()){
                                         BatchProduct batchProduct = new BatchProduct();
                                         batchProduct.setId( batchRisk.getBatchId());

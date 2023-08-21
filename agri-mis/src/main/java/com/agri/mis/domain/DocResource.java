@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -22,13 +24,17 @@ public class DocResource {
     private String docExt;//详细的文档
     private String docUrl;
     private String showImage;
-    private String category;//业务
+    private String groupName;//业务
     private Long entityId;
     private String entityName;
     private Long corpId;
-    private Long userId;
+    private Long createdUserId;
 
+    @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDateTime createdAt;
+
+    @Transient
+    private User createdUser;
 }

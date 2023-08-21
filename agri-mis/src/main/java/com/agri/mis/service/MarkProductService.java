@@ -2,7 +2,6 @@ package com.agri.mis.service;
 
 import com.agri.mis.domain.MarkCategory;
 import com.agri.mis.domain.MarkProduct;
-import com.agri.mis.dto.MarkProductWithCategory;
 import com.agri.mis.repository.MarkProductRepository;
 
 import org.jooq.Condition;
@@ -47,14 +46,14 @@ public class MarkProductService {
         return markProductRepositry.delete(markProduct);
     }
 
-    public Mono<Page<MarkProductWithCategory>> pageQuery(String name, PageRequest pageRequest){
+    public Mono<Page<MarkProduct>> pageQuery(MarkProduct markProductParam , PageRequest pageRequest){
         com.agri.mis.db.tables.MarkProduct mp = com.agri.mis.db.tables.MarkProduct.MARK_PRODUCT;
         com.agri.mis.db.tables.MarkCategory ct = com.agri.mis.db.tables.MarkCategory.MARK_CATEGORY;
 
         Condition where = DSL.trueCondition();
 
-        if(StringUtils.hasLength(name)){
-            where = where.and(mp.NAME.like("%"+name+"%"));
+        if(StringUtils.hasLength(markProductParam.getName())){
+            where = where.and(mp.NAME.like("%"+markProductParam.getName()+"%"));
         }
         var dataSql =  context.select(
                 mp.ID,
@@ -76,19 +75,26 @@ public class MarkProductService {
                 .where(where);
         return Mono.zip(Flux.from(dataSql)
                 .map(r->{
-                    MarkProduct markProduct = new MarkProduct(
-                            r.getValue(mp.ID),r.getValue(mp.NAME),r.getValue(mp.CODE),r.getValue(mp.CATEGORY_ID),
-                            r.getValue(mp.IMAGE_URL),r.getValue(mp.CALC_UNIT),r.getValue(mp.DESCRIPTION)
-                    );
-                    if(null!=markProduct.getId()){
-                        MarkCategory category1 = new MarkCategory(r.getValue(ct.ID),r.getValue(ct.NAME),
-                                r.getValue(ct.IMAGE_URL),r.getValue(ct.PARENT_ID)
-                                );
-                        return new MarkProductWithCategory(markProduct,category1);
-                    }else{
-                        return new MarkProductWithCategory(markProduct,null);
+                    MarkProduct markProduct = new MarkProduct();
+                    markProduct.setId(r.getValue(mp.ID));
+                    markProduct.setCode(r.getValue(mp.CODE));
+                    markProduct.setName(r.getValue(mp.NAME));
+                    markProduct.setCalcUnit(r.getValue(mp.CALC_UNIT));
+                    markProduct.setCategoryId(r.getValue(mp.CATEGORY_ID));
+                    markProduct.setImageUrl(r.getValue(mp.IMAGE_URL));
+                    markProduct.setDescription(r.getValue(mp.DESCRIPTION));
+
+
+                    if(null!=markProduct.getCategoryId()) {
+                        MarkCategory category1 = new MarkCategory();
+                        category1.setId(r.getValue(ct.ID));
+                        category1.setImageUrl(r.getValue(ct.IMAGE_URL));
+                        category1.setName(r.getValue(ct.NAME));
+                        category1.setParentId(r.getValue(ct.PARENT_ID));
+                        markProduct.setMarkCategory(category1);
                     }
 
+                    return markProduct;
                 }).collectList(),Mono.from(countSql).map(Record1::value1))
                 .map(it -> new PageImpl<>(it.getT1(),pageRequest,it.getT2()));
     }

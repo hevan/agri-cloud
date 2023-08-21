@@ -9,19 +9,18 @@ import com.agri.mis.db.tables.AuthorizationConsent;
 import com.agri.mis.db.tables.BatchBase;
 import com.agri.mis.db.tables.BatchCycle;
 import com.agri.mis.db.tables.BatchCycleExecute;
-import com.agri.mis.db.tables.BatchCycleExpense;
-import com.agri.mis.db.tables.BatchCycleExpenseItem;
+import com.agri.mis.db.tables.BatchCycleInvest;
 import com.agri.mis.db.tables.BatchProduct;
 import com.agri.mis.db.tables.BatchRisk;
 import com.agri.mis.db.tables.BatchTeam;
 import com.agri.mis.db.tables.Category;
-import com.agri.mis.db.tables.CheckTemp;
-import com.agri.mis.db.tables.CheckTempItem;
+import com.agri.mis.db.tables.CheckApply;
 import com.agri.mis.db.tables.CheckTrace;
+import com.agri.mis.db.tables.City;
 import com.agri.mis.db.tables.CmsBlog;
 import com.agri.mis.db.tables.CmsCategory;
-import com.agri.mis.db.tables.CmsResource;
 import com.agri.mis.db.tables.CmsTag;
+import com.agri.mis.db.tables.CmsUserActive;
 import com.agri.mis.db.tables.Corp;
 import com.agri.mis.db.tables.CorpDepart;
 import com.agri.mis.db.tables.CorpManager;
@@ -32,42 +31,44 @@ import com.agri.mis.db.tables.CorpParkBase;
 import com.agri.mis.db.tables.CorpRole;
 import com.agri.mis.db.tables.CorpRoleMenu;
 import com.agri.mis.db.tables.Customer;
+import com.agri.mis.db.tables.CustomerContract;
 import com.agri.mis.db.tables.CustomerLink;
 import com.agri.mis.db.tables.CustomerTrace;
+import com.agri.mis.db.tables.DeliveryOrder;
+import com.agri.mis.db.tables.DeliveryOrderItem;
 import com.agri.mis.db.tables.DocResource;
+import com.agri.mis.db.tables.EntryOrder;
+import com.agri.mis.db.tables.EntryOrderItem;
+import com.agri.mis.db.tables.FinanceExpense;
+import com.agri.mis.db.tables.FinanceExpenseItem;
 import com.agri.mis.db.tables.MarkCategory;
 import com.agri.mis.db.tables.MarkMarket;
 import com.agri.mis.db.tables.MarkProduct;
-import com.agri.mis.db.tables.MarkProductBatch;
-import com.agri.mis.db.tables.MarkProductCycle;
-import com.agri.mis.db.tables.MarkProductCycleExpense;
 import com.agri.mis.db.tables.MarkProductMarket;
-import com.agri.mis.db.tables.MarkProductRisk;
 import com.agri.mis.db.tables.MisAccountBill;
 import com.agri.mis.db.tables.MisAccountTitle;
 import com.agri.mis.db.tables.MisBankAccount;
-import com.agri.mis.db.tables.MisContract;
 import com.agri.mis.db.tables.MisProductionOrder;
 import com.agri.mis.db.tables.MisProductionOrderItem;
-import com.agri.mis.db.tables.MisPurchaseOrder;
-import com.agri.mis.db.tables.MisPurchaseOrderItem;
-import com.agri.mis.db.tables.MisSaleOrder;
-import com.agri.mis.db.tables.MisSaleOrderItem;
-import com.agri.mis.db.tables.MisStock;
-import com.agri.mis.db.tables.MisStockItem;
 import com.agri.mis.db.tables.MisStockPlace;
 import com.agri.mis.db.tables.MisStockPlaceItem;
 import com.agri.mis.db.tables.MisStockPlaceItemSub;
-import com.agri.mis.db.tables.MisStore;
-import com.agri.mis.db.tables.MisStoreItem;
 import com.agri.mis.db.tables.Oauth2Authorization;
 import com.agri.mis.db.tables.Oauth2RegisteredClient;
+import com.agri.mis.db.tables.PlanPark;
 import com.agri.mis.db.tables.Product;
+import com.agri.mis.db.tables.PurchaseOrder;
+import com.agri.mis.db.tables.PurchaseOrderItem;
+import com.agri.mis.db.tables.SaleOrder;
+import com.agri.mis.db.tables.SaleOrderItem;
+import com.agri.mis.db.tables.SurveyPlantHouse;
+import com.agri.mis.db.tables.SurveyStoreHouse;
 import com.agri.mis.db.tables.SysConst;
 import com.agri.mis.db.tables.SysConstItem;
 import com.agri.mis.db.tables.SysMenu;
 import com.agri.mis.db.tables.SysMenuAction;
 import com.agri.mis.db.tables.Users;
+import com.agri.mis.db.tables.Warehouse;
 
 import java.util.Arrays;
 import java.util.List;
@@ -117,14 +118,9 @@ public class Public extends SchemaImpl {
     public final BatchCycleExecute BATCH_CYCLE_EXECUTE = BatchCycleExecute.BATCH_CYCLE_EXECUTE;
 
     /**
-     * The table <code>public.batch_cycle_expense</code>.
+     * The table <code>public.batch_cycle_invest</code>.
      */
-    public final BatchCycleExpense BATCH_CYCLE_EXPENSE = BatchCycleExpense.BATCH_CYCLE_EXPENSE;
-
-    /**
-     * The table <code>public.batch_cycle_expense_item</code>.
-     */
-    public final BatchCycleExpenseItem BATCH_CYCLE_EXPENSE_ITEM = BatchCycleExpenseItem.BATCH_CYCLE_EXPENSE_ITEM;
+    public final BatchCycleInvest BATCH_CYCLE_INVEST = BatchCycleInvest.BATCH_CYCLE_INVEST;
 
     /**
      * The table <code>public.batch_product</code>.
@@ -147,19 +143,19 @@ public class Public extends SchemaImpl {
     public final Category CATEGORY = Category.CATEGORY;
 
     /**
-     * The table <code>public.check_temp</code>.
+     * The table <code>public.check_apply</code>.
      */
-    public final CheckTemp CHECK_TEMP = CheckTemp.CHECK_TEMP;
-
-    /**
-     * The table <code>public.check_temp_item</code>.
-     */
-    public final CheckTempItem CHECK_TEMP_ITEM = CheckTempItem.CHECK_TEMP_ITEM;
+    public final CheckApply CHECK_APPLY = CheckApply.CHECK_APPLY;
 
     /**
      * The table <code>public.check_trace</code>.
      */
     public final CheckTrace CHECK_TRACE = CheckTrace.CHECK_TRACE;
+
+    /**
+     * The table <code>public.city</code>.
+     */
+    public final City CITY = City.CITY;
 
     /**
      * The table <code>public.cms_blog</code>.
@@ -172,14 +168,14 @@ public class Public extends SchemaImpl {
     public final CmsCategory CMS_CATEGORY = CmsCategory.CMS_CATEGORY;
 
     /**
-     * The table <code>public.cms_resource</code>.
-     */
-    public final CmsResource CMS_RESOURCE = CmsResource.CMS_RESOURCE;
-
-    /**
      * The table <code>public.cms_tag</code>.
      */
     public final CmsTag CMS_TAG = CmsTag.CMS_TAG;
+
+    /**
+     * The table <code>public.cms_user_active</code>.
+     */
+    public final CmsUserActive CMS_USER_ACTIVE = CmsUserActive.CMS_USER_ACTIVE;
 
     /**
      * The table <code>public.corp</code>.
@@ -232,6 +228,11 @@ public class Public extends SchemaImpl {
     public final Customer CUSTOMER = Customer.CUSTOMER;
 
     /**
+     * The table <code>public.customer_contract</code>.
+     */
+    public final CustomerContract CUSTOMER_CONTRACT = CustomerContract.CUSTOMER_CONTRACT;
+
+    /**
      * The table <code>public.customer_link</code>.
      */
     public final CustomerLink CUSTOMER_LINK = CustomerLink.CUSTOMER_LINK;
@@ -242,9 +243,39 @@ public class Public extends SchemaImpl {
     public final CustomerTrace CUSTOMER_TRACE = CustomerTrace.CUSTOMER_TRACE;
 
     /**
+     * The table <code>public.delivery_order</code>.
+     */
+    public final DeliveryOrder DELIVERY_ORDER = DeliveryOrder.DELIVERY_ORDER;
+
+    /**
+     * The table <code>public.delivery_order_item</code>.
+     */
+    public final DeliveryOrderItem DELIVERY_ORDER_ITEM = DeliveryOrderItem.DELIVERY_ORDER_ITEM;
+
+    /**
      * The table <code>public.doc_resource</code>.
      */
     public final DocResource DOC_RESOURCE = DocResource.DOC_RESOURCE;
+
+    /**
+     * The table <code>public.entry_order</code>.
+     */
+    public final EntryOrder ENTRY_ORDER = EntryOrder.ENTRY_ORDER;
+
+    /**
+     * The table <code>public.entry_order_item</code>.
+     */
+    public final EntryOrderItem ENTRY_ORDER_ITEM = EntryOrderItem.ENTRY_ORDER_ITEM;
+
+    /**
+     * The table <code>public.finance_expense</code>.
+     */
+    public final FinanceExpense FINANCE_EXPENSE = FinanceExpense.FINANCE_EXPENSE;
+
+    /**
+     * The table <code>public.finance_expense_item</code>.
+     */
+    public final FinanceExpenseItem FINANCE_EXPENSE_ITEM = FinanceExpenseItem.FINANCE_EXPENSE_ITEM;
 
     /**
      * The table <code>public.mark_category</code>.
@@ -262,29 +293,9 @@ public class Public extends SchemaImpl {
     public final MarkProduct MARK_PRODUCT = MarkProduct.MARK_PRODUCT;
 
     /**
-     * The table <code>public.mark_product_batch</code>.
-     */
-    public final MarkProductBatch MARK_PRODUCT_BATCH = MarkProductBatch.MARK_PRODUCT_BATCH;
-
-    /**
-     * The table <code>public.mark_product_cycle</code>.
-     */
-    public final MarkProductCycle MARK_PRODUCT_CYCLE = MarkProductCycle.MARK_PRODUCT_CYCLE;
-
-    /**
-     * The table <code>public.mark_product_cycle_expense</code>.
-     */
-    public final MarkProductCycleExpense MARK_PRODUCT_CYCLE_EXPENSE = MarkProductCycleExpense.MARK_PRODUCT_CYCLE_EXPENSE;
-
-    /**
      * The table <code>public.mark_product_market</code>.
      */
     public final MarkProductMarket MARK_PRODUCT_MARKET = MarkProductMarket.MARK_PRODUCT_MARKET;
-
-    /**
-     * The table <code>public.mark_product_risk</code>.
-     */
-    public final MarkProductRisk MARK_PRODUCT_RISK = MarkProductRisk.MARK_PRODUCT_RISK;
 
     /**
      * The table <code>public.mis_account_bill</code>.
@@ -302,11 +313,6 @@ public class Public extends SchemaImpl {
     public final MisBankAccount MIS_BANK_ACCOUNT = MisBankAccount.MIS_BANK_ACCOUNT;
 
     /**
-     * The table <code>public.mis_contract</code>.
-     */
-    public final MisContract MIS_CONTRACT = MisContract.MIS_CONTRACT;
-
-    /**
      * The table <code>public.mis_production_order</code>.
      */
     public final MisProductionOrder MIS_PRODUCTION_ORDER = MisProductionOrder.MIS_PRODUCTION_ORDER;
@@ -315,36 +321,6 @@ public class Public extends SchemaImpl {
      * The table <code>public.mis_production_order_item</code>.
      */
     public final MisProductionOrderItem MIS_PRODUCTION_ORDER_ITEM = MisProductionOrderItem.MIS_PRODUCTION_ORDER_ITEM;
-
-    /**
-     * The table <code>public.mis_purchase_order</code>.
-     */
-    public final MisPurchaseOrder MIS_PURCHASE_ORDER = MisPurchaseOrder.MIS_PURCHASE_ORDER;
-
-    /**
-     * The table <code>public.mis_purchase_order_item</code>.
-     */
-    public final MisPurchaseOrderItem MIS_PURCHASE_ORDER_ITEM = MisPurchaseOrderItem.MIS_PURCHASE_ORDER_ITEM;
-
-    /**
-     * The table <code>public.mis_sale_order</code>.
-     */
-    public final MisSaleOrder MIS_SALE_ORDER = MisSaleOrder.MIS_SALE_ORDER;
-
-    /**
-     * The table <code>public.mis_sale_order_item</code>.
-     */
-    public final MisSaleOrderItem MIS_SALE_ORDER_ITEM = MisSaleOrderItem.MIS_SALE_ORDER_ITEM;
-
-    /**
-     * The table <code>public.mis_stock</code>.
-     */
-    public final MisStock MIS_STOCK = MisStock.MIS_STOCK;
-
-    /**
-     * The table <code>public.mis_stock_item</code>.
-     */
-    public final MisStockItem MIS_STOCK_ITEM = MisStockItem.MIS_STOCK_ITEM;
 
     /**
      * The table <code>public.mis_stock_place</code>.
@@ -362,16 +338,6 @@ public class Public extends SchemaImpl {
     public final MisStockPlaceItemSub MIS_STOCK_PLACE_ITEM_SUB = MisStockPlaceItemSub.MIS_STOCK_PLACE_ITEM_SUB;
 
     /**
-     * The table <code>public.mis_store</code>.
-     */
-    public final MisStore MIS_STORE = MisStore.MIS_STORE;
-
-    /**
-     * The table <code>public.mis_store_item</code>.
-     */
-    public final MisStoreItem MIS_STORE_ITEM = MisStoreItem.MIS_STORE_ITEM;
-
-    /**
      * The table <code>public.oauth2_authorization</code>.
      */
     public final Oauth2Authorization OAUTH2_AUTHORIZATION = Oauth2Authorization.OAUTH2_AUTHORIZATION;
@@ -382,9 +348,44 @@ public class Public extends SchemaImpl {
     public final Oauth2RegisteredClient OAUTH2_REGISTERED_CLIENT = Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT;
 
     /**
+     * The table <code>public.plan_park</code>.
+     */
+    public final PlanPark PLAN_PARK = PlanPark.PLAN_PARK;
+
+    /**
      * The table <code>public.product</code>.
      */
     public final Product PRODUCT = Product.PRODUCT;
+
+    /**
+     * The table <code>public.purchase_order</code>.
+     */
+    public final PurchaseOrder PURCHASE_ORDER = PurchaseOrder.PURCHASE_ORDER;
+
+    /**
+     * The table <code>public.purchase_order_item</code>.
+     */
+    public final PurchaseOrderItem PURCHASE_ORDER_ITEM = PurchaseOrderItem.PURCHASE_ORDER_ITEM;
+
+    /**
+     * The table <code>public.sale_order</code>.
+     */
+    public final SaleOrder SALE_ORDER = SaleOrder.SALE_ORDER;
+
+    /**
+     * The table <code>public.sale_order_item</code>.
+     */
+    public final SaleOrderItem SALE_ORDER_ITEM = SaleOrderItem.SALE_ORDER_ITEM;
+
+    /**
+     * The table <code>public.survey_plant_house</code>.
+     */
+    public final SurveyPlantHouse SURVEY_PLANT_HOUSE = SurveyPlantHouse.SURVEY_PLANT_HOUSE;
+
+    /**
+     * The table <code>public.survey_store_house</code>.
+     */
+    public final SurveyStoreHouse SURVEY_STORE_HOUSE = SurveyStoreHouse.SURVEY_STORE_HOUSE;
 
     /**
      * The table <code>public.sys_const</code>.
@@ -412,6 +413,11 @@ public class Public extends SchemaImpl {
     public final Users USERS = Users.USERS;
 
     /**
+     * The table <code>public.warehouse</code>.
+     */
+    public final Warehouse WAREHOUSE = Warehouse.WAREHOUSE;
+
+    /**
      * No further instances allowed
      */
     private Public() {
@@ -429,31 +435,22 @@ public class Public extends SchemaImpl {
         return Arrays.asList(
             Sequences.ACCOUNT_PEND_ID_SEQ,
             Sequences.ACCOUNT_TITLE_ID_SEQ,
+            Sequences.BATCH_CYCLE_EXPENSE_ITEM_ID_SEQ,
             Sequences.BATCH_CYCLE_EXPENSE_SEQ,
-            Sequences.CHECK_PROCESS_ID_SEQ,
+            Sequences.CMS_RESOURCE_ID_SEQ,
             Sequences.CMS_VIDEO_ID_SEQ,
             Sequences.CONTRACT_ID_SEQ,
             Sequences.CORP_MANAGE_ID_SEQ,
+            Sequences.MARK_PRODUCT_BATCH_ID_SEQ,
             Sequences.MARKET_ID_SEQ,
             Sequences.MK_CATEGORY_ID_SEQ,
             Sequences.MK_PRODUCT_ID_SEQ,
             Sequences.PARK_BASE_ID_SEQ,
             Sequences.PARK_ID_SEQ,
             Sequences.PRODUCT_BATCH_ID_SEQ,
-            Sequences.PRODUCT_CYCLE_EXPENSE_ID_SEQ,
-            Sequences.PRODUCT_CYCLE_ID_SEQ,
             Sequences.PRODUCT_MARKET_ID_SEQ,
-            Sequences.PRODUCT_RISK_ID_SEQ,
             Sequences.PRODUCTION_ORDER_ID_SEQ,
             Sequences.PRODUCTION_ORDER_ITEM_ID_SEQ,
-            Sequences.PURCHASE_ORDER_ID_SEQ,
-            Sequences.PURCHASE_ORDER_ITEM_ID_SEQ,
-            Sequences.SALE_ORDER_ID_SEQ,
-            Sequences.SALE_ORDER_ITEM_ID_SEQ,
-            Sequences.STOCK_ID_SEQ,
-            Sequences.STOCK_ITEM_ID_SEQ,
-            Sequences.STORE_ID_SEQ,
-            Sequences.STORE_ITEM_ID_SEQ,
             Sequences.USER_DOCUMENT_ID_SEQ
         );
     }
@@ -466,19 +463,18 @@ public class Public extends SchemaImpl {
             BatchBase.BATCH_BASE,
             BatchCycle.BATCH_CYCLE,
             BatchCycleExecute.BATCH_CYCLE_EXECUTE,
-            BatchCycleExpense.BATCH_CYCLE_EXPENSE,
-            BatchCycleExpenseItem.BATCH_CYCLE_EXPENSE_ITEM,
+            BatchCycleInvest.BATCH_CYCLE_INVEST,
             BatchProduct.BATCH_PRODUCT,
             BatchRisk.BATCH_RISK,
             BatchTeam.BATCH_TEAM,
             Category.CATEGORY,
-            CheckTemp.CHECK_TEMP,
-            CheckTempItem.CHECK_TEMP_ITEM,
+            CheckApply.CHECK_APPLY,
             CheckTrace.CHECK_TRACE,
+            City.CITY,
             CmsBlog.CMS_BLOG,
             CmsCategory.CMS_CATEGORY,
-            CmsResource.CMS_RESOURCE,
             CmsTag.CMS_TAG,
+            CmsUserActive.CMS_USER_ACTIVE,
             Corp.CORP,
             CorpDepart.CORP_DEPART,
             CorpManager.CORP_MANAGER,
@@ -489,42 +485,44 @@ public class Public extends SchemaImpl {
             CorpRole.CORP_ROLE,
             CorpRoleMenu.CORP_ROLE_MENU,
             Customer.CUSTOMER,
+            CustomerContract.CUSTOMER_CONTRACT,
             CustomerLink.CUSTOMER_LINK,
             CustomerTrace.CUSTOMER_TRACE,
+            DeliveryOrder.DELIVERY_ORDER,
+            DeliveryOrderItem.DELIVERY_ORDER_ITEM,
             DocResource.DOC_RESOURCE,
+            EntryOrder.ENTRY_ORDER,
+            EntryOrderItem.ENTRY_ORDER_ITEM,
+            FinanceExpense.FINANCE_EXPENSE,
+            FinanceExpenseItem.FINANCE_EXPENSE_ITEM,
             MarkCategory.MARK_CATEGORY,
             MarkMarket.MARK_MARKET,
             MarkProduct.MARK_PRODUCT,
-            MarkProductBatch.MARK_PRODUCT_BATCH,
-            MarkProductCycle.MARK_PRODUCT_CYCLE,
-            MarkProductCycleExpense.MARK_PRODUCT_CYCLE_EXPENSE,
             MarkProductMarket.MARK_PRODUCT_MARKET,
-            MarkProductRisk.MARK_PRODUCT_RISK,
             MisAccountBill.MIS_ACCOUNT_BILL,
             MisAccountTitle.MIS_ACCOUNT_TITLE,
             MisBankAccount.MIS_BANK_ACCOUNT,
-            MisContract.MIS_CONTRACT,
             MisProductionOrder.MIS_PRODUCTION_ORDER,
             MisProductionOrderItem.MIS_PRODUCTION_ORDER_ITEM,
-            MisPurchaseOrder.MIS_PURCHASE_ORDER,
-            MisPurchaseOrderItem.MIS_PURCHASE_ORDER_ITEM,
-            MisSaleOrder.MIS_SALE_ORDER,
-            MisSaleOrderItem.MIS_SALE_ORDER_ITEM,
-            MisStock.MIS_STOCK,
-            MisStockItem.MIS_STOCK_ITEM,
             MisStockPlace.MIS_STOCK_PLACE,
             MisStockPlaceItem.MIS_STOCK_PLACE_ITEM,
             MisStockPlaceItemSub.MIS_STOCK_PLACE_ITEM_SUB,
-            MisStore.MIS_STORE,
-            MisStoreItem.MIS_STORE_ITEM,
             Oauth2Authorization.OAUTH2_AUTHORIZATION,
             Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT,
+            PlanPark.PLAN_PARK,
             Product.PRODUCT,
+            PurchaseOrder.PURCHASE_ORDER,
+            PurchaseOrderItem.PURCHASE_ORDER_ITEM,
+            SaleOrder.SALE_ORDER,
+            SaleOrderItem.SALE_ORDER_ITEM,
+            SurveyPlantHouse.SURVEY_PLANT_HOUSE,
+            SurveyStoreHouse.SURVEY_STORE_HOUSE,
             SysConst.SYS_CONST,
             SysConstItem.SYS_CONST_ITEM,
             SysMenu.SYS_MENU,
             SysMenuAction.SYS_MENU_ACTION,
-            Users.USERS
+            Users.USERS,
+            Warehouse.WAREHOUSE
         );
     }
 }

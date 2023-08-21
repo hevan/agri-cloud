@@ -48,9 +48,14 @@ public class UserService {
             user.setPassword("123456");
         }
 
+        if(!StringUtils.hasLength(user.getNickName())){
+            user.setNickName("用户" + user.getMobile().substring(7));
+        }
+
         user.setSignText(AESUtil.AESEncode("agri", user.getPassword() ));
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreatedAt(LocalDateTime.now());
+        user.setEnabled(true);
 
         return userRepository.findByMobile(user.getMobile()).flatMap(exists -> (null == exists) ? Mono.error(new RuntimeException("用户已经存在")) : userRepository.save(user));
     }

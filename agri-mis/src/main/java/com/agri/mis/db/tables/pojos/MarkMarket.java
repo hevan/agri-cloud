@@ -17,28 +17,28 @@ public class MarkMarket implements Serializable {
 
     private Long id;
     private String name;
-    private Long categoryId;
     private Long addressId;
+    private String marketType;
 
     public MarkMarket() {}
 
     public MarkMarket(MarkMarket value) {
         this.id = value.id;
         this.name = value.name;
-        this.categoryId = value.categoryId;
         this.addressId = value.addressId;
+        this.marketType = value.marketType;
     }
 
     public MarkMarket(
         Long id,
         String name,
-        Long categoryId,
-        Long addressId
+        Long addressId,
+        String marketType
     ) {
         this.id = id;
         this.name = name;
-        this.categoryId = categoryId;
         this.addressId = addressId;
+        this.marketType = marketType;
     }
 
     /**
@@ -72,21 +72,6 @@ public class MarkMarket implements Serializable {
     }
 
     /**
-     * Getter for <code>public.mark_market.category_id</code>.
-     */
-    public Long getCategoryId() {
-        return this.categoryId;
-    }
-
-    /**
-     * Setter for <code>public.mark_market.category_id</code>.
-     */
-    public MarkMarket setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-        return this;
-    }
-
-    /**
      * Getter for <code>public.mark_market.address_id</code>.
      */
     public Long getAddressId() {
@@ -98,6 +83,21 @@ public class MarkMarket implements Serializable {
      */
     public MarkMarket setAddressId(Long addressId) {
         this.addressId = addressId;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.mark_market.market_type</code>.
+     */
+    public String getMarketType() {
+        return this.marketType;
+    }
+
+    /**
+     * Setter for <code>public.mark_market.market_type</code>.
+     */
+    public MarkMarket setMarketType(String marketType) {
+        this.marketType = marketType;
         return this;
     }
 
@@ -122,17 +122,17 @@ public class MarkMarket implements Serializable {
         }
         else if (!this.name.equals(other.name))
             return false;
-        if (this.categoryId == null) {
-            if (other.categoryId != null)
-                return false;
-        }
-        else if (!this.categoryId.equals(other.categoryId))
-            return false;
         if (this.addressId == null) {
             if (other.addressId != null)
                 return false;
         }
         else if (!this.addressId.equals(other.addressId))
+            return false;
+        if (this.marketType == null) {
+            if (other.marketType != null)
+                return false;
+        }
+        else if (!this.marketType.equals(other.marketType))
             return false;
         return true;
     }
@@ -143,8 +143,8 @@ public class MarkMarket implements Serializable {
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
-        result = prime * result + ((this.categoryId == null) ? 0 : this.categoryId.hashCode());
         result = prime * result + ((this.addressId == null) ? 0 : this.addressId.hashCode());
+        result = prime * result + ((this.marketType == null) ? 0 : this.marketType.hashCode());
         return result;
     }
 
@@ -154,8 +154,8 @@ public class MarkMarket implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(name);
-        sb.append(", ").append(categoryId);
         sb.append(", ").append(addressId);
+        sb.append(", ").append(marketType);
 
         sb.append(")");
         return sb.toString();

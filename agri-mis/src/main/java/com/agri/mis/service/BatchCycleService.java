@@ -7,7 +7,6 @@ import com.agri.mis.repository.BatchCycleRepository;
 import lombok.val;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
-import org.jooq.Field;
 import org.jooq.Record1;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
@@ -19,8 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.time.OffsetDateTime;
 
 @Service
 public class BatchCycleService {
@@ -36,15 +33,37 @@ public class BatchCycleService {
         return batchCycleRepository.findById(id);
     }
 
+    public Flux<BatchCycle> findAllByBatchId(Long batchId) {
+        return batchCycleRepository.findAllByBatchId(batchId);
+    }
+
+    public Flux<BatchCycle> findAllByParentId(Long parentId) {
+        return batchCycleRepository.findAllByParentId(parentId);
+    }
+
     // 分页查询
-    public Mono<Page<BatchCycle>> pageQuery(String name, PageRequest pageRequest) {
+    public Mono<Page<BatchCycle>> pageQuery(BatchCycle batchCycleParam, PageRequest pageRequest) {
 
         com.agri.mis.db.tables.BatchCycle bc = com.agri.mis.db.tables.BatchCycle.BATCH_CYCLE;
         com.agri.mis.db.tables.BatchProduct bp = com.agri.mis.db.tables.BatchProduct.BATCH_PRODUCT;
         Condition where = DSL.trueCondition();
-        if (StringUtils.hasLength(name)) {
-            where = where.and(bc.NAME.like("%" + name + "%"));
+
+        if (null != batchCycleParam.getBatchId()) {
+            where = where.and(bc.BATCH_ID.eq(batchCycleParam.getBatchId()));
         }
+
+        if (null != batchCycleParam.getCreatedUserId()) {
+            where = where.and(bc.CREATED_USER_ID.eq(batchCycleParam.getCreatedUserId()));
+        }
+
+        if (null != batchCycleParam.getCorpId()) {
+            where = where.and(bc.CORP_ID.eq(batchCycleParam.getCorpId()));
+        }
+
+        if (null != batchCycleParam.getStatus()) {
+            where = where.and(bc.STATUS.eq(batchCycleParam.getStatus()));
+        }
+
         var dataSql = dslContext.select(
                 bc.ID,
                 bc.NAME,
@@ -55,7 +74,7 @@ public class BatchCycleService {
                 bc.END_AT,
                 bc.BATCH_ID,
                 bc.STATUS,
-                bc.PARENT_ID, bc.PROGRESS, bc.CREATED_USER_ID, bc.CREATED_BY, bc.CREATED_AT, bc.CYCLE_TYPE,
+                bc.PARENT_ID, bc.PROGRESS, bc.INVEST_ESTIMATED, bc.CREATED_USER_ID, bc.CREATED_AT, bc.CYCLE_TYPE, bc.CORP_ID,
                 bp.ID,
                 bp.NAME,
                 bp.CODE
@@ -66,22 +85,24 @@ public class BatchCycleService {
                 .where(where);
         return Mono.zip(
                 Flux.from(dataSql).map(r -> {
-                    BatchCycle batchCycle = new BatchCycle(
-                            r.getValue(bc.ID),
-                            r.getValue(bc.NAME),
-                            r.getValue(bc.DESCRIPTION),
-                            r.getValue(bc.IMAGE_URL),
-                            r.getValue(bc.DAYS),
-                            r.getValue(bc.START_AT),
-                            r.getValue(bc.END_AT),
-                            r.getValue(bc.BATCH_ID),
-                            r.getValue(bc.STATUS),
-                            r.getValue(bc.PARENT_ID),
-                            r.getValue(bc.PROGRESS),
-                            r.getValue(bc.CREATED_USER_ID),
-                            r.getValue(bc.CREATED_BY),
-                            r.getValue( bc.CREATED_AT),
-                            r.getValue(bc.CYCLE_TYPE),null);
+                    BatchCycle batchCycle = new BatchCycle();
+
+                    batchCycle.setId(r.getValue(bc.ID));
+                    batchCycle.setName(r.getValue(bc.NAME));
+                    batchCycle.setDescription(r.getValue(bc.DESCRIPTION));
+                    batchCycle.setImageUrl(r.getValue(bc.IMAGE_URL));
+                    batchCycle.setDays(r.getValue(bc.DAYS));
+                    batchCycle.setStartAt(r.getValue(bc.START_AT));
+                    batchCycle.setEndAt(r.getValue(bc.END_AT));
+                    batchCycle.setBatchId(r.getValue(bc.BATCH_ID));
+                    batchCycle.setStatus(r.getValue(bc.STATUS));
+                    batchCycle.setInvestEstimated(r.getValue(bc.INVEST_ESTIMATED));
+                    batchCycle.setParentId(r.getValue(bc.PARENT_ID));
+                    batchCycle.setProgress(r.getValue(bc.PROGRESS));
+                    batchCycle.setCreatedUserId(r.getValue(bc.CREATED_USER_ID));
+                    batchCycle.setCreatedAt(r.getValue( bc.CREATED_AT));
+                    batchCycle.setCycleType(r.getValue(bc.CYCLE_TYPE));
+                    batchCycle.setCorpId(r.getValue(bc.CORP_ID));
 
                     if (null != batchCycle.getBatchId()) {
                         BatchProduct batchProduct = new BatchProduct();
@@ -97,15 +118,17 @@ public class BatchCycleService {
     }
 
 
-
-
     // 根据id删除数据
     public Mono<Void> delete(BatchCycle batchCycle) {
-        return batchCycleRepository.delete(batchCycle);
+
+        return batchCycleRepository.delete(batchCycle).flatMap(s->{
+             return batchCycleRepository.deleteAllByParentId(batchCycle.getId());
+        });
     }
 
      // 添加数据
     public Mono<BatchCycle> add(BatchCycle batchCycle) {
+        batchCycle.setEndAt(batchCycle.getStartAt().plusDays(batchCycle.getDays()));
         return batchCycleRepository.save(batchCycle);
     }
 

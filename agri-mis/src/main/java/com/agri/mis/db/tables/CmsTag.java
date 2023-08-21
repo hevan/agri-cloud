@@ -12,12 +12,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function2;
+import org.jooq.Function3;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row2;
+import org.jooq.Row3;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -59,6 +59,11 @@ public class CmsTag extends TableImpl<CmsTagRecord> {
      * The column <code>public.cms_tag.name</code>.
      */
     public final TableField<CmsTagRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(50).nullable(false), this, "");
+
+    /**
+     * The column <code>public.cms_tag.corp_id</code>.
+     */
+    public final TableField<CmsTagRecord, Long> CORP_ID = createField(DSL.name("corp_id"), SQLDataType.BIGINT, this, "");
 
     private CmsTag(Name alias, Table<CmsTagRecord> aliased) {
         this(alias, aliased, null);
@@ -148,18 +153,18 @@ public class CmsTag extends TableImpl<CmsTagRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row2 type methods
+    // Row3 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row2<Long, String> fieldsRow() {
-        return (Row2) super.fieldsRow();
+    public Row3<Long, String, Long> fieldsRow() {
+        return (Row3) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function2<? super Long, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function3<? super Long, ? super String, ? super Long, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -167,7 +172,7 @@ public class CmsTag extends TableImpl<CmsTagRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function2<? super Long, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function3<? super Long, ? super String, ? super Long, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

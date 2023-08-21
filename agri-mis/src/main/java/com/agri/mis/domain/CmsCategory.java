@@ -17,4 +17,5 @@ public class CmsCategory {
     private String name;
     private Long parentId;
 
+    private Long corpId;
 }

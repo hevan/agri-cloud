@@ -15,4 +15,6 @@ public interface UserRepository extends ReactiveCrudRepository<User, Long>, Reac
      Mono<User> findByUsername(String username);
 
      Flux<User> findAllBy(Example user, Pageable pageable);
+
+     Mono<Boolean> existsByMobile(String mobile);
 }

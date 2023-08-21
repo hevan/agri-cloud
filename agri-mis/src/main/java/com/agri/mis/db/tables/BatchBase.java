@@ -8,16 +8,17 @@ import com.agri.mis.db.Keys;
 import com.agri.mis.db.Public;
 import com.agri.mis.db.tables.records.BatchBaseRecord;
 
+import java.time.LocalDateTime;
 import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function4;
+import org.jooq.Function9;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row4;
+import org.jooq.Row9;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -58,17 +59,42 @@ public class BatchBase extends TableImpl<BatchBaseRecord> {
     /**
      * The column <code>public.batch_base.batch_id</code>.
      */
-    public final TableField<BatchBaseRecord, Long> BATCH_ID = createField(DSL.name("batch_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<BatchBaseRecord, Long> BATCH_ID = createField(DSL.name("batch_id"), SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>public.batch_base.park_base_id</code>.
      */
-    public final TableField<BatchBaseRecord, Long> PARK_BASE_ID = createField(DSL.name("park_base_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<BatchBaseRecord, Long> PARK_BASE_ID = createField(DSL.name("park_base_id"), SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>public.batch_base.area</code>.
      */
-    public final TableField<BatchBaseRecord, Double> AREA = createField(DSL.name("area"), SQLDataType.DOUBLE.nullable(false), this, "");
+    public final TableField<BatchBaseRecord, Double> AREA = createField(DSL.name("area"), SQLDataType.DOUBLE, this, "");
+
+    /**
+     * The column <code>public.batch_base.quantity</code>.
+     */
+    public final TableField<BatchBaseRecord, Double> QUANTITY = createField(DSL.name("quantity"), SQLDataType.DOUBLE, this, "");
+
+    /**
+     * The column <code>public.batch_base.description</code>.
+     */
+    public final TableField<BatchBaseRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(255), this, "");
+
+    /**
+     * The column <code>public.batch_base.created_at</code>.
+     */
+    public final TableField<BatchBaseRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(6), this, "");
+
+    /**
+     * The column <code>public.batch_base.corp_id</code>.
+     */
+    public final TableField<BatchBaseRecord, Long> CORP_ID = createField(DSL.name("corp_id"), SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>public.batch_base.image_url</code>.
+     */
+    public final TableField<BatchBaseRecord, String> IMAGE_URL = createField(DSL.name("image_url"), SQLDataType.VARCHAR(200).nullable(false), this, "");
 
     private BatchBase(Name alias, Table<BatchBaseRecord> aliased) {
         this(alias, aliased, null);
@@ -158,18 +184,18 @@ public class BatchBase extends TableImpl<BatchBaseRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row4 type methods
+    // Row9 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<Long, Long, Long, Double> fieldsRow() {
-        return (Row4) super.fieldsRow();
+    public Row9<Long, Long, Long, Double, Double, String, LocalDateTime, Long, String> fieldsRow() {
+        return (Row9) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function4<? super Long, ? super Long, ? super Long, ? super Double, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function9<? super Long, ? super Long, ? super Long, ? super Double, ? super Double, ? super String, ? super LocalDateTime, ? super Long, ? super String, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -177,7 +203,7 @@ public class BatchBase extends TableImpl<BatchBaseRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super Long, ? super Long, ? super Long, ? super Double, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super Long, ? super Long, ? super Long, ? super Double, ? super Double, ? super String, ? super LocalDateTime, ? super Long, ? super String, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

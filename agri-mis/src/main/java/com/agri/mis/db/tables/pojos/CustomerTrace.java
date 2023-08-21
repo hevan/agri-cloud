@@ -5,6 +5,7 @@ package com.agri.mis.db.tables.pojos;
 
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -22,10 +23,9 @@ public class CustomerTrace implements Serializable {
     private String title;
     private String linkName;
     private String linkMobile;
-    private Long createdBy;
     private LocalDateTime createdAt;
     private Long corpId;
-    private LocalDateTime occurAt;
+    private LocalDate occurAt;
     private Long createdUserId;
 
     public CustomerTrace() {}
@@ -37,7 +37,6 @@ public class CustomerTrace implements Serializable {
         this.title = value.title;
         this.linkName = value.linkName;
         this.linkMobile = value.linkMobile;
-        this.createdBy = value.createdBy;
         this.createdAt = value.createdAt;
         this.corpId = value.corpId;
         this.occurAt = value.occurAt;
@@ -51,10 +50,9 @@ public class CustomerTrace implements Serializable {
         String title,
         String linkName,
         String linkMobile,
-        Long createdBy,
         LocalDateTime createdAt,
         Long corpId,
-        LocalDateTime occurAt,
+        LocalDate occurAt,
         Long createdUserId
     ) {
         this.id = id;
@@ -63,7 +61,6 @@ public class CustomerTrace implements Serializable {
         this.title = title;
         this.linkName = linkName;
         this.linkMobile = linkMobile;
-        this.createdBy = createdBy;
         this.createdAt = createdAt;
         this.corpId = corpId;
         this.occurAt = occurAt;
@@ -161,21 +158,6 @@ public class CustomerTrace implements Serializable {
     }
 
     /**
-     * Getter for <code>public.customer_trace.created_by</code>.
-     */
-    public Long getCreatedBy() {
-        return this.createdBy;
-    }
-
-    /**
-     * Setter for <code>public.customer_trace.created_by</code>.
-     */
-    public CustomerTrace setCreatedBy(Long createdBy) {
-        this.createdBy = createdBy;
-        return this;
-    }
-
-    /**
      * Getter for <code>public.customer_trace.created_at</code>.
      */
     public LocalDateTime getCreatedAt() {
@@ -208,14 +190,14 @@ public class CustomerTrace implements Serializable {
     /**
      * Getter for <code>public.customer_trace.occur_at</code>.
      */
-    public LocalDateTime getOccurAt() {
+    public LocalDate getOccurAt() {
         return this.occurAt;
     }
 
     /**
      * Setter for <code>public.customer_trace.occur_at</code>.
      */
-    public CustomerTrace setOccurAt(LocalDateTime occurAt) {
+    public CustomerTrace setOccurAt(LocalDate occurAt) {
         this.occurAt = occurAt;
         return this;
     }
@@ -280,12 +262,6 @@ public class CustomerTrace implements Serializable {
         }
         else if (!this.linkMobile.equals(other.linkMobile))
             return false;
-        if (this.createdBy == null) {
-            if (other.createdBy != null)
-                return false;
-        }
-        else if (!this.createdBy.equals(other.createdBy))
-            return false;
         if (this.createdAt == null) {
             if (other.createdAt != null)
                 return false;
@@ -323,7 +299,6 @@ public class CustomerTrace implements Serializable {
         result = prime * result + ((this.title == null) ? 0 : this.title.hashCode());
         result = prime * result + ((this.linkName == null) ? 0 : this.linkName.hashCode());
         result = prime * result + ((this.linkMobile == null) ? 0 : this.linkMobile.hashCode());
-        result = prime * result + ((this.createdBy == null) ? 0 : this.createdBy.hashCode());
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
         result = prime * result + ((this.occurAt == null) ? 0 : this.occurAt.hashCode());
@@ -341,7 +316,6 @@ public class CustomerTrace implements Serializable {
         sb.append(", ").append(title);
         sb.append(", ").append(linkName);
         sb.append(", ").append(linkMobile);
-        sb.append(", ").append(createdBy);
         sb.append(", ").append(createdAt);
         sb.append(", ").append(corpId);
         sb.append(", ").append(occurAt);

@@ -17,20 +17,24 @@ public class CmsTag implements Serializable {
 
     private Long id;
     private String name;
+    private Long corpId;
 
     public CmsTag() {}
 
     public CmsTag(CmsTag value) {
         this.id = value.id;
         this.name = value.name;
+        this.corpId = value.corpId;
     }
 
     public CmsTag(
         Long id,
-        String name
+        String name,
+        Long corpId
     ) {
         this.id = id;
         this.name = name;
+        this.corpId = corpId;
     }
 
     /**
@@ -63,6 +67,21 @@ public class CmsTag implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.cms_tag.corp_id</code>.
+     */
+    public Long getCorpId() {
+        return this.corpId;
+    }
+
+    /**
+     * Setter for <code>public.cms_tag.corp_id</code>.
+     */
+    public CmsTag setCorpId(Long corpId) {
+        this.corpId = corpId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -84,6 +103,12 @@ public class CmsTag implements Serializable {
         }
         else if (!this.name.equals(other.name))
             return false;
+        if (this.corpId == null) {
+            if (other.corpId != null)
+                return false;
+        }
+        else if (!this.corpId.equals(other.corpId))
+            return false;
         return true;
     }
 
@@ -93,6 +118,7 @@ public class CmsTag implements Serializable {
         int result = 1;
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
+        result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
         return result;
     }
 
@@ -102,6 +128,7 @@ public class CmsTag implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(name);
+        sb.append(", ").append(corpId);
 
         sb.append(")");
         return sb.toString();

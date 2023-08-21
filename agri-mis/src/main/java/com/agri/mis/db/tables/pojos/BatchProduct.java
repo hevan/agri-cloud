@@ -25,10 +25,8 @@ public class BatchProduct implements Serializable {
     private LocalDate startAt;
     private LocalDate endAt;
     private Integer days;
-    private Double productionEstimated;
-    private Double productionReal;
-    private BigDecimal investEstimated;
-    private BigDecimal investReal;
+    private BigDecimal estimatedPrice;
+    private Double area;
     private Long corpId;
     private String calcUnit;
     private Long parkId;
@@ -36,6 +34,7 @@ public class BatchProduct implements Serializable {
     private LocalDateTime createdAt;
     private String description;
     private Integer status;
+    private Double quantity;
 
     public BatchProduct() {}
 
@@ -47,10 +46,8 @@ public class BatchProduct implements Serializable {
         this.startAt = value.startAt;
         this.endAt = value.endAt;
         this.days = value.days;
-        this.productionEstimated = value.productionEstimated;
-        this.productionReal = value.productionReal;
-        this.investEstimated = value.investEstimated;
-        this.investReal = value.investReal;
+        this.estimatedPrice = value.estimatedPrice;
+        this.area = value.area;
         this.corpId = value.corpId;
         this.calcUnit = value.calcUnit;
         this.parkId = value.parkId;
@@ -58,6 +55,7 @@ public class BatchProduct implements Serializable {
         this.createdAt = value.createdAt;
         this.description = value.description;
         this.status = value.status;
+        this.quantity = value.quantity;
     }
 
     public BatchProduct(
@@ -68,17 +66,16 @@ public class BatchProduct implements Serializable {
         LocalDate startAt,
         LocalDate endAt,
         Integer days,
-        Double productionEstimated,
-        Double productionReal,
-        BigDecimal investEstimated,
-        BigDecimal investReal,
+        BigDecimal estimatedPrice,
+        Double area,
         Long corpId,
         String calcUnit,
         Long parkId,
         Long createdUserId,
         LocalDateTime createdAt,
         String description,
-        Integer status
+        Integer status,
+        Double quantity
     ) {
         this.id = id;
         this.name = name;
@@ -87,10 +84,8 @@ public class BatchProduct implements Serializable {
         this.startAt = startAt;
         this.endAt = endAt;
         this.days = days;
-        this.productionEstimated = productionEstimated;
-        this.productionReal = productionReal;
-        this.investEstimated = investEstimated;
-        this.investReal = investReal;
+        this.estimatedPrice = estimatedPrice;
+        this.area = area;
         this.corpId = corpId;
         this.calcUnit = calcUnit;
         this.parkId = parkId;
@@ -98,6 +93,7 @@ public class BatchProduct implements Serializable {
         this.createdAt = createdAt;
         this.description = description;
         this.status = status;
+        this.quantity = quantity;
     }
 
     /**
@@ -206,62 +202,32 @@ public class BatchProduct implements Serializable {
     }
 
     /**
-     * Getter for <code>public.batch_product.production_estimated</code>.
+     * Getter for <code>public.batch_product.estimated_price</code>.
      */
-    public Double getProductionEstimated() {
-        return this.productionEstimated;
+    public BigDecimal getEstimatedPrice() {
+        return this.estimatedPrice;
     }
 
     /**
-     * Setter for <code>public.batch_product.production_estimated</code>.
+     * Setter for <code>public.batch_product.estimated_price</code>.
      */
-    public BatchProduct setProductionEstimated(Double productionEstimated) {
-        this.productionEstimated = productionEstimated;
+    public BatchProduct setEstimatedPrice(BigDecimal estimatedPrice) {
+        this.estimatedPrice = estimatedPrice;
         return this;
     }
 
     /**
-     * Getter for <code>public.batch_product.production_real</code>.
+     * Getter for <code>public.batch_product.area</code>.
      */
-    public Double getProductionReal() {
-        return this.productionReal;
+    public Double getArea() {
+        return this.area;
     }
 
     /**
-     * Setter for <code>public.batch_product.production_real</code>.
+     * Setter for <code>public.batch_product.area</code>.
      */
-    public BatchProduct setProductionReal(Double productionReal) {
-        this.productionReal = productionReal;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.batch_product.invest_estimated</code>.
-     */
-    public BigDecimal getInvestEstimated() {
-        return this.investEstimated;
-    }
-
-    /**
-     * Setter for <code>public.batch_product.invest_estimated</code>.
-     */
-    public BatchProduct setInvestEstimated(BigDecimal investEstimated) {
-        this.investEstimated = investEstimated;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.batch_product.invest_real</code>.
-     */
-    public BigDecimal getInvestReal() {
-        return this.investReal;
-    }
-
-    /**
-     * Setter for <code>public.batch_product.invest_real</code>.
-     */
-    public BatchProduct setInvestReal(BigDecimal investReal) {
-        this.investReal = investReal;
+    public BatchProduct setArea(Double area) {
+        this.area = area;
         return this;
     }
 
@@ -370,6 +336,21 @@ public class BatchProduct implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.batch_product.quantity</code>.
+     */
+    public Double getQuantity() {
+        return this.quantity;
+    }
+
+    /**
+     * Setter for <code>public.batch_product.quantity</code>.
+     */
+    public BatchProduct setQuantity(Double quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -421,29 +402,17 @@ public class BatchProduct implements Serializable {
         }
         else if (!this.days.equals(other.days))
             return false;
-        if (this.productionEstimated == null) {
-            if (other.productionEstimated != null)
+        if (this.estimatedPrice == null) {
+            if (other.estimatedPrice != null)
                 return false;
         }
-        else if (!this.productionEstimated.equals(other.productionEstimated))
+        else if (!this.estimatedPrice.equals(other.estimatedPrice))
             return false;
-        if (this.productionReal == null) {
-            if (other.productionReal != null)
+        if (this.area == null) {
+            if (other.area != null)
                 return false;
         }
-        else if (!this.productionReal.equals(other.productionReal))
-            return false;
-        if (this.investEstimated == null) {
-            if (other.investEstimated != null)
-                return false;
-        }
-        else if (!this.investEstimated.equals(other.investEstimated))
-            return false;
-        if (this.investReal == null) {
-            if (other.investReal != null)
-                return false;
-        }
-        else if (!this.investReal.equals(other.investReal))
+        else if (!this.area.equals(other.area))
             return false;
         if (this.corpId == null) {
             if (other.corpId != null)
@@ -487,6 +456,12 @@ public class BatchProduct implements Serializable {
         }
         else if (!this.status.equals(other.status))
             return false;
+        if (this.quantity == null) {
+            if (other.quantity != null)
+                return false;
+        }
+        else if (!this.quantity.equals(other.quantity))
+            return false;
         return true;
     }
 
@@ -501,10 +476,8 @@ public class BatchProduct implements Serializable {
         result = prime * result + ((this.startAt == null) ? 0 : this.startAt.hashCode());
         result = prime * result + ((this.endAt == null) ? 0 : this.endAt.hashCode());
         result = prime * result + ((this.days == null) ? 0 : this.days.hashCode());
-        result = prime * result + ((this.productionEstimated == null) ? 0 : this.productionEstimated.hashCode());
-        result = prime * result + ((this.productionReal == null) ? 0 : this.productionReal.hashCode());
-        result = prime * result + ((this.investEstimated == null) ? 0 : this.investEstimated.hashCode());
-        result = prime * result + ((this.investReal == null) ? 0 : this.investReal.hashCode());
+        result = prime * result + ((this.estimatedPrice == null) ? 0 : this.estimatedPrice.hashCode());
+        result = prime * result + ((this.area == null) ? 0 : this.area.hashCode());
         result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
         result = prime * result + ((this.calcUnit == null) ? 0 : this.calcUnit.hashCode());
         result = prime * result + ((this.parkId == null) ? 0 : this.parkId.hashCode());
@@ -512,6 +485,7 @@ public class BatchProduct implements Serializable {
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
         result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
+        result = prime * result + ((this.quantity == null) ? 0 : this.quantity.hashCode());
         return result;
     }
 
@@ -526,10 +500,8 @@ public class BatchProduct implements Serializable {
         sb.append(", ").append(startAt);
         sb.append(", ").append(endAt);
         sb.append(", ").append(days);
-        sb.append(", ").append(productionEstimated);
-        sb.append(", ").append(productionReal);
-        sb.append(", ").append(investEstimated);
-        sb.append(", ").append(investReal);
+        sb.append(", ").append(estimatedPrice);
+        sb.append(", ").append(area);
         sb.append(", ").append(corpId);
         sb.append(", ").append(calcUnit);
         sb.append(", ").append(parkId);
@@ -537,6 +509,7 @@ public class BatchProduct implements Serializable {
         sb.append(", ").append(createdAt);
         sb.append(", ").append(description);
         sb.append(", ").append(status);
+        sb.append(", ").append(quantity);
 
         sb.append(")");
         return sb.toString();

@@ -24,7 +24,7 @@
 
         <NoSql name="mongoAppender">
             <MongoDb4 capped="true" collectionSize="104857600"
-                      connection="mongodb://root:example@localhost:27017/agri_logs.logs?authSource=admin"/>
+                      connection="mongodb://admin:admin_hbzn2023@localhost:27017/agri_logs.logs?authSource=admin"/>
         </NoSql>
     </Appenders>
 

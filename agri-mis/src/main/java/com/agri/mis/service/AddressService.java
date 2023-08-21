@@ -43,24 +43,6 @@ public class AddressService {
                 .withMatcher("link_name", ExampleMatcher.GenericPropertyMatchers.contains())
                 .withMatcher("link_mobile", ExampleMatcher.GenericPropertyMatchers.contains());
 
-        /*
-        List<Criteria> listWeres = new ArrayList<Criteria>();
-
-        if(StringUtils.hasLength(nickName)){
-            listWeres.add(where("nick_name").like("%" + nickName + "%"));
-        }
-        if(StringUtils.hasLength(nickName)){
-            listWeres.add(where("mobile").like("%" + mobile + "%"));
-        }
-        Query queryA = null;
-        if(listWeres.size() > 0){
-            queryA = Query.query(Criteria.from(listWeres)).offset((pageRequest.getPageNumber() - 1) * pageRequest.getPageSize()).limit(pageRequest.getPageSize()) ;
-
-        }else{
-            queryA =  Query.empty().offset((pageRequest.getPageNumber() - 1) * pageRequest.getPageSize()).limit(pageRequest.getPageSize()) ;
-        }
-
-         */
 
         return this.addressRepository.findBy(Example.of(addr, exampleObjectMatcher), pageRequest).collectList()
                 .zipWith(this.addressRepository.count(Example.of(addr, exampleObjectMatcher)))

@@ -25,6 +25,7 @@ public class CheckTrace implements Serializable {
     private LocalDateTime createdAt;
     private String title;
     private String description;
+    private LocalDateTime updatedAt;
 
     public CheckTrace() {}
 
@@ -38,6 +39,7 @@ public class CheckTrace implements Serializable {
         this.createdAt = value.createdAt;
         this.title = value.title;
         this.description = value.description;
+        this.updatedAt = value.updatedAt;
     }
 
     public CheckTrace(
@@ -49,7 +51,8 @@ public class CheckTrace implements Serializable {
         Long corpId,
         LocalDateTime createdAt,
         String title,
-        String description
+        String description,
+        LocalDateTime updatedAt
     ) {
         this.id = id;
         this.entityName = entityName;
@@ -60,6 +63,7 @@ public class CheckTrace implements Serializable {
         this.createdAt = createdAt;
         this.title = title;
         this.description = description;
+        this.updatedAt = updatedAt;
     }
 
     /**
@@ -197,6 +201,21 @@ public class CheckTrace implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.check_trace.updated_at</code>.
+     */
+    public LocalDateTime getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    /**
+     * Setter for <code>public.check_trace.updated_at</code>.
+     */
+    public CheckTrace setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -260,6 +279,12 @@ public class CheckTrace implements Serializable {
         }
         else if (!this.description.equals(other.description))
             return false;
+        if (this.updatedAt == null) {
+            if (other.updatedAt != null)
+                return false;
+        }
+        else if (!this.updatedAt.equals(other.updatedAt))
+            return false;
         return true;
     }
 
@@ -276,6 +301,7 @@ public class CheckTrace implements Serializable {
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         result = prime * result + ((this.title == null) ? 0 : this.title.hashCode());
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
+        result = prime * result + ((this.updatedAt == null) ? 0 : this.updatedAt.hashCode());
         return result;
     }
 
@@ -292,6 +318,7 @@ public class CheckTrace implements Serializable {
         sb.append(", ").append(createdAt);
         sb.append(", ").append(title);
         sb.append(", ").append(description);
+        sb.append(", ").append(updatedAt);
 
         sb.append(")");
         return sb.toString();

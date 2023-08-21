@@ -1,12 +1,8 @@
 package com.agri.mis.service;
 
-import com.agri.mis.db.tables.MarkMarket;
-import com.agri.mis.domain.MarkProductBatch;
-import com.agri.mis.domain.MarkProductCycle;
+import com.agri.mis.domain.MarkMarket;
+import com.agri.mis.domain.MarkProduct;
 import com.agri.mis.domain.MarkProductMarket;
-import com.agri.mis.domain.Product;
-import com.agri.mis.dto.MarkProductCycleWithPproductBatchWithParent;
-import com.agri.mis.dto.MarkProductMarketWithProductWithMarket;
 import com.agri.mis.repository.MarkProductMarketRepository;
 
 import org.jooq.Condition;
@@ -19,11 +15,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.math.BigDecimal;
 
 @Service
 public class MarkProductMarketService {
@@ -35,7 +28,74 @@ public class MarkProductMarketService {
     private DSLContext context;
 
     public Mono<MarkProductMarket> findById(Long id){
-        return repository.findById(id);
+
+        com.agri.mis.db.tables.MarkProductMarket mpb =  com.agri.mis.db.tables.MarkProductMarket.MARK_PRODUCT_MARKET;
+        com.agri.mis.db.tables.MarkProduct pt = com.agri.mis.db.tables.MarkProduct.MARK_PRODUCT;
+        com.agri.mis.db.tables.MarkMarket us = com.agri.mis.db.tables.MarkMarket.MARK_MARKET;
+        Condition where = DSL.trueCondition();
+        where = where.and(mpb.ID.eq(id));
+
+
+        var dataSql = context.select(
+                mpb.PRODUCT_ID,
+                mpb.PRICE_WHOLESALE,
+                mpb.CALC_UNIT,
+                mpb.ID,
+                mpb.OCCUR_AT,
+                mpb.PRICE_RETAL,
+                mpb.MARKET_ID,
+                mpb.QUANTITY,
+                pt.ID,
+                pt.NAME,
+                pt.CODE,
+                pt.CATEGORY_ID,
+                pt.IMAGE_URL,
+                pt.CALC_UNIT,
+                pt.DESCRIPTION,
+                us.ID,
+                us.ADDRESS_ID,
+                us.MARKET_TYPE,
+                us.NAME
+        ).from(mpb).leftJoin(pt).on(mpb.PRODUCT_ID.eq(pt.ID)).rightJoin(us).on(mpb.MARKET_ID.eq(us.ID)).where(where);
+
+
+        return Mono.from(dataSql)
+                .map(r->{
+                    MarkProductMarket markProductMarket = new MarkProductMarket();
+                    markProductMarket.setId(r.getValue(mpb.ID));
+                    markProductMarket.setProductId(r.getValue(mpb.PRODUCT_ID));
+                    markProductMarket.setCalcUnit(r.getValue(mpb.CALC_UNIT));
+                    markProductMarket.setOccurAt(r.getValue(mpb.OCCUR_AT));
+                    markProductMarket.setPriceRetal(r.getValue(mpb.PRICE_RETAL));
+                    markProductMarket.setQuantity(r.getValue(mpb.QUANTITY));
+                    markProductMarket.setPriceWholesale(r.getValue(mpb.PRICE_WHOLESALE));
+                    markProductMarket.setMarketId(r.getValue(mpb.MARKET_ID));
+
+                    if(null!=markProductMarket.getProductId()) {
+                        MarkProduct markProduct = new MarkProduct();
+                        markProduct.setId(r.getValue(pt.ID));
+                        markProduct.setName(r.getValue(pt.NAME));
+                        markProduct.setCalcUnit(r.getValue(pt.CALC_UNIT));
+                        markProduct.setCategoryId(r.getValue(pt.CATEGORY_ID));
+                        markProduct.setImageUrl(r.getValue(pt.IMAGE_URL));
+                        markProduct.setDescription(r.getValue(pt.DESCRIPTION));
+
+                        markProductMarket.setProduct(markProduct);
+                    }
+                    if(null!=markProductMarket.getMarketId()) {
+                        MarkMarket markMarket1 = new MarkMarket();
+                        markMarket1.setMarketType(r.getValue(us.MARKET_TYPE));
+                        markMarket1.setId(r.getValue(us.ID));
+                        markMarket1.setName(r.getValue(us.NAME));
+                        markMarket1.setAddressId(r.getValue(us.ADDRESS_ID));
+
+                        markProductMarket.setMarket(markMarket1);
+
+                    }
+
+                    return markProductMarket;
+
+                });
     }
 
     public Mono<MarkProductMarket> add(MarkProductMarket markProductCycle){
@@ -55,37 +115,36 @@ public class MarkProductMarketService {
         return repository.delete(markProductCycle);
     }
 
-    public Mono<Page<MarkProductMarketWithProductWithMarket>> pageQuery(String unit, PageRequest pageRequest){
+    public Mono<Page<MarkProductMarket>> pageQuery(MarkProductMarket markProductMarketParam, PageRequest pageRequest){
             com.agri.mis.db.tables.MarkProductMarket mpb =  com.agri.mis.db.tables.MarkProductMarket.MARK_PRODUCT_MARKET;
-        com.agri.mis.db.tables.Product pt = com.agri.mis.db.tables.Product.PRODUCT;
+        com.agri.mis.db.tables.MarkProduct pt = com.agri.mis.db.tables.MarkProduct.MARK_PRODUCT;
         com.agri.mis.db.tables.MarkMarket us = com.agri.mis.db.tables.MarkMarket.MARK_MARKET;
         Condition where = DSL.trueCondition();
-        if(StringUtils.hasLength(unit)){
-            where = where.and(mpb.UNIT.eq(unit));
+        if(null != markProductMarketParam.getProductId()){
+            where = where.and(mpb.PRODUCT_ID.eq(markProductMarketParam.getProductId()));
+        }
+        if(null != markProductMarketParam.getMarketId()){
+            where = where.and(mpb.MARKET_ID.eq(markProductMarketParam.getMarketId()));
         }
         var dataSql = context.select(
                 mpb.PRODUCT_ID,
                 mpb.PRICE_WHOLESALE,
-                mpb.UNIT,
+                mpb.CALC_UNIT,
                 mpb.ID,
                 mpb.OCCUR_AT,
                 mpb.PRICE_RETAL,
                 mpb.MARKET_ID,
+                mpb.QUANTITY,
                 pt.ID,
                 pt.NAME,
                 pt.CODE,
                 pt.CATEGORY_ID,
                 pt.IMAGE_URL,
                 pt.CALC_UNIT,
-                pt.CORP_ID,
-                pt.CREATED_AT,
-                pt.CREATED_BY,
-                pt.UPDATED_AT,
-                pt.UPDATED_BY,
                 pt.DESCRIPTION,
                 us.ID,
                 us.ADDRESS_ID,
-                us.CATEGORY_ID,
+                us.MARKET_TYPE,
                 us.NAME
         ).from(mpb).leftJoin(pt).on(mpb.PRODUCT_ID.eq(pt.ID)).rightJoin(us).on(mpb.MARKET_ID.eq(us.ID)).where(where).limit(pageRequest.getOffset(),pageRequest.getPageSize());
         var countSql =  context.select(DSL.field("count(*)", SQLDataType.BIGINT))
@@ -93,29 +152,40 @@ public class MarkProductMarketService {
                 .where(where);
         return Mono.zip(Flux.from(dataSql)
                         .map(r->{
-                            MarkProductMarket markProductMarket = new MarkProductMarket(
-                                    r.getValue(mpb.PRODUCT_ID),r.getValue(mpb.PRICE_WHOLESALE),
-                                    r.getValue(mpb.UNIT),r.getValue(mpb.ID),
-                                    r.getValue(mpb.OCCUR_AT),r.getValue(mpb.PRICE_RETAL),
-                                    r.getValue(mpb.MARKET_ID));
-                            if(null!=markProductMarket.getId()){
-                                Product product = new Product(
-                                        r.getValue(pt.ID),r.getValue(pt.NAME)
-                                        ,r.getValue(pt.CODE),r.getValue(pt.CATEGORY_ID),r.getValue(pt.IMAGE_URL),
-                                        r.getValue(pt.CALC_UNIT),r.getValue(pt.CORP_ID),
-                                        r.getValue(pt.CREATED_AT),r.getValue(pt.CREATED_BY),
-                                        r.getValue(pt.UPDATED_AT),r.getValue(pt.UPDATED_BY),
-                                        r.getValue(pt.DESCRIPTION),null
-                                );
-                               com.agri.mis.domain.MarkMarket markMarket1 = new com.agri.mis.domain.MarkMarket(r.getValue(us.ID),
-                                       r.getValue(us.NAME),
-                                       r.getValue(us.ADDRESS_ID),
-                                       r.getValue(us.CATEGORY_ID)
-                               );
-                                return new MarkProductMarketWithProductWithMarket(markProductMarket,product,markMarket1);
-                            }else{
-                                return new MarkProductMarketWithProductWithMarket(markProductMarket,null,null);
+                            MarkProductMarket markProductMarket = new MarkProductMarket();
+                            markProductMarket.setId(r.getValue(mpb.ID));
+                            markProductMarket.setProductId(r.getValue(mpb.PRODUCT_ID));
+                            markProductMarket.setCalcUnit(r.getValue(mpb.CALC_UNIT));
+                            markProductMarket.setOccurAt(r.getValue(mpb.OCCUR_AT));
+                            markProductMarket.setPriceRetal(r.getValue(mpb.PRICE_RETAL));
+                            markProductMarket.setQuantity(r.getValue(mpb.QUANTITY));
+                            markProductMarket.setPriceWholesale(r.getValue(mpb.PRICE_WHOLESALE));
+                            markProductMarket.setMarketId(r.getValue(mpb.MARKET_ID));
+
+                            if(null!=markProductMarket.getProductId()) {
+                                MarkProduct markProduct = new MarkProduct();
+                                markProduct.setId(r.getValue(pt.ID));
+                                markProduct.setName(r.getValue(pt.NAME));
+                                markProduct.setCalcUnit(r.getValue(pt.CALC_UNIT));
+                                markProduct.setCategoryId(r.getValue(pt.CATEGORY_ID));
+                                markProduct.setImageUrl(r.getValue(pt.IMAGE_URL));
+                                markProduct.setDescription(r.getValue(pt.DESCRIPTION));
+
+                                markProductMarket.setProduct(markProduct);
                             }
+                            if(null!=markProductMarket.getMarketId()) {
+                                MarkMarket markMarket1 = new MarkMarket();
+                                markMarket1.setMarketType(r.getValue(us.MARKET_TYPE));
+                                markMarket1.setId(r.getValue(us.ID));
+                                markMarket1.setName(r.getValue(us.NAME));
+                                markMarket1.setAddressId(r.getValue(us.ADDRESS_ID));
+
+                                markProductMarket.setMarket(markMarket1);
+
+                            }
+
+                      return markProductMarket;
+
                         }).collectList(),Mono.from(countSql).map(Record1::value1))
                 .map(it -> new PageImpl<>(it.getT1(),pageRequest,it.getT2()));
     }

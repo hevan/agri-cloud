@@ -14,12 +14,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function7;
+import org.jooq.Function8;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row7;
+import org.jooq.Row8;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -63,9 +63,9 @@ public class MarkProductMarket extends TableImpl<MarkProductMarketRecord> {
     public final TableField<MarkProductMarketRecord, BigDecimal> PRICE_WHOLESALE = createField(DSL.name("price_wholesale"), SQLDataType.NUMERIC(12, 2), this, "");
 
     /**
-     * The column <code>public.mark_product_market.unit</code>.
+     * The column <code>public.mark_product_market.calc_unit</code>.
      */
-    public final TableField<MarkProductMarketRecord, String> UNIT = createField(DSL.name("unit"), SQLDataType.VARCHAR(10), this, "");
+    public final TableField<MarkProductMarketRecord, String> CALC_UNIT = createField(DSL.name("calc_unit"), SQLDataType.VARCHAR(10), this, "");
 
     /**
      * The column <code>public.mark_product_market.id</code>.
@@ -75,7 +75,7 @@ public class MarkProductMarket extends TableImpl<MarkProductMarketRecord> {
     /**
      * The column <code>public.mark_product_market.occur_at</code>.
      */
-    public final TableField<MarkProductMarketRecord, LocalDate> OCCUR_AT = createField(DSL.name("occur_at"), SQLDataType.LOCALDATE.nullable(false), this, "");
+    public final TableField<MarkProductMarketRecord, LocalDate> OCCUR_AT = createField(DSL.name("occur_at"), SQLDataType.LOCALDATE, this, "");
 
     /**
      * The column <code>public.mark_product_market.price_retal</code>.
@@ -86,6 +86,11 @@ public class MarkProductMarket extends TableImpl<MarkProductMarketRecord> {
      * The column <code>public.mark_product_market.market_id</code>.
      */
     public final TableField<MarkProductMarketRecord, Long> MARKET_ID = createField(DSL.name("market_id"), SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>public.mark_product_market.quantity</code>.
+     */
+    public final TableField<MarkProductMarketRecord, Integer> QUANTITY = createField(DSL.name("quantity"), SQLDataType.INTEGER, this, "");
 
     private MarkProductMarket(Name alias, Table<MarkProductMarketRecord> aliased) {
         this(alias, aliased, null);
@@ -175,18 +180,18 @@ public class MarkProductMarket extends TableImpl<MarkProductMarketRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row7 type methods
+    // Row8 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row7<Long, BigDecimal, String, Long, LocalDate, BigDecimal, Long> fieldsRow() {
-        return (Row7) super.fieldsRow();
+    public Row8<Long, BigDecimal, String, Long, LocalDate, BigDecimal, Long, Integer> fieldsRow() {
+        return (Row8) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function7<? super Long, ? super BigDecimal, ? super String, ? super Long, ? super LocalDate, ? super BigDecimal, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function8<? super Long, ? super BigDecimal, ? super String, ? super Long, ? super LocalDate, ? super BigDecimal, ? super Long, ? super Integer, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -194,7 +199,7 @@ public class MarkProductMarket extends TableImpl<MarkProductMarketRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function7<? super Long, ? super BigDecimal, ? super String, ? super Long, ? super LocalDate, ? super BigDecimal, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function8<? super Long, ? super BigDecimal, ? super String, ? super Long, ? super LocalDate, ? super BigDecimal, ? super Long, ? super Integer, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

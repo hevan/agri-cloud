@@ -19,40 +19,44 @@ public class MarkProductMarket implements Serializable {
 
     private Long productId;
     private BigDecimal priceWholesale;
-    private String unit;
+    private String calcUnit;
     private Long id;
     private LocalDate occurAt;
     private BigDecimal priceRetal;
     private Long marketId;
+    private Integer quantity;
 
     public MarkProductMarket() {}
 
     public MarkProductMarket(MarkProductMarket value) {
         this.productId = value.productId;
         this.priceWholesale = value.priceWholesale;
-        this.unit = value.unit;
+        this.calcUnit = value.calcUnit;
         this.id = value.id;
         this.occurAt = value.occurAt;
         this.priceRetal = value.priceRetal;
         this.marketId = value.marketId;
+        this.quantity = value.quantity;
     }
 
     public MarkProductMarket(
         Long productId,
         BigDecimal priceWholesale,
-        String unit,
+        String calcUnit,
         Long id,
         LocalDate occurAt,
         BigDecimal priceRetal,
-        Long marketId
+        Long marketId,
+        Integer quantity
     ) {
         this.productId = productId;
         this.priceWholesale = priceWholesale;
-        this.unit = unit;
+        this.calcUnit = calcUnit;
         this.id = id;
         this.occurAt = occurAt;
         this.priceRetal = priceRetal;
         this.marketId = marketId;
+        this.quantity = quantity;
     }
 
     /**
@@ -86,17 +90,17 @@ public class MarkProductMarket implements Serializable {
     }
 
     /**
-     * Getter for <code>public.mark_product_market.unit</code>.
+     * Getter for <code>public.mark_product_market.calc_unit</code>.
      */
-    public String getUnit() {
-        return this.unit;
+    public String getCalcUnit() {
+        return this.calcUnit;
     }
 
     /**
-     * Setter for <code>public.mark_product_market.unit</code>.
+     * Setter for <code>public.mark_product_market.calc_unit</code>.
      */
-    public MarkProductMarket setUnit(String unit) {
-        this.unit = unit;
+    public MarkProductMarket setCalcUnit(String calcUnit) {
+        this.calcUnit = calcUnit;
         return this;
     }
 
@@ -160,6 +164,21 @@ public class MarkProductMarket implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.mark_product_market.quantity</code>.
+     */
+    public Integer getQuantity() {
+        return this.quantity;
+    }
+
+    /**
+     * Setter for <code>public.mark_product_market.quantity</code>.
+     */
+    public MarkProductMarket setQuantity(Integer quantity) {
+        this.quantity = quantity;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -181,11 +200,11 @@ public class MarkProductMarket implements Serializable {
         }
         else if (!this.priceWholesale.equals(other.priceWholesale))
             return false;
-        if (this.unit == null) {
-            if (other.unit != null)
+        if (this.calcUnit == null) {
+            if (other.calcUnit != null)
                 return false;
         }
-        else if (!this.unit.equals(other.unit))
+        else if (!this.calcUnit.equals(other.calcUnit))
             return false;
         if (this.id == null) {
             if (other.id != null)
@@ -211,6 +230,12 @@ public class MarkProductMarket implements Serializable {
         }
         else if (!this.marketId.equals(other.marketId))
             return false;
+        if (this.quantity == null) {
+            if (other.quantity != null)
+                return false;
+        }
+        else if (!this.quantity.equals(other.quantity))
+            return false;
         return true;
     }
 
@@ -220,11 +245,12 @@ public class MarkProductMarket implements Serializable {
         int result = 1;
         result = prime * result + ((this.productId == null) ? 0 : this.productId.hashCode());
         result = prime * result + ((this.priceWholesale == null) ? 0 : this.priceWholesale.hashCode());
-        result = prime * result + ((this.unit == null) ? 0 : this.unit.hashCode());
+        result = prime * result + ((this.calcUnit == null) ? 0 : this.calcUnit.hashCode());
         result = prime * result + ((this.id == null) ? 0 : this.id.hashCode());
         result = prime * result + ((this.occurAt == null) ? 0 : this.occurAt.hashCode());
         result = prime * result + ((this.priceRetal == null) ? 0 : this.priceRetal.hashCode());
         result = prime * result + ((this.marketId == null) ? 0 : this.marketId.hashCode());
+        result = prime * result + ((this.quantity == null) ? 0 : this.quantity.hashCode());
         return result;
     }
 
@@ -234,11 +260,12 @@ public class MarkProductMarket implements Serializable {
 
         sb.append(productId);
         sb.append(", ").append(priceWholesale);
-        sb.append(", ").append(unit);
+        sb.append(", ").append(calcUnit);
         sb.append(", ").append(id);
         sb.append(", ").append(occurAt);
         sb.append(", ").append(priceRetal);
         sb.append(", ").append(marketId);
+        sb.append(", ").append(quantity);
 
         sb.append(")");
         return sb.toString();

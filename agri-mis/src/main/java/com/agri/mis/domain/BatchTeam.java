@@ -1,7 +1,9 @@
 package com.agri.mis.domain;
 
+import com.agri.mis.dto.CheckManager;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
@@ -23,12 +25,11 @@ public class BatchTeam {
     private Long userId;
     private Boolean isManager;
 
+    @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdAt;
 
     @Transient
-    private User user;
-
-
+    private CheckManager user;
 }

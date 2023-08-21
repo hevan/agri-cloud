@@ -12,12 +12,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function4;
+import org.jooq.Function5;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row4;
+import org.jooq.Row5;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -58,17 +58,22 @@ public class CmsCategory extends TableImpl<CmsCategoryRecord> {
     /**
      * The column <code>public.cms_category.code</code>.
      */
-    public final TableField<CmsCategoryRecord, String> CODE = createField(DSL.name("code"), SQLDataType.VARCHAR(20).nullable(false), this, "");
+    public final TableField<CmsCategoryRecord, String> CODE = createField(DSL.name("code"), SQLDataType.VARCHAR(20), this, "");
 
     /**
      * The column <code>public.cms_category.name</code>.
      */
-    public final TableField<CmsCategoryRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<CmsCategoryRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(100), this, "");
 
     /**
      * The column <code>public.cms_category.parent_id</code>.
      */
-    public final TableField<CmsCategoryRecord, Long> PARENT_ID = createField(DSL.name("parent_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<CmsCategoryRecord, Long> PARENT_ID = createField(DSL.name("parent_id"), SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>public.cms_category.corp_id</code>.
+     */
+    public final TableField<CmsCategoryRecord, Long> CORP_ID = createField(DSL.name("corp_id"), SQLDataType.BIGINT, this, "");
 
     private CmsCategory(Name alias, Table<CmsCategoryRecord> aliased) {
         this(alias, aliased, null);
@@ -158,18 +163,18 @@ public class CmsCategory extends TableImpl<CmsCategoryRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row4 type methods
+    // Row5 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<Long, String, String, Long> fieldsRow() {
-        return (Row4) super.fieldsRow();
+    public Row5<Long, String, String, Long, Long> fieldsRow() {
+        return (Row5) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function4<? super Long, ? super String, ? super String, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function5<? super Long, ? super String, ? super String, ? super Long, ? super Long, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -177,7 +182,7 @@ public class CmsCategory extends TableImpl<CmsCategoryRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super Long, ? super String, ? super String, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super Long, ? super String, ? super String, ? super Long, ? super Long, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

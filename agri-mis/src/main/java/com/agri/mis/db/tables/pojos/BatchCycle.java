@@ -5,6 +5,7 @@ package com.agri.mis.db.tables.pojos;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -29,9 +30,10 @@ public class BatchCycle implements Serializable {
     private Long parentId;
     private Double progress;
     private Long createdUserId;
-    private String createdBy;
     private LocalDateTime createdAt;
     private Short cycleType;
+    private BigDecimal investEstimated;
+    private Long corpId;
 
     public BatchCycle() {}
 
@@ -48,9 +50,10 @@ public class BatchCycle implements Serializable {
         this.parentId = value.parentId;
         this.progress = value.progress;
         this.createdUserId = value.createdUserId;
-        this.createdBy = value.createdBy;
         this.createdAt = value.createdAt;
         this.cycleType = value.cycleType;
+        this.investEstimated = value.investEstimated;
+        this.corpId = value.corpId;
     }
 
     public BatchCycle(
@@ -66,9 +69,10 @@ public class BatchCycle implements Serializable {
         Long parentId,
         Double progress,
         Long createdUserId,
-        String createdBy,
         LocalDateTime createdAt,
-        Short cycleType
+        Short cycleType,
+        BigDecimal investEstimated,
+        Long corpId
     ) {
         this.id = id;
         this.name = name;
@@ -82,9 +86,10 @@ public class BatchCycle implements Serializable {
         this.parentId = parentId;
         this.progress = progress;
         this.createdUserId = createdUserId;
-        this.createdBy = createdBy;
         this.createdAt = createdAt;
         this.cycleType = cycleType;
+        this.investEstimated = investEstimated;
+        this.corpId = corpId;
     }
 
     /**
@@ -268,21 +273,6 @@ public class BatchCycle implements Serializable {
     }
 
     /**
-     * Getter for <code>public.batch_cycle.created_by</code>.
-     */
-    public String getCreatedBy() {
-        return this.createdBy;
-    }
-
-    /**
-     * Setter for <code>public.batch_cycle.created_by</code>.
-     */
-    public BatchCycle setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-        return this;
-    }
-
-    /**
      * Getter for <code>public.batch_cycle.created_at</code>.
      */
     public LocalDateTime getCreatedAt() {
@@ -309,6 +299,36 @@ public class BatchCycle implements Serializable {
      */
     public BatchCycle setCycleType(Short cycleType) {
         this.cycleType = cycleType;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_cycle.invest_estimated</code>.
+     */
+    public BigDecimal getInvestEstimated() {
+        return this.investEstimated;
+    }
+
+    /**
+     * Setter for <code>public.batch_cycle.invest_estimated</code>.
+     */
+    public BatchCycle setInvestEstimated(BigDecimal investEstimated) {
+        this.investEstimated = investEstimated;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.batch_cycle.corp_id</code>.
+     */
+    public Long getCorpId() {
+        return this.corpId;
+    }
+
+    /**
+     * Setter for <code>public.batch_cycle.corp_id</code>.
+     */
+    public BatchCycle setCorpId(Long corpId) {
+        this.corpId = corpId;
         return this;
     }
 
@@ -393,12 +413,6 @@ public class BatchCycle implements Serializable {
         }
         else if (!this.createdUserId.equals(other.createdUserId))
             return false;
-        if (this.createdBy == null) {
-            if (other.createdBy != null)
-                return false;
-        }
-        else if (!this.createdBy.equals(other.createdBy))
-            return false;
         if (this.createdAt == null) {
             if (other.createdAt != null)
                 return false;
@@ -410,6 +424,18 @@ public class BatchCycle implements Serializable {
                 return false;
         }
         else if (!this.cycleType.equals(other.cycleType))
+            return false;
+        if (this.investEstimated == null) {
+            if (other.investEstimated != null)
+                return false;
+        }
+        else if (!this.investEstimated.equals(other.investEstimated))
+            return false;
+        if (this.corpId == null) {
+            if (other.corpId != null)
+                return false;
+        }
+        else if (!this.corpId.equals(other.corpId))
             return false;
         return true;
     }
@@ -430,9 +456,10 @@ public class BatchCycle implements Serializable {
         result = prime * result + ((this.parentId == null) ? 0 : this.parentId.hashCode());
         result = prime * result + ((this.progress == null) ? 0 : this.progress.hashCode());
         result = prime * result + ((this.createdUserId == null) ? 0 : this.createdUserId.hashCode());
-        result = prime * result + ((this.createdBy == null) ? 0 : this.createdBy.hashCode());
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         result = prime * result + ((this.cycleType == null) ? 0 : this.cycleType.hashCode());
+        result = prime * result + ((this.investEstimated == null) ? 0 : this.investEstimated.hashCode());
+        result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
         return result;
     }
 
@@ -452,9 +479,10 @@ public class BatchCycle implements Serializable {
         sb.append(", ").append(parentId);
         sb.append(", ").append(progress);
         sb.append(", ").append(createdUserId);
-        sb.append(", ").append(createdBy);
         sb.append(", ").append(createdAt);
         sb.append(", ").append(cycleType);
+        sb.append(", ").append(investEstimated);
+        sb.append(", ").append(corpId);
 
         sb.append(")");
         return sb.toString();

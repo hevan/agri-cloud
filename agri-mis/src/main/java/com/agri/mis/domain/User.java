@@ -28,6 +28,10 @@ public class User implements Serializable {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    public User(String mobile) {
+        this.mobile = mobile;
+    }
+
     private String mobile;
 
     private String nickName;

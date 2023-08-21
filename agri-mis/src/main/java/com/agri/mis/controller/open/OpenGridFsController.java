@@ -2,7 +2,6 @@ package com.agri.mis.controller.open;
 
 import com.agri.mis.service.DocResourceService;
 import com.mongodb.BasicDBObjectBuilder;
-import lombok.AllArgsConstructor;
 
 import org.springframework.data.mongodb.gridfs.ReactiveGridFsTemplate;
 import org.springframework.http.MediaType;
@@ -24,14 +23,18 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequestMapping(value = "/open/gridfs")
-@AllArgsConstructor
 public class OpenGridFsController {
 
     private final ReactiveGridFsTemplate gridFsTemplate;
     private final DocResourceService docResourceService;
 
+    public OpenGridFsController(ReactiveGridFsTemplate gridFsTemplate, DocResourceService docResourceService) {
+        this.gridFsTemplate = gridFsTemplate;
+        this.docResourceService = docResourceService;
+    }
+
     @PostMapping
-    public Mono<ResponseEntity> upload(@RequestPart("userId")  String userId, @RequestPart("corpId")  String corpId, @RequestPart("file") Mono<FilePart> filePart) {
+    public Mono<ResponseEntity> upload( String userId, String corpId, @RequestPart("file") Mono<FilePart> filePart) {
         return filePart.flatMap( fp->{
             var metadata = BasicDBObjectBuilder
                     .start()
@@ -43,9 +46,13 @@ public class OpenGridFsController {
         }).map((id) -> ok().body(Map.of("id", id.toHexString())));
     }
 
+    @DeleteMapping("/{id}")
+    public Mono<ResponseEntity> delete(@PathVariable String id) {
+        return gridFsTemplate.delete(query(where("_id").is(id))).map(ResponseEntity::ok);
+    }
 
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Flux<Void> read(@PathVariable String id, ServerHttpResponse response) {
         ZeroCopyHttpOutputMessage zeroCopyResponse = (ZeroCopyHttpOutputMessage) response;
         //response.getHeaders().set(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=parallel.png");

@@ -4,14 +4,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.server.SecurityWebFilterChain;
-import reactor.core.publisher.Mono;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.reactive.CorsConfigurationSource;
+import org.springframework.web.cors.reactive.CorsWebFilter;
+import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -32,24 +36,19 @@ public class WebFluxSecurity {
 
     @Bean
     SecurityWebFilterChain apiFilterChain(ServerHttpSecurity http) {
-        return http.cors().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint((swe, e) -> Mono.fromRunnable(() -> {
-                    swe.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
-                })).accessDeniedHandler((swe, e) -> Mono.fromRunnable(() -> {
-                    swe.getResponse().setStatusCode(HttpStatus.FORBIDDEN);
-                })).and()
-                .csrf().disable()
-                .formLogin().disable()
-                .httpBasic().disable()
+        return http
+                .csrf(csrfSpec ->csrfSpec.disable())
+                .formLogin(formLoginSpec -> formLoginSpec.disable())
+                .httpBasic(httpBasicSpec -> httpBasicSpec.disable())
                 .authenticationManager(authenticationManager)
                 .securityContextRepository(securityContextRepository)
-                .authorizeExchange()
-                .pathMatchers(HttpMethod.OPTIONS).permitAll()
-                .pathMatchers("/open/**").permitAll()
-                .anyExchange().authenticated()
-                .and().build();
-    }
+                .authorizeExchange(authorizeExchangeSpec -> {
+                    authorizeExchangeSpec.pathMatchers(HttpMethod.OPTIONS).permitAll()
+                            .pathMatchers("/open/**").permitAll()
+                            .anyExchange().authenticated();
+                })
+                .build();
 
+    }
 
 }

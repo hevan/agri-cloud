@@ -36,8 +36,7 @@ public class CategoryService {
     }
 
     public Flux<Category> findAllByCorpId(Long corpId) {
-        return categoryRepository.findAllByCorpId(corpId);
+        return categoryRepository.findAllByCorpIdOrderByPathName(corpId);
     }
-
 
 }

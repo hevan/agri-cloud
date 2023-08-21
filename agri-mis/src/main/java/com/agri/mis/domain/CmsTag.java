@@ -17,4 +17,6 @@ public class CmsTag {
     private Long id;
     private String name;
 
+    private Long corpId;
+
 }

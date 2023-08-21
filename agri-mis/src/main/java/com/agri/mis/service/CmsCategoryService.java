@@ -19,8 +19,8 @@ public class CmsCategoryService {
       return cmsCategoryRepository.findById(id);
     }
 
-    public Flux<CmsCategory> findAll() {
-        return cmsCategoryRepository.findAll();
+    public Flux<CmsCategory> findAllByCorpId(Long corpId) {
+        return cmsCategoryRepository.findAllByCorpId(corpId);
     }
 
     public Mono<CmsCategory> add(CmsCategory cmsCategory) {

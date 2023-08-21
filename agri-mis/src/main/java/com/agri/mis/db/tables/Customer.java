@@ -13,12 +13,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function9;
+import org.jooq.Function12;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row9;
+import org.jooq.Row12;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -95,6 +95,21 @@ public class Customer extends TableImpl<CustomerRecord> {
      * The column <code>public.customer.is_supply</code>.
      */
     public final TableField<CustomerRecord, Boolean> IS_SUPPLY = createField(DSL.name("is_supply"), SQLDataType.BOOLEAN.nullable(false).defaultValue(DSL.field("false", SQLDataType.BOOLEAN)), this, "");
+
+    /**
+     * The column <code>public.customer.manager_name</code>.
+     */
+    public final TableField<CustomerRecord, String> MANAGER_NAME = createField(DSL.name("manager_name"), SQLDataType.VARCHAR(50), this, "");
+
+    /**
+     * The column <code>public.customer.manager_mobile</code>.
+     */
+    public final TableField<CustomerRecord, String> MANAGER_MOBILE = createField(DSL.name("manager_mobile"), SQLDataType.VARCHAR(50), this, "");
+
+    /**
+     * The column <code>public.customer.created_user_id</code>.
+     */
+    public final TableField<CustomerRecord, Long> CREATED_USER_ID = createField(DSL.name("created_user_id"), SQLDataType.BIGINT, this, "");
 
     private Customer(Name alias, Table<CustomerRecord> aliased) {
         this(alias, aliased, null);
@@ -184,18 +199,18 @@ public class Customer extends TableImpl<CustomerRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row9 type methods
+    // Row12 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<Long, String, String, String, Long, LocalDateTime, Long, Boolean, Boolean> fieldsRow() {
-        return (Row9) super.fieldsRow();
+    public Row12<Long, String, String, String, Long, LocalDateTime, Long, Boolean, Boolean, String, String, Long> fieldsRow() {
+        return (Row12) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function9<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super LocalDateTime, ? super Long, ? super Boolean, ? super Boolean, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function12<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super LocalDateTime, ? super Long, ? super Boolean, ? super Boolean, ? super String, ? super String, ? super Long, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -203,7 +218,7 @@ public class Customer extends TableImpl<CustomerRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super LocalDateTime, ? super Long, ? super Boolean, ? super Boolean, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function12<? super Long, ? super String, ? super String, ? super String, ? super Long, ? super LocalDateTime, ? super Long, ? super Boolean, ? super Boolean, ? super String, ? super String, ? super Long, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

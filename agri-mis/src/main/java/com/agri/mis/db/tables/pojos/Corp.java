@@ -22,6 +22,7 @@ public class Corp implements Serializable {
     private String description;
     private Long addressId;
     private LocalDateTime createdAt;
+    private Long createdUserId;
 
     public Corp() {}
 
@@ -32,6 +33,7 @@ public class Corp implements Serializable {
         this.description = value.description;
         this.addressId = value.addressId;
         this.createdAt = value.createdAt;
+        this.createdUserId = value.createdUserId;
     }
 
     public Corp(
@@ -40,7 +42,8 @@ public class Corp implements Serializable {
         String code,
         String description,
         Long addressId,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        Long createdUserId
     ) {
         this.id = id;
         this.name = name;
@@ -48,6 +51,7 @@ public class Corp implements Serializable {
         this.description = description;
         this.addressId = addressId;
         this.createdAt = createdAt;
+        this.createdUserId = createdUserId;
     }
 
     /**
@@ -140,6 +144,21 @@ public class Corp implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.corp.created_user_id</code>.
+     */
+    public Long getCreatedUserId() {
+        return this.createdUserId;
+    }
+
+    /**
+     * Setter for <code>public.corp.created_user_id</code>.
+     */
+    public Corp setCreatedUserId(Long createdUserId) {
+        this.createdUserId = createdUserId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -185,6 +204,12 @@ public class Corp implements Serializable {
         }
         else if (!this.createdAt.equals(other.createdAt))
             return false;
+        if (this.createdUserId == null) {
+            if (other.createdUserId != null)
+                return false;
+        }
+        else if (!this.createdUserId.equals(other.createdUserId))
+            return false;
         return true;
     }
 
@@ -198,6 +223,7 @@ public class Corp implements Serializable {
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
         result = prime * result + ((this.addressId == null) ? 0 : this.addressId.hashCode());
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
+        result = prime * result + ((this.createdUserId == null) ? 0 : this.createdUserId.hashCode());
         return result;
     }
 
@@ -211,6 +237,7 @@ public class Corp implements Serializable {
         sb.append(", ").append(description);
         sb.append(", ").append(addressId);
         sb.append(", ").append(createdAt);
+        sb.append(", ").append(createdUserId);
 
         sb.append(")");
         return sb.toString();

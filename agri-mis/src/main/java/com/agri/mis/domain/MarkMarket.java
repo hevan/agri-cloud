@@ -2,6 +2,7 @@ package com.agri.mis.domain;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
 //简洁代码
@@ -22,8 +23,11 @@ public class MarkMarket {
 
     private String name;//名称
 
-    private Long categoryId;//种类id
+    private String marketType;//名称
 
     private Long addressId;//详细地址id
+
+    @Transient
+    private Address address;
 
 }

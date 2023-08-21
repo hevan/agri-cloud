@@ -9,5 +9,8 @@ import reactor.core.publisher.Flux;
 public interface SysMenuRepository extends ReactiveCrudRepository<SysMenu, Long> {
     Flux<SysMenu> findAllByCorpIdOrderByParentIdDesc(Long corpId);
 
-    Flux<SysMenu> findAllByCorpIdAndParentIdIsNotNullOrderByParentIdAsc(Long corpId);
+    Flux<SysMenu> findAllByCorpIdOrderByName(Long corpId);
+
+    Flux<SysMenu> findAllByCorpId(Long corpId);
+
 }

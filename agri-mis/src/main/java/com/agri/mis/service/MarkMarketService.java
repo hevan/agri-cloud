@@ -1,9 +1,8 @@
 package com.agri.mis.service;
 
 import com.agri.mis.domain.Address;
-import com.agri.mis.domain.MarkCategory;
 import com.agri.mis.domain.MarkMarket;
-import com.agri.mis.dto.MarkMarketWithCategoryWithAddress;
+import com.agri.mis.repository.AddressRepository;
 import com.agri.mis.repository.MarkMarketRepository;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
@@ -28,6 +27,9 @@ public class MarkMarketService {
     private MarkMarketRepository markMarketRepository;//数据操作
 
     @Autowired
+    private AddressRepository addressRepository;//数据操作
+
+    @Autowired
     private DSLContext context;
 
     public Mono<MarkMarket> findById(Long id){//根据id查询单个MarkProduct
@@ -35,6 +37,13 @@ public class MarkMarketService {
     }
 
     public Mono<MarkMarket> add(MarkMarket markMarket){//根据markMarket进行数据添加
+
+        if(null != markMarket.getAddress()){
+           return  addressRepository.save(markMarket.getAddress()).flatMap(s-> {
+                markMarket.setAddressId(s.getId());
+                return markMarketRepository.save(markMarket);
+            });
+        }
         return markMarketRepository.save(markMarket);
     }
 
@@ -50,29 +59,22 @@ public class MarkMarketService {
         return markMarketRepository.delete(markMarket);
     }
 
-    public Mono<Page<MarkMarketWithCategoryWithAddress>> pageQuery(String name, PageRequest request){
+    public Mono<Page<MarkMarket>> pageQuery(MarkMarket markMarketParam, PageRequest request){
 
         com.agri.mis.db.tables.Address address = com.agri.mis.db.tables.Address.ADDRESS;
-
-        com.agri.mis.db.tables.MarkCategory category = com.agri.mis.db.tables.MarkCategory.MARK_CATEGORY;
 
         com.agri.mis.db.tables.MarkMarket markMarket = com.agri.mis.db.tables.MarkMarket.MARK_MARKET;
 
         Condition where = DSL.trueCondition();
 
-        if(StringUtils.hasLength(name)){
-            where = where.and(markMarket.NAME.like("%"+name+"%"));
+        if(StringUtils.hasLength(markMarketParam.getName())){
+            where = where.and(markMarket.NAME.like("%"+markMarketParam.getName()+"%"));
         }
         var dataSql = context.select(
                 markMarket.ID,
                 markMarket.ADDRESS_ID,
-                markMarket.CATEGORY_ID,
+                markMarket.MARKET_TYPE,
                 markMarket.NAME,
-                category.ID,
-
-                category.NAME,
-                category.IMAGE_URL,
-                category.PARENT_ID,
 
                 address.ID,
                 address.PROVINCE,
@@ -84,31 +86,31 @@ public class MarkMarketService {
                 address.CREATED_AT
 
 
-        ).from(markMarket).leftJoin(category).on(markMarket.CATEGORY_ID.eq(category.ID)).rightJoin(address).on(markMarket.ADDRESS_ID.eq(address.ID)).where(where).limit(request.getOffset(),request.getPageSize());
+        ).from(markMarket).leftJoin(address).on(markMarket.ADDRESS_ID.eq(address.ID)).where(where).limit(request.getOffset(),request.getPageSize());
         var countSql =  context.select(DSL.field("count(*)", SQLDataType.BIGINT))
                 .from(markMarket)
                 .where(where);
         return Mono.zip(Flux.from(dataSql)
                                 .map(r->{
-                                    MarkMarket markMarket1 = new MarkMarket(r.getValue(markMarket.ID),
-                                            r.getValue(markMarket.NAME),
-                                            r.getValue(markMarket.ADDRESS_ID),
-                                            r.getValue(markMarket.CATEGORY_ID)
-                                            );
+                                    MarkMarket markMarket1 = new MarkMarket();
+                                    markMarket1.setMarketType(r.getValue(markMarket.MARKET_TYPE));
+                                    markMarket1.setId(r.getValue(markMarket.ID));
+                                    markMarket1.setName(r.getValue(markMarket.NAME));
+                                    markMarket1.setAddressId(r.getValue(markMarket.ADDRESS_ID));
                                     //category convert from
-                                    if(null!=markMarket1.getId()){
-                                        MarkCategory category1 = new MarkCategory(r.getValue(category.ID),r.getValue(category.NAME),
-                                                r.getValue(category.IMAGE_URL),r.getValue(category.PARENT_ID)
-                                        );
+                                    if(null!=markMarket1.getAddressId()) {
 
-                                        Address address1 = new Address(r.getValue(address.ID
-                                        ),r.getValue(address.PROVINCE),r.getValue(address.CITY),
-                                                r.getValue(address.REGION),r.getValue(address.LINE_DETAIL)
-                                                ,r.getValue(address.LINK_NAME),r.getValue(address.LINK_MOBILE),null,r.getValue(address.CREATED_AT));
-                                        return new MarkMarketWithCategoryWithAddress(markMarket1,category1,address1);
-                                    }else{
-                                        return new MarkMarketWithCategoryWithAddress(markMarket1,null,null);
+                                        Address address1 = new Address();
+                                        address1.setId(r.getValue(address.ID));
+                                        address1.setProvince(r.getValue(address.PROVINCE));
+                                        address1.setCity(r.getValue(address.CITY));
+                                        address1.setRegion(r.getValue(address.REGION));
+                                        address1.setLineDetail(r.getValue(address.LINE_DETAIL));
+                                        address1.setLinkName(r.getValue(address.LINK_NAME));
+                                        address1.setLinkMobile(r.getValue(address.LINK_MOBILE));
+                                        markMarket1.setAddress(address1);
                                     }
+                                    return markMarket1;
                                 })
                                 .collectList(),
                         Mono.from(countSql).map(Record1::value1)

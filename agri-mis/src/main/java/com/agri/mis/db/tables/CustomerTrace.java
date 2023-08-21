@@ -8,17 +8,18 @@ import com.agri.mis.db.Keys;
 import com.agri.mis.db.Public;
 import com.agri.mis.db.tables.records.CustomerTraceRecord;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function11;
+import org.jooq.Function10;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row11;
+import org.jooq.Row10;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -82,11 +83,6 @@ public class CustomerTrace extends TableImpl<CustomerTraceRecord> {
     public final TableField<CustomerTraceRecord, String> LINK_MOBILE = createField(DSL.name("link_mobile"), SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>public.customer_trace.created_by</code>.
-     */
-    public final TableField<CustomerTraceRecord, Long> CREATED_BY = createField(DSL.name("created_by"), SQLDataType.BIGINT, this, "");
-
-    /**
      * The column <code>public.customer_trace.created_at</code>.
      */
     public final TableField<CustomerTraceRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "");
@@ -99,7 +95,7 @@ public class CustomerTrace extends TableImpl<CustomerTraceRecord> {
     /**
      * The column <code>public.customer_trace.occur_at</code>.
      */
-    public final TableField<CustomerTraceRecord, LocalDateTime> OCCUR_AT = createField(DSL.name("occur_at"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "");
+    public final TableField<CustomerTraceRecord, LocalDate> OCCUR_AT = createField(DSL.name("occur_at"), SQLDataType.LOCALDATE.nullable(false), this, "");
 
     /**
      * The column <code>public.customer_trace.created_user_id</code>.
@@ -194,18 +190,18 @@ public class CustomerTrace extends TableImpl<CustomerTraceRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row10 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<Long, Long, String, String, String, String, Long, LocalDateTime, Long, LocalDateTime, Long> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row10<Long, Long, String, String, String, String, LocalDateTime, Long, LocalDate, Long> fieldsRow() {
+        return (Row10) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function11<? super Long, ? super Long, ? super String, ? super String, ? super String, ? super String, ? super Long, ? super LocalDateTime, ? super Long, ? super LocalDateTime, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function10<? super Long, ? super Long, ? super String, ? super String, ? super String, ? super String, ? super LocalDateTime, ? super Long, ? super LocalDate, ? super Long, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -213,7 +209,7 @@ public class CustomerTrace extends TableImpl<CustomerTraceRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function11<? super Long, ? super Long, ? super String, ? super String, ? super String, ? super String, ? super Long, ? super LocalDateTime, ? super Long, ? super LocalDateTime, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function10<? super Long, ? super Long, ? super String, ? super String, ? super String, ? super String, ? super LocalDateTime, ? super Long, ? super LocalDate, ? super Long, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

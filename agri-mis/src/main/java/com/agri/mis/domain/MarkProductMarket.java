@@ -3,6 +3,7 @@ package com.agri.mis.domain;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -26,7 +27,7 @@ public class MarkProductMarket {
 
     private Long productId;//产品ID
     private BigDecimal priceWholesale;//批发价格
-    private String unit;//单位
+    private String calcUnit;//单位
     @Id
     private Long id;//主键ID
 
@@ -36,4 +37,13 @@ public class MarkProductMarket {
 
     private BigDecimal priceRetal;//价格标签
     private Long marketId;//集市ID
+
+    private Integer quantity;//数量
+
+    @Transient
+    private MarkProduct product;
+
+    @Transient
+    private MarkMarket market;
+
 }

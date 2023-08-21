@@ -5,6 +5,7 @@ package com.agri.mis.db.tables.pojos;
 
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -18,10 +19,9 @@ public class BatchCycleExecute implements Serializable {
 
     private Long id;
     private String name;
-    private LocalDateTime startAt;
-    private LocalDateTime endAt;
+    private LocalDate startAt;
+    private LocalDate endAt;
     private Long createdUserId;
-    private String createdBy;
     private Long batchCycleId;
     private Short status;
     private String description;
@@ -38,7 +38,6 @@ public class BatchCycleExecute implements Serializable {
         this.startAt = value.startAt;
         this.endAt = value.endAt;
         this.createdUserId = value.createdUserId;
-        this.createdBy = value.createdBy;
         this.batchCycleId = value.batchCycleId;
         this.status = value.status;
         this.description = value.description;
@@ -51,10 +50,9 @@ public class BatchCycleExecute implements Serializable {
     public BatchCycleExecute(
         Long id,
         String name,
-        LocalDateTime startAt,
-        LocalDateTime endAt,
+        LocalDate startAt,
+        LocalDate endAt,
         Long createdUserId,
-        String createdBy,
         Long batchCycleId,
         Short status,
         String description,
@@ -68,7 +66,6 @@ public class BatchCycleExecute implements Serializable {
         this.startAt = startAt;
         this.endAt = endAt;
         this.createdUserId = createdUserId;
-        this.createdBy = createdBy;
         this.batchCycleId = batchCycleId;
         this.status = status;
         this.description = description;
@@ -111,14 +108,14 @@ public class BatchCycleExecute implements Serializable {
     /**
      * Getter for <code>public.batch_cycle_execute.start_at</code>.
      */
-    public LocalDateTime getStartAt() {
+    public LocalDate getStartAt() {
         return this.startAt;
     }
 
     /**
      * Setter for <code>public.batch_cycle_execute.start_at</code>.
      */
-    public BatchCycleExecute setStartAt(LocalDateTime startAt) {
+    public BatchCycleExecute setStartAt(LocalDate startAt) {
         this.startAt = startAt;
         return this;
     }
@@ -126,14 +123,14 @@ public class BatchCycleExecute implements Serializable {
     /**
      * Getter for <code>public.batch_cycle_execute.end_at</code>.
      */
-    public LocalDateTime getEndAt() {
+    public LocalDate getEndAt() {
         return this.endAt;
     }
 
     /**
      * Setter for <code>public.batch_cycle_execute.end_at</code>.
      */
-    public BatchCycleExecute setEndAt(LocalDateTime endAt) {
+    public BatchCycleExecute setEndAt(LocalDate endAt) {
         this.endAt = endAt;
         return this;
     }
@@ -150,21 +147,6 @@ public class BatchCycleExecute implements Serializable {
      */
     public BatchCycleExecute setCreatedUserId(Long createdUserId) {
         this.createdUserId = createdUserId;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.batch_cycle_execute.created_by</code>.
-     */
-    public String getCreatedBy() {
-        return this.createdBy;
-    }
-
-    /**
-     * Setter for <code>public.batch_cycle_execute.created_by</code>.
-     */
-    public BatchCycleExecute setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
         return this;
     }
 
@@ -312,12 +294,6 @@ public class BatchCycleExecute implements Serializable {
         }
         else if (!this.createdUserId.equals(other.createdUserId))
             return false;
-        if (this.createdBy == null) {
-            if (other.createdBy != null)
-                return false;
-        }
-        else if (!this.createdBy.equals(other.createdBy))
-            return false;
         if (this.batchCycleId == null) {
             if (other.batchCycleId != null)
                 return false;
@@ -372,7 +348,6 @@ public class BatchCycleExecute implements Serializable {
         result = prime * result + ((this.startAt == null) ? 0 : this.startAt.hashCode());
         result = prime * result + ((this.endAt == null) ? 0 : this.endAt.hashCode());
         result = prime * result + ((this.createdUserId == null) ? 0 : this.createdUserId.hashCode());
-        result = prime * result + ((this.createdBy == null) ? 0 : this.createdBy.hashCode());
         result = prime * result + ((this.batchCycleId == null) ? 0 : this.batchCycleId.hashCode());
         result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
@@ -392,7 +367,6 @@ public class BatchCycleExecute implements Serializable {
         sb.append(", ").append(startAt);
         sb.append(", ").append(endAt);
         sb.append(", ").append(createdUserId);
-        sb.append(", ").append(createdBy);
         sb.append(", ").append(batchCycleId);
         sb.append(", ").append(status);
         sb.append(", ").append(description);

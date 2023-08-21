@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  webflux:
+    problemdetails:
+      enabled: true
+  r2dbc:
+    url: r2dbc:pool:postgresql://127.0.0.1:5432/db_agri
+    username: admin
+    password: pgsql@hbzn2023
+  data:
+    mongodb:
+      database: agri_db
+      username: admin
+      password: admin@hbzn2023
+      gridfs:
+        database: agri_db_images
+      host: 127.0.0.1
+      port: 27017
+      authentication-database: admin
+
+jjwt:
+  secret: ReactIsSecretForJWTHS512SignatureAlgorithmThatMUSTHave512bitsKeySize
+  expiration: 691200
+
+image:
+  path: /Users/mac/work/temp/upload/
+  server: http://image.test.com/

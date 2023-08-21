@@ -13,12 +13,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function9;
+import org.jooq.Function10;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row9;
+import org.jooq.Row10;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -84,17 +84,22 @@ public class CheckTrace extends TableImpl<CheckTraceRecord> {
     /**
      * The column <code>public.check_trace.created_at</code>.
      */
-    public final TableField<CheckTraceRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(6).nullable(false), this, "");
+    public final TableField<CheckTraceRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(6), this, "");
 
     /**
      * The column <code>public.check_trace.title</code>.
      */
-    public final TableField<CheckTraceRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<CheckTraceRecord, String> TITLE = createField(DSL.name("title"), SQLDataType.VARCHAR(100), this, "");
 
     /**
      * The column <code>public.check_trace.description</code>.
      */
-    public final TableField<CheckTraceRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(500).nullable(false), this, "");
+    public final TableField<CheckTraceRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(500), this, "");
+
+    /**
+     * The column <code>public.check_trace.updated_at</code>.
+     */
+    public final TableField<CheckTraceRecord, LocalDateTime> UPDATED_AT = createField(DSL.name("updated_at"), SQLDataType.LOCALDATETIME(6), this, "");
 
     private CheckTrace(Name alias, Table<CheckTraceRecord> aliased) {
         this(alias, aliased, null);
@@ -184,18 +189,18 @@ public class CheckTrace extends TableImpl<CheckTraceRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row9 type methods
+    // Row10 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<Long, String, Long, Long, Integer, Long, LocalDateTime, String, String> fieldsRow() {
-        return (Row9) super.fieldsRow();
+    public Row10<Long, String, Long, Long, Integer, Long, LocalDateTime, String, String, LocalDateTime> fieldsRow() {
+        return (Row10) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function9<? super Long, ? super String, ? super Long, ? super Long, ? super Integer, ? super Long, ? super LocalDateTime, ? super String, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function10<? super Long, ? super String, ? super Long, ? super Long, ? super Integer, ? super Long, ? super LocalDateTime, ? super String, ? super String, ? super LocalDateTime, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -203,7 +208,7 @@ public class CheckTrace extends TableImpl<CheckTraceRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function9<? super Long, ? super String, ? super Long, ? super Long, ? super Integer, ? super Long, ? super LocalDateTime, ? super String, ? super String, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function10<? super Long, ? super String, ? super Long, ? super Long, ? super Integer, ? super Long, ? super LocalDateTime, ? super String, ? super String, ? super LocalDateTime, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

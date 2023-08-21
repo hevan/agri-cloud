@@ -19,6 +19,7 @@ public class CmsCategory implements Serializable {
     private String code;
     private String name;
     private Long parentId;
+    private Long corpId;
 
     public CmsCategory() {}
 
@@ -27,18 +28,21 @@ public class CmsCategory implements Serializable {
         this.code = value.code;
         this.name = value.name;
         this.parentId = value.parentId;
+        this.corpId = value.corpId;
     }
 
     public CmsCategory(
         Long id,
         String code,
         String name,
-        Long parentId
+        Long parentId,
+        Long corpId
     ) {
         this.id = id;
         this.code = code;
         this.name = name;
         this.parentId = parentId;
+        this.corpId = corpId;
     }
 
     /**
@@ -101,6 +105,21 @@ public class CmsCategory implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.cms_category.corp_id</code>.
+     */
+    public Long getCorpId() {
+        return this.corpId;
+    }
+
+    /**
+     * Setter for <code>public.cms_category.corp_id</code>.
+     */
+    public CmsCategory setCorpId(Long corpId) {
+        this.corpId = corpId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -134,6 +153,12 @@ public class CmsCategory implements Serializable {
         }
         else if (!this.parentId.equals(other.parentId))
             return false;
+        if (this.corpId == null) {
+            if (other.corpId != null)
+                return false;
+        }
+        else if (!this.corpId.equals(other.corpId))
+            return false;
         return true;
     }
 
@@ -145,6 +170,7 @@ public class CmsCategory implements Serializable {
         result = prime * result + ((this.code == null) ? 0 : this.code.hashCode());
         result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
         result = prime * result + ((this.parentId == null) ? 0 : this.parentId.hashCode());
+        result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
         return result;
     }
 
@@ -156,6 +182,7 @@ public class CmsCategory implements Serializable {
         sb.append(", ").append(code);
         sb.append(", ").append(name);
         sb.append(", ").append(parentId);
+        sb.append(", ").append(corpId);
 
         sb.append(")");
         return sb.toString();

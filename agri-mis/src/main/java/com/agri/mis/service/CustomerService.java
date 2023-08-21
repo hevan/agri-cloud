@@ -47,11 +47,14 @@ public class CustomerService {
                 TB_CUSTOMER.NAME,
                 TB_CUSTOMER.CODE,
                 TB_CUSTOMER.DESCRIPTION,
+                TB_CUSTOMER.MANAGER_NAME,
+                TB_CUSTOMER.MANAGER_MOBILE,
                 TB_CUSTOMER.ADDRESS_ID,
                 TB_CUSTOMER.CORP_ID,
                 TB_CUSTOMER.IS_CUSTOMER,
                 TB_CUSTOMER.IS_SUPPLY,
                 TB_CUSTOMER.CREATED_AT,
+                TB_CUSTOMER.CREATED_USER_ID,
                 at.ID,
                 at.PROVINCE,
                 at.CITY,
@@ -65,7 +68,8 @@ public class CustomerService {
 
 
        return Mono.from(dataSql).map(r -> {
-           Customer customer = new Customer(r.getValue(TB_CUSTOMER.ID), r.getValue(TB_CUSTOMER.NAME), r.getValue(TB_CUSTOMER.CODE), r.getValue(TB_CUSTOMER.DESCRIPTION), r.getValue(TB_CUSTOMER.ADDRESS_ID), r.getValue(TB_CUSTOMER.CORP_ID), r.getValue(TB_CUSTOMER.IS_CUSTOMER), r.getValue(TB_CUSTOMER.IS_SUPPLY), r.getValue(TB_CUSTOMER.CREATED_AT), null);
+           Customer customer = new Customer(r.getValue(TB_CUSTOMER.ID), r.getValue(TB_CUSTOMER.NAME), r.getValue(TB_CUSTOMER.CODE), r.getValue(TB_CUSTOMER.DESCRIPTION),
+                   r.getValue(TB_CUSTOMER.MANAGER_NAME), r.getValue(TB_CUSTOMER.MANAGER_MOBILE) ,r.getValue(TB_CUSTOMER.ADDRESS_ID), r.getValue(TB_CUSTOMER.CORP_ID), r.getValue(TB_CUSTOMER.IS_CUSTOMER), r.getValue(TB_CUSTOMER.IS_SUPPLY), r.getValue(TB_CUSTOMER.CREATED_AT), r.getValue(TB_CUSTOMER.CREATED_USER_ID),null);
 
            //Address convert from
            if(null != customer.getAddressId()) {
@@ -77,12 +81,15 @@ public class CustomerService {
        });
     }
 
-
     public Mono<Customer> add(Customer customer) {
-        return addressRepository.save(customer.getAddress()).flatMap(s->{
-            customer.setAddressId(s.getId());
+        if(null == customer.getAddress()){
             return customerRepository.save(customer);
-        });
+        }else {
+            return addressRepository.save(customer.getAddress()).flatMap(s -> {
+                customer.setAddressId(s.getId());
+                return customerRepository.save(customer);
+            });
+        }
     }
 
     public Mono<Customer> update(Long id, Customer customer) {
@@ -91,12 +98,16 @@ public class CustomerService {
     }
 
     public Mono<Void> delete(Customer customer) {
-        return addressRepository.deleteById(customer.getAddressId()).flatMap(
-                s-> customerRepository.delete(customer)
-        );
+        if(null == customer.getAddress()){
+            return customerRepository.delete(customer);
+        }else {
+            return addressRepository.deleteById(customer.getAddressId()).flatMap(
+                    s -> customerRepository.delete(customer)
+            );
+        }
     }
 
-    public Mono<Page<Customer>> pageQuery(String name, PageRequest pageRequest) {
+    public Mono<Page<Customer>> pageQuery(String name, Long corpId,  PageRequest pageRequest) {
 
 
         com.agri.mis.db.tables.Customer TB_CUSTOMER = com.agri.mis.db.tables.Customer.CUSTOMER;
@@ -105,18 +116,25 @@ public class CustomerService {
         Condition where = DSL.trueCondition();
 
         if(StringUtils.hasLength(name)){
-            where = where.and(TB_CUSTOMER.NAME.like("%" + name +"%"));
+            where = where.and(TB_CUSTOMER.NAME.like("%" + name +"%").or(TB_CUSTOMER.MANAGER_MOBILE.like("%" + name +"%")));
         }
+        if(null != corpId){
+            where = where.and(TB_CUSTOMER.CORP_ID.eq(corpId));
+        }
+
         var dataSql = dslContext.select(
                 TB_CUSTOMER.ID,
                 TB_CUSTOMER.NAME,
                 TB_CUSTOMER.CODE,
                 TB_CUSTOMER.DESCRIPTION,
+                TB_CUSTOMER.MANAGER_NAME,
+                TB_CUSTOMER.MANAGER_MOBILE,
                 TB_CUSTOMER.ADDRESS_ID,
                 TB_CUSTOMER.CORP_ID,
                 TB_CUSTOMER.IS_CUSTOMER,
                 TB_CUSTOMER.IS_SUPPLY,
                 TB_CUSTOMER.CREATED_AT,
+                TB_CUSTOMER.CREATED_USER_ID,
                 at.ID,
                 at.PROVINCE,
                 at.CITY,
@@ -136,7 +154,7 @@ public class CustomerService {
                 .zip(
                         Flux.from(dataSql)
                                 .map(r -> {
-                                    Customer customer = new Customer(r.getValue(TB_CUSTOMER.ID), r.getValue(TB_CUSTOMER.NAME), r.getValue(TB_CUSTOMER.CODE), r.getValue(TB_CUSTOMER.DESCRIPTION), r.getValue(TB_CUSTOMER.ADDRESS_ID), r.getValue(TB_CUSTOMER.CORP_ID), r.getValue(TB_CUSTOMER.IS_CUSTOMER), r.getValue(TB_CUSTOMER.IS_SUPPLY), r.getValue(TB_CUSTOMER.CREATED_AT), null);
+                                    Customer customer = new Customer(r.getValue(TB_CUSTOMER.ID), r.getValue(TB_CUSTOMER.NAME), r.getValue(TB_CUSTOMER.CODE), r.getValue(TB_CUSTOMER.DESCRIPTION),r.getValue(TB_CUSTOMER.MANAGER_NAME), r.getValue(TB_CUSTOMER.MANAGER_MOBILE) , r.getValue(TB_CUSTOMER.ADDRESS_ID), r.getValue(TB_CUSTOMER.CORP_ID), r.getValue(TB_CUSTOMER.IS_CUSTOMER), r.getValue(TB_CUSTOMER.IS_SUPPLY), r.getValue(TB_CUSTOMER.CREATED_AT), r.getValue(TB_CUSTOMER.CREATED_USER_ID), null);
 
                                     //Address convert from
                                     if(null != customer.getAddressId()) {

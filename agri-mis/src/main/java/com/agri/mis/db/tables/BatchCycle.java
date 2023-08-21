@@ -8,18 +8,19 @@ import com.agri.mis.db.Keys;
 import com.agri.mis.db.Public;
 import com.agri.mis.db.tables.records.BatchCycleRecord;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function15;
+import org.jooq.Function16;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row15;
+import org.jooq.Row16;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -113,11 +114,6 @@ public class BatchCycle extends TableImpl<BatchCycleRecord> {
     public final TableField<BatchCycleRecord, Long> CREATED_USER_ID = createField(DSL.name("created_user_id"), SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>public.batch_cycle.created_by</code>.
-     */
-    public final TableField<BatchCycleRecord, String> CREATED_BY = createField(DSL.name("created_by"), SQLDataType.VARCHAR(100), this, "");
-
-    /**
      * The column <code>public.batch_cycle.created_at</code>.
      */
     public final TableField<BatchCycleRecord, LocalDateTime> CREATED_AT = createField(DSL.name("created_at"), SQLDataType.LOCALDATETIME(6), this, "");
@@ -126,6 +122,16 @@ public class BatchCycle extends TableImpl<BatchCycleRecord> {
      * The column <code>public.batch_cycle.cycle_type</code>.
      */
     public final TableField<BatchCycleRecord, Short> CYCLE_TYPE = createField(DSL.name("cycle_type"), SQLDataType.SMALLINT, this, "");
+
+    /**
+     * The column <code>public.batch_cycle.invest_estimated</code>.
+     */
+    public final TableField<BatchCycleRecord, BigDecimal> INVEST_ESTIMATED = createField(DSL.name("invest_estimated"), SQLDataType.NUMERIC(16, 2), this, "");
+
+    /**
+     * The column <code>public.batch_cycle.corp_id</code>.
+     */
+    public final TableField<BatchCycleRecord, Long> CORP_ID = createField(DSL.name("corp_id"), SQLDataType.BIGINT, this, "");
 
     private BatchCycle(Name alias, Table<BatchCycleRecord> aliased) {
         this(alias, aliased, null);
@@ -215,18 +221,18 @@ public class BatchCycle extends TableImpl<BatchCycleRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row15 type methods
+    // Row16 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row15<Long, String, String, String, Integer, LocalDate, LocalDate, Long, Short, Long, Double, Long, String, LocalDateTime, Short> fieldsRow() {
-        return (Row15) super.fieldsRow();
+    public Row16<Long, String, String, String, Integer, LocalDate, LocalDate, Long, Short, Long, Double, Long, LocalDateTime, Short, BigDecimal, Long> fieldsRow() {
+        return (Row16) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function15<? super Long, ? super String, ? super String, ? super String, ? super Integer, ? super LocalDate, ? super LocalDate, ? super Long, ? super Short, ? super Long, ? super Double, ? super Long, ? super String, ? super LocalDateTime, ? super Short, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function16<? super Long, ? super String, ? super String, ? super String, ? super Integer, ? super LocalDate, ? super LocalDate, ? super Long, ? super Short, ? super Long, ? super Double, ? super Long, ? super LocalDateTime, ? super Short, ? super BigDecimal, ? super Long, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -234,7 +240,7 @@ public class BatchCycle extends TableImpl<BatchCycleRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function15<? super Long, ? super String, ? super String, ? super String, ? super Integer, ? super LocalDate, ? super LocalDate, ? super Long, ? super Short, ? super Long, ? super Double, ? super Long, ? super String, ? super LocalDateTime, ? super Short, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function16<? super Long, ? super String, ? super String, ? super String, ? super Integer, ? super LocalDate, ? super LocalDate, ? super Long, ? super Short, ? super Long, ? super Double, ? super Long, ? super LocalDateTime, ? super Short, ? super BigDecimal, ? super Long, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

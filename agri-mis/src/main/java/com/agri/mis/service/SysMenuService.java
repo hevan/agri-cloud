@@ -24,7 +24,7 @@ public class SysMenuService {
     }
 
     public Flux<SysMenu> findAllByCorpIdAndSub(Long corpId) {
-        return sysMenuRepository.findAllByCorpIdAndParentIdIsNotNullOrderByParentIdAsc(corpId);
+        return sysMenuRepository.findAllByCorpIdOrderByName(corpId);
     }
 
     public Mono<SysMenu> add(SysMenu sysMenu) {

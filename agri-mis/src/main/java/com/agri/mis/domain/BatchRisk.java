@@ -2,6 +2,7 @@ package com.agri.mis.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
@@ -22,9 +23,10 @@ public class BatchRisk {
     private Long id;
     private Long productId;
     private Long batchId;
+    private String name;
     private String cycleName;
     private String riskCategory;
-    private String discription;
+    private String description;
     private String solution;
     private BigDecimal feeAmount;
     private Long createdUserId;
@@ -33,9 +35,12 @@ public class BatchRisk {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate occurDate;
+
+    @CreatedDate
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdAt;
+
     private Long corpId;
 
     @Transient

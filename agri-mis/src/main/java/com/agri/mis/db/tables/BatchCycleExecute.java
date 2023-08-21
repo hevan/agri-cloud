@@ -8,17 +8,18 @@ import com.agri.mis.db.Keys;
 import com.agri.mis.db.Public;
 import com.agri.mis.db.tables.records.BatchCycleExecuteRecord;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function13;
+import org.jooq.Function12;
 import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row13;
+import org.jooq.Row12;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -64,22 +65,17 @@ public class BatchCycleExecute extends TableImpl<BatchCycleExecuteRecord> {
     /**
      * The column <code>public.batch_cycle_execute.start_at</code>.
      */
-    public final TableField<BatchCycleExecuteRecord, LocalDateTime> START_AT = createField(DSL.name("start_at"), SQLDataType.LOCALDATETIME(6), this, "");
+    public final TableField<BatchCycleExecuteRecord, LocalDate> START_AT = createField(DSL.name("start_at"), SQLDataType.LOCALDATE, this, "");
 
     /**
      * The column <code>public.batch_cycle_execute.end_at</code>.
      */
-    public final TableField<BatchCycleExecuteRecord, LocalDateTime> END_AT = createField(DSL.name("end_at"), SQLDataType.LOCALDATETIME(6), this, "");
+    public final TableField<BatchCycleExecuteRecord, LocalDate> END_AT = createField(DSL.name("end_at"), SQLDataType.LOCALDATE, this, "");
 
     /**
      * The column <code>public.batch_cycle_execute.created_user_id</code>.
      */
     public final TableField<BatchCycleExecuteRecord, Long> CREATED_USER_ID = createField(DSL.name("created_user_id"), SQLDataType.BIGINT, this, "");
-
-    /**
-     * The column <code>public.batch_cycle_execute.created_by</code>.
-     */
-    public final TableField<BatchCycleExecuteRecord, String> CREATED_BY = createField(DSL.name("created_by"), SQLDataType.VARCHAR(50), this, "");
 
     /**
      * The column <code>public.batch_cycle_execute.batch_cycle_id</code>.
@@ -109,12 +105,12 @@ public class BatchCycleExecute extends TableImpl<BatchCycleExecuteRecord> {
     /**
      * The column <code>public.batch_cycle_execute.corp_id</code>.
      */
-    public final TableField<BatchCycleExecuteRecord, Long> CORP_ID = createField(DSL.name("corp_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<BatchCycleExecuteRecord, Long> CORP_ID = createField(DSL.name("corp_id"), SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>public.batch_cycle_execute.batch_id</code>.
      */
-    public final TableField<BatchCycleExecuteRecord, Long> BATCH_ID = createField(DSL.name("batch_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<BatchCycleExecuteRecord, Long> BATCH_ID = createField(DSL.name("batch_id"), SQLDataType.BIGINT, this, "");
 
     private BatchCycleExecute(Name alias, Table<BatchCycleExecuteRecord> aliased) {
         this(alias, aliased, null);
@@ -204,18 +200,18 @@ public class BatchCycleExecute extends TableImpl<BatchCycleExecuteRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row13 type methods
+    // Row12 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row13<Long, String, LocalDateTime, LocalDateTime, Long, String, Long, Short, String, LocalDateTime, Double, Long, Long> fieldsRow() {
-        return (Row13) super.fieldsRow();
+    public Row12<Long, String, LocalDate, LocalDate, Long, Long, Short, String, LocalDateTime, Double, Long, Long> fieldsRow() {
+        return (Row12) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function13<? super Long, ? super String, ? super LocalDateTime, ? super LocalDateTime, ? super Long, ? super String, ? super Long, ? super Short, ? super String, ? super LocalDateTime, ? super Double, ? super Long, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function12<? super Long, ? super String, ? super LocalDate, ? super LocalDate, ? super Long, ? super Long, ? super Short, ? super String, ? super LocalDateTime, ? super Double, ? super Long, ? super Long, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -223,7 +219,7 @@ public class BatchCycleExecute extends TableImpl<BatchCycleExecuteRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function13<? super Long, ? super String, ? super LocalDateTime, ? super LocalDateTime, ? super Long, ? super String, ? super Long, ? super Short, ? super String, ? super LocalDateTime, ? super Double, ? super Long, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function12<? super Long, ? super String, ? super LocalDate, ? super LocalDate, ? super Long, ? super Long, ? super Short, ? super String, ? super LocalDateTime, ? super Double, ? super Long, ? super Long, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

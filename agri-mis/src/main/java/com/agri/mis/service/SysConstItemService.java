@@ -1,6 +1,5 @@
 package com.agri.mis.service;
 
-import com.agri.mis.domain.SysConst;
 import com.agri.mis.domain.SysConstItem;
 import com.agri.mis.repository.SysConstItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;

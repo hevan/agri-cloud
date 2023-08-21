@@ -19,8 +19,8 @@ public class CmsTagService {
       return cmsTagRepository.findById(id);
     }
 
-    public Flux<CmsTag> findAll() {
-        return cmsTagRepository.findAll();
+    public Flux<CmsTag> findAllByCorpId(Long corpId) {
+        return cmsTagRepository.findAllByCorpId(corpId);
     }
 
     public Mono<CmsTag> add(CmsTag cmsTag) {

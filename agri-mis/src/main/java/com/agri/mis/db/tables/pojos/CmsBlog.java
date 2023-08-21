@@ -22,11 +22,8 @@ public class CmsBlog implements Serializable {
     private Short status;
     private Short checkStatus;
     private String author;
-    private Integer priseUp;
-    private Integer priseDown;
     private Long categoryId;
     private LocalDateTime createdAt;
-    private String createdBy;
     private String tags;
     private String description;
     private Long createdUserId;
@@ -34,6 +31,8 @@ public class CmsBlog implements Serializable {
     private LocalDate publishAt;
     private String imageUrl;
     private String videoUrl;
+    private LocalDateTime updatedAt;
+    private Long corpId;
 
     public CmsBlog() {}
 
@@ -43,11 +42,8 @@ public class CmsBlog implements Serializable {
         this.status = value.status;
         this.checkStatus = value.checkStatus;
         this.author = value.author;
-        this.priseUp = value.priseUp;
-        this.priseDown = value.priseDown;
         this.categoryId = value.categoryId;
         this.createdAt = value.createdAt;
-        this.createdBy = value.createdBy;
         this.tags = value.tags;
         this.description = value.description;
         this.createdUserId = value.createdUserId;
@@ -55,6 +51,8 @@ public class CmsBlog implements Serializable {
         this.publishAt = value.publishAt;
         this.imageUrl = value.imageUrl;
         this.videoUrl = value.videoUrl;
+        this.updatedAt = value.updatedAt;
+        this.corpId = value.corpId;
     }
 
     public CmsBlog(
@@ -63,29 +61,25 @@ public class CmsBlog implements Serializable {
         Short status,
         Short checkStatus,
         String author,
-        Integer priseUp,
-        Integer priseDown,
         Long categoryId,
         LocalDateTime createdAt,
-        String createdBy,
         String tags,
         String description,
         Long createdUserId,
         String content,
         LocalDate publishAt,
         String imageUrl,
-        String videoUrl
+        String videoUrl,
+        LocalDateTime updatedAt,
+        Long corpId
     ) {
         this.id = id;
         this.title = title;
         this.status = status;
         this.checkStatus = checkStatus;
         this.author = author;
-        this.priseUp = priseUp;
-        this.priseDown = priseDown;
         this.categoryId = categoryId;
         this.createdAt = createdAt;
-        this.createdBy = createdBy;
         this.tags = tags;
         this.description = description;
         this.createdUserId = createdUserId;
@@ -93,6 +87,8 @@ public class CmsBlog implements Serializable {
         this.publishAt = publishAt;
         this.imageUrl = imageUrl;
         this.videoUrl = videoUrl;
+        this.updatedAt = updatedAt;
+        this.corpId = corpId;
     }
 
     /**
@@ -171,36 +167,6 @@ public class CmsBlog implements Serializable {
     }
 
     /**
-     * Getter for <code>public.cms_blog.prise_up</code>.
-     */
-    public Integer getPriseUp() {
-        return this.priseUp;
-    }
-
-    /**
-     * Setter for <code>public.cms_blog.prise_up</code>.
-     */
-    public CmsBlog setPriseUp(Integer priseUp) {
-        this.priseUp = priseUp;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.cms_blog.prise_down</code>.
-     */
-    public Integer getPriseDown() {
-        return this.priseDown;
-    }
-
-    /**
-     * Setter for <code>public.cms_blog.prise_down</code>.
-     */
-    public CmsBlog setPriseDown(Integer priseDown) {
-        this.priseDown = priseDown;
-        return this;
-    }
-
-    /**
      * Getter for <code>public.cms_blog.category_id</code>.
      */
     public Long getCategoryId() {
@@ -227,21 +193,6 @@ public class CmsBlog implements Serializable {
      */
     public CmsBlog setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-        return this;
-    }
-
-    /**
-     * Getter for <code>public.cms_blog.created_by</code>.
-     */
-    public String getCreatedBy() {
-        return this.createdBy;
-    }
-
-    /**
-     * Setter for <code>public.cms_blog.created_by</code>.
-     */
-    public CmsBlog setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
         return this;
     }
 
@@ -350,6 +301,36 @@ public class CmsBlog implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.cms_blog.updated_at</code>.
+     */
+    public LocalDateTime getUpdatedAt() {
+        return this.updatedAt;
+    }
+
+    /**
+     * Setter for <code>public.cms_blog.updated_at</code>.
+     */
+    public CmsBlog setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.cms_blog.corp_id</code>.
+     */
+    public Long getCorpId() {
+        return this.corpId;
+    }
+
+    /**
+     * Setter for <code>public.cms_blog.corp_id</code>.
+     */
+    public CmsBlog setCorpId(Long corpId) {
+        this.corpId = corpId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -389,18 +370,6 @@ public class CmsBlog implements Serializable {
         }
         else if (!this.author.equals(other.author))
             return false;
-        if (this.priseUp == null) {
-            if (other.priseUp != null)
-                return false;
-        }
-        else if (!this.priseUp.equals(other.priseUp))
-            return false;
-        if (this.priseDown == null) {
-            if (other.priseDown != null)
-                return false;
-        }
-        else if (!this.priseDown.equals(other.priseDown))
-            return false;
         if (this.categoryId == null) {
             if (other.categoryId != null)
                 return false;
@@ -412,12 +381,6 @@ public class CmsBlog implements Serializable {
                 return false;
         }
         else if (!this.createdAt.equals(other.createdAt))
-            return false;
-        if (this.createdBy == null) {
-            if (other.createdBy != null)
-                return false;
-        }
-        else if (!this.createdBy.equals(other.createdBy))
             return false;
         if (this.tags == null) {
             if (other.tags != null)
@@ -461,6 +424,18 @@ public class CmsBlog implements Serializable {
         }
         else if (!this.videoUrl.equals(other.videoUrl))
             return false;
+        if (this.updatedAt == null) {
+            if (other.updatedAt != null)
+                return false;
+        }
+        else if (!this.updatedAt.equals(other.updatedAt))
+            return false;
+        if (this.corpId == null) {
+            if (other.corpId != null)
+                return false;
+        }
+        else if (!this.corpId.equals(other.corpId))
+            return false;
         return true;
     }
 
@@ -473,11 +448,8 @@ public class CmsBlog implements Serializable {
         result = prime * result + ((this.status == null) ? 0 : this.status.hashCode());
         result = prime * result + ((this.checkStatus == null) ? 0 : this.checkStatus.hashCode());
         result = prime * result + ((this.author == null) ? 0 : this.author.hashCode());
-        result = prime * result + ((this.priseUp == null) ? 0 : this.priseUp.hashCode());
-        result = prime * result + ((this.priseDown == null) ? 0 : this.priseDown.hashCode());
         result = prime * result + ((this.categoryId == null) ? 0 : this.categoryId.hashCode());
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
-        result = prime * result + ((this.createdBy == null) ? 0 : this.createdBy.hashCode());
         result = prime * result + ((this.tags == null) ? 0 : this.tags.hashCode());
         result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
         result = prime * result + ((this.createdUserId == null) ? 0 : this.createdUserId.hashCode());
@@ -485,6 +457,8 @@ public class CmsBlog implements Serializable {
         result = prime * result + ((this.publishAt == null) ? 0 : this.publishAt.hashCode());
         result = prime * result + ((this.imageUrl == null) ? 0 : this.imageUrl.hashCode());
         result = prime * result + ((this.videoUrl == null) ? 0 : this.videoUrl.hashCode());
+        result = prime * result + ((this.updatedAt == null) ? 0 : this.updatedAt.hashCode());
+        result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
         return result;
     }
 
@@ -497,11 +471,8 @@ public class CmsBlog implements Serializable {
         sb.append(", ").append(status);
         sb.append(", ").append(checkStatus);
         sb.append(", ").append(author);
-        sb.append(", ").append(priseUp);
-        sb.append(", ").append(priseDown);
         sb.append(", ").append(categoryId);
         sb.append(", ").append(createdAt);
-        sb.append(", ").append(createdBy);
         sb.append(", ").append(tags);
         sb.append(", ").append(description);
         sb.append(", ").append(createdUserId);
@@ -509,6 +480,8 @@ public class CmsBlog implements Serializable {
         sb.append(", ").append(publishAt);
         sb.append(", ").append(imageUrl);
         sb.append(", ").append(videoUrl);
+        sb.append(", ").append(updatedAt);
+        sb.append(", ").append(corpId);
 
         sb.append(")");
         return sb.toString();

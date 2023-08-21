@@ -25,6 +25,9 @@ public class Customer implements Serializable {
     private Long corpId;
     private Boolean isCustomer;
     private Boolean isSupply;
+    private String managerName;
+    private String managerMobile;
+    private Long createdUserId;
 
     public Customer() {}
 
@@ -38,6 +41,9 @@ public class Customer implements Serializable {
         this.corpId = value.corpId;
         this.isCustomer = value.isCustomer;
         this.isSupply = value.isSupply;
+        this.managerName = value.managerName;
+        this.managerMobile = value.managerMobile;
+        this.createdUserId = value.createdUserId;
     }
 
     public Customer(
@@ -49,7 +55,10 @@ public class Customer implements Serializable {
         LocalDateTime createdAt,
         Long corpId,
         Boolean isCustomer,
-        Boolean isSupply
+        Boolean isSupply,
+        String managerName,
+        String managerMobile,
+        Long createdUserId
     ) {
         this.id = id;
         this.name = name;
@@ -60,6 +69,9 @@ public class Customer implements Serializable {
         this.corpId = corpId;
         this.isCustomer = isCustomer;
         this.isSupply = isSupply;
+        this.managerName = managerName;
+        this.managerMobile = managerMobile;
+        this.createdUserId = createdUserId;
     }
 
     /**
@@ -197,6 +209,51 @@ public class Customer implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.customer.manager_name</code>.
+     */
+    public String getManagerName() {
+        return this.managerName;
+    }
+
+    /**
+     * Setter for <code>public.customer.manager_name</code>.
+     */
+    public Customer setManagerName(String managerName) {
+        this.managerName = managerName;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.customer.manager_mobile</code>.
+     */
+    public String getManagerMobile() {
+        return this.managerMobile;
+    }
+
+    /**
+     * Setter for <code>public.customer.manager_mobile</code>.
+     */
+    public Customer setManagerMobile(String managerMobile) {
+        this.managerMobile = managerMobile;
+        return this;
+    }
+
+    /**
+     * Getter for <code>public.customer.created_user_id</code>.
+     */
+    public Long getCreatedUserId() {
+        return this.createdUserId;
+    }
+
+    /**
+     * Setter for <code>public.customer.created_user_id</code>.
+     */
+    public Customer setCreatedUserId(Long createdUserId) {
+        this.createdUserId = createdUserId;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -260,6 +317,24 @@ public class Customer implements Serializable {
         }
         else if (!this.isSupply.equals(other.isSupply))
             return false;
+        if (this.managerName == null) {
+            if (other.managerName != null)
+                return false;
+        }
+        else if (!this.managerName.equals(other.managerName))
+            return false;
+        if (this.managerMobile == null) {
+            if (other.managerMobile != null)
+                return false;
+        }
+        else if (!this.managerMobile.equals(other.managerMobile))
+            return false;
+        if (this.createdUserId == null) {
+            if (other.createdUserId != null)
+                return false;
+        }
+        else if (!this.createdUserId.equals(other.createdUserId))
+            return false;
         return true;
     }
 
@@ -276,6 +351,9 @@ public class Customer implements Serializable {
         result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
         result = prime * result + ((this.isCustomer == null) ? 0 : this.isCustomer.hashCode());
         result = prime * result + ((this.isSupply == null) ? 0 : this.isSupply.hashCode());
+        result = prime * result + ((this.managerName == null) ? 0 : this.managerName.hashCode());
+        result = prime * result + ((this.managerMobile == null) ? 0 : this.managerMobile.hashCode());
+        result = prime * result + ((this.createdUserId == null) ? 0 : this.createdUserId.hashCode());
         return result;
     }
 
@@ -292,6 +370,9 @@ public class Customer implements Serializable {
         sb.append(", ").append(corpId);
         sb.append(", ").append(isCustomer);
         sb.append(", ").append(isSupply);
+        sb.append(", ").append(managerName);
+        sb.append(", ").append(managerMobile);
+        sb.append(", ").append(createdUserId);
 
         sb.append(")");
         return sb.toString();

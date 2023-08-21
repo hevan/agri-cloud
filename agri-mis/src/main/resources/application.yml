@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9410
 
 spring:
   webflux:
@@ -8,22 +8,18 @@ spring:
   r2dbc:
     url: r2dbc:pool:postgresql://127.0.0.1:5432/db_agri
     username: admin
-    password: password
+    password: pgsql@hbzn2023
   data:
     mongodb:
-      database: agri_db
-      username: root
-      password: example
-      gridfs:
-        database: agri_db_images
-      host: localhost
-      port: 27017
-      authentication-database: admin
+      uri: mongodb://admin:admin_hbzn2023@localhost:27017/agri_db?authSource=admin&authMechanism=SCRAM-SHA-1
+      #database: agri_db
+      #username: admin
+      #password: admin_hbzn2023
+      #host: localhost
+      #port: 27017
+      #authentication-database: admin
 
 jjwt:
   secret: ReactIsSecretForJWTHS512SignatureAlgorithmThatMUSTHave512bitsKeySize
   expiration: 691200
 
-image:
-  path: /Users/mac/work/temp/upload/
-  server: http://image.test.com/

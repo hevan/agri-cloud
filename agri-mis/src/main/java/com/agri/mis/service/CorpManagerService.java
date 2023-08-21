@@ -7,15 +7,20 @@ import com.agri.mis.exception.BusiNotFoundException;
 import com.agri.mis.repository.CorpManagerDepartRepository;
 import com.agri.mis.repository.CorpManagerRepository;
 import com.agri.mis.repository.CorpManagerRoleRepository;
+import com.agri.mis.repository.UserRepository;
+import com.agri.mis.util.AESUtil;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.jooq.Records.mapping;
@@ -37,11 +42,23 @@ public class CorpManagerService {
     @Autowired
     private CorpManagerRoleRepository corpManagerRoleRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     public Mono<CorpManager> findById(Long id) {
 
       return corpManagerRepository.findById(id);
 
+    }
+
+    public Mono<CorpManager> checkExists(String mobile, Long corpId){
+        return userRepository.findByMobile(mobile).flatMap(exists ->{
+                return corpManagerRepository.findByUserId(exists.getId()).switchIfEmpty(Mono.empty());
+        }).switchIfEmpty(Mono.empty());
     }
 
 
@@ -87,8 +104,17 @@ public class CorpManagerService {
         ).from(TB_CORP_MANAGER).leftJoin(TB_USERS).on(TB_CORP_MANAGER.USER_ID.eq(TB_USERS.ID)).where(TB_CORP_MANAGER.ID.eq(id));
 
         return  Mono.from(dataSql)
-                .map(r -> new CorpManagerInfo(r.getValue(TB_CORP_MANAGER.ID), r.getValue(TB_CORP_MANAGER.CORP_ID), r.getValue(TB_CORP_MANAGER.USER_ID),r.getValue(TB_CORP_MANAGER.POSITION),
-                        r.getValue(TB_USERS.NICK_NAME), r.getValue(TB_USERS.MOBILE), r.getValue(TB_USERS.HEADER_URL),r.getValue(TB_USERS.DESCRIPTION), r.value9(), r.value10()));
+                .map(r -> { CorpManagerInfo curManager =  new CorpManagerInfo();
+                    curManager.setId(r.getValue(TB_CORP_MANAGER.ID));
+                    curManager.setCorpId(r.getValue(TB_CORP_MANAGER.CORP_ID));
+                    curManager.setUserId(r.getValue(TB_CORP_MANAGER.USER_ID));
+                    curManager.setPosition(r.getValue(TB_CORP_MANAGER.POSITION));
+                    curManager.setNickName(r.getValue(TB_USERS.NICK_NAME)); curManager.setMobile(r.getValue(TB_USERS.MOBILE));
+                    curManager.setHeaderUrl(r.getValue(TB_USERS.HEADER_URL));
+                    curManager.setDescription(r.getValue(TB_USERS.DESCRIPTION));
+                    curManager.setListCorpRole(r.value10()); curManager.setListCorpDepart(r.value9());
+                    return curManager;
+                });
 
     }
 
@@ -98,10 +124,33 @@ public class CorpManagerService {
 
     public Mono<CorpManager> add(CorpManagerInfo corpManagerInfo) {
 
-        return corpManagerRepository.save(new CorpManager(null, corpManagerInfo.getUserId(), corpManagerInfo.getCorpId(), LocalDateTime.now(), corpManagerInfo.getPosition(), null, null))
-                .flatMap(s ->
+        return userRepository.findByMobile(corpManagerInfo.getMobile()).flatMap(exists ->{
+
+            return Mono.just(exists);
+
+        }).switchIfEmpty(createNewUser(corpManagerInfo)).flatMap(u->{
+            return  corpManagerRepository.save(new CorpManager(null, u.getId(), corpManagerInfo.getCorpId(), LocalDateTime.now(), corpManagerInfo.getPosition(), null, null)).flatMap(s ->
                     corpManagerDepartRepository.saveAll(corpManagerInfo.getListCorpDepart().stream().map(item -> new CorpManagerDepart(null ,s.getId(), item.getId() )).collect(Collectors.toSet())).then(Mono.just(s))
-        ).flatMap(d ->corpManagerRoleRepository.saveAll(corpManagerInfo.getListCorpRole().stream().map(item -> new CorpManagerRole(null ,d.getId(), item.getId() )).collect(Collectors.toSet())).then(Mono.just(d)));
+            ).flatMap(d ->corpManagerRoleRepository.saveAll(corpManagerInfo.getListCorpRole().stream().map(item -> new CorpManagerRole(null ,d.getId(), item.getId() )).collect(Collectors.toSet())).then(Mono.just(d)));
+        });
+    }
+
+    public Mono<User>  createNewUser(CorpManagerInfo corpManagerInfo){
+
+        User newUser = new User();
+        newUser.setMobile(corpManagerInfo.getMobile());
+        newUser.setNickName(corpManagerInfo.getNickName());
+        newUser.setUsername(UUID.randomUUID().toString());
+
+        if(!StringUtils.hasLength(newUser.getPassword())){
+            newUser.setPassword("123456");
+        }
+
+        newUser.setSignText(AESUtil.AESEncode("agri", newUser.getPassword() ));
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
+        newUser.setCreatedAt(LocalDateTime.now());
+        return userRepository.save(newUser);
+
     }
 
     public Mono<CorpManager> update(Long id, CorpManager corpManager) {
@@ -170,7 +219,16 @@ public class CorpManagerService {
         ).from(TB_CORP_MANAGER).leftJoin(TB_USERS).on(TB_CORP_MANAGER.USER_ID.eq(TB_USERS.ID)).where(where);
 
         return  Flux.from(dataSql)
-                .map(r -> new CorpManagerInfo(r.getValue(TB_CORP_MANAGER.ID), r.getValue(TB_CORP_MANAGER.CORP_ID), r.getValue(TB_CORP_MANAGER.USER_ID),r.getValue(TB_CORP_MANAGER.POSITION),
-                       r.getValue(TB_USERS.NICK_NAME), r.getValue(TB_USERS.MOBILE), r.getValue(TB_USERS.HEADER_URL),r.getValue(TB_USERS.DESCRIPTION), r.value9(), r.value10()));
+                .map(r ->{ CorpManagerInfo curManager =  new CorpManagerInfo();
+                    curManager.setId(r.getValue(TB_CORP_MANAGER.ID));
+                    curManager.setCorpId(r.getValue(TB_CORP_MANAGER.CORP_ID));
+                    curManager.setUserId(r.getValue(TB_CORP_MANAGER.USER_ID));
+                    curManager.setPosition(r.getValue(TB_CORP_MANAGER.POSITION));
+                    curManager.setNickName(r.getValue(TB_USERS.NICK_NAME)); curManager.setMobile(r.getValue(TB_USERS.MOBILE));
+                    curManager.setHeaderUrl(r.getValue(TB_USERS.HEADER_URL));
+                    curManager.setDescription(r.getValue(TB_USERS.DESCRIPTION));
+                    curManager.setListCorpRole(r.value10()); curManager.setListCorpDepart(r.value9());
+                   return curManager;
+                });
     }
 }

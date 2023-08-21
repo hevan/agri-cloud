@@ -58,17 +58,17 @@ public class MarkMarket extends TableImpl<MarkMarketRecord> {
     /**
      * The column <code>public.mark_market.name</code>.
      */
-    public final TableField<MarkMarketRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(50).nullable(false), this, "");
-
-    /**
-     * The column <code>public.mark_market.category_id</code>.
-     */
-    public final TableField<MarkMarketRecord, Long> CATEGORY_ID = createField(DSL.name("category_id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<MarkMarketRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
 
     /**
      * The column <code>public.mark_market.address_id</code>.
      */
     public final TableField<MarkMarketRecord, Long> ADDRESS_ID = createField(DSL.name("address_id"), SQLDataType.BIGINT.nullable(false), this, "");
+
+    /**
+     * The column <code>public.mark_market.market_type</code>.
+     */
+    public final TableField<MarkMarketRecord, String> MARKET_TYPE = createField(DSL.name("market_type"), SQLDataType.VARCHAR(50).nullable(false), this, "");
 
     private MarkMarket(Name alias, Table<MarkMarketRecord> aliased) {
         this(alias, aliased, null);
@@ -162,14 +162,14 @@ public class MarkMarket extends TableImpl<MarkMarketRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row4<Long, String, Long, Long> fieldsRow() {
+    public Row4<Long, String, Long, String> fieldsRow() {
         return (Row4) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function4<? super Long, ? super String, ? super Long, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function4<? super Long, ? super String, ? super Long, ? super String, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -177,7 +177,7 @@ public class MarkMarket extends TableImpl<MarkMarketRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super Long, ? super String, ? super Long, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function4<? super Long, ? super String, ? super Long, ? super String, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

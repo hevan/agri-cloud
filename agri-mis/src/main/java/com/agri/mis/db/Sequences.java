@@ -26,14 +26,19 @@ public class Sequences {
     public static final Sequence<Long> ACCOUNT_TITLE_ID_SEQ = Internal.createSequence("account_title_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
 
     /**
+     * The sequence <code>public.batch_cycle_expense_item_id_seq</code>
+     */
+    public static final Sequence<Long> BATCH_CYCLE_EXPENSE_ITEM_ID_SEQ = Internal.createSequence("batch_cycle_expense_item_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
+
+    /**
      * The sequence <code>public.batch_cycle_expense_seq</code>
      */
     public static final Sequence<Long> BATCH_CYCLE_EXPENSE_SEQ = Internal.createSequence("batch_cycle_expense_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
 
     /**
-     * The sequence <code>public.check_process_id_seq</code>
+     * The sequence <code>public.cms_resource_id_seq</code>
      */
-    public static final Sequence<Long> CHECK_PROCESS_ID_SEQ = Internal.createSequence("check_process_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
+    public static final Sequence<Long> CMS_RESOURCE_ID_SEQ = Internal.createSequence("cms_resource_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
 
     /**
      * The sequence <code>public.cms_video_id_seq</code>
@@ -49,6 +54,11 @@ public class Sequences {
      * The sequence <code>public.corp_manage_id_seq</code>
      */
     public static final Sequence<Long> CORP_MANAGE_ID_SEQ = Internal.createSequence("corp_manage_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
+
+    /**
+     * The sequence <code>public.mark_product_batch_id_seq</code>
+     */
+    public static final Sequence<Long> MARK_PRODUCT_BATCH_ID_SEQ = Internal.createSequence("mark_product_batch_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
 
     /**
      * The sequence <code>public.market_id_seq</code>
@@ -81,24 +91,9 @@ public class Sequences {
     public static final Sequence<Long> PRODUCT_BATCH_ID_SEQ = Internal.createSequence("product_batch_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
 
     /**
-     * The sequence <code>public.product_cycle_expense_id_seq</code>
-     */
-    public static final Sequence<Integer> PRODUCT_CYCLE_EXPENSE_ID_SEQ = Internal.createSequence("product_cycle_expense_id_seq", Public.PUBLIC, SQLDataType.INTEGER.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.product_cycle_id_seq</code>
-     */
-    public static final Sequence<Long> PRODUCT_CYCLE_ID_SEQ = Internal.createSequence("product_cycle_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
      * The sequence <code>public.product_market_id_seq</code>
      */
     public static final Sequence<Long> PRODUCT_MARKET_ID_SEQ = Internal.createSequence("product_market_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.product_risk_id_seq</code>
-     */
-    public static final Sequence<Long> PRODUCT_RISK_ID_SEQ = Internal.createSequence("product_risk_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
 
     /**
      * The sequence <code>public.production_order_id_seq</code>
@@ -109,46 +104,6 @@ public class Sequences {
      * The sequence <code>public.production_order_item_id_seq</code>
      */
     public static final Sequence<Long> PRODUCTION_ORDER_ITEM_ID_SEQ = Internal.createSequence("production_order_item_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.purchase_order_id_seq</code>
-     */
-    public static final Sequence<Long> PURCHASE_ORDER_ID_SEQ = Internal.createSequence("purchase_order_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.purchase_order_item_id_seq</code>
-     */
-    public static final Sequence<Long> PURCHASE_ORDER_ITEM_ID_SEQ = Internal.createSequence("purchase_order_item_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.sale_order_id_seq</code>
-     */
-    public static final Sequence<Long> SALE_ORDER_ID_SEQ = Internal.createSequence("sale_order_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.sale_order_item_id_seq</code>
-     */
-    public static final Sequence<Long> SALE_ORDER_ITEM_ID_SEQ = Internal.createSequence("sale_order_item_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.stock_id_seq</code>
-     */
-    public static final Sequence<Long> STOCK_ID_SEQ = Internal.createSequence("stock_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.stock_item_id_seq</code>
-     */
-    public static final Sequence<Long> STOCK_ITEM_ID_SEQ = Internal.createSequence("stock_item_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.store_id_seq</code>
-     */
-    public static final Sequence<Long> STORE_ID_SEQ = Internal.createSequence("store_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.store_item_id_seq</code>
-     */
-    public static final Sequence<Long> STORE_ITEM_ID_SEQ = Internal.createSequence("store_item_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
 
     /**
      * The sequence <code>public.user_document_id_seq</code>

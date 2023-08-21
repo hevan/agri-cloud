@@ -10,5 +10,5 @@ import reactor.core.publisher.Flux;
 
 
 public interface CmsCategoryRepository extends ReactiveCrudRepository<CmsCategory, Long>, ReactiveQueryByExampleExecutor<CmsCategory> {
-  Flux<CmsCategory> findBy(Example cmsCategory, Pageable pageable);
+  Flux<CmsCategory> findAllByCorpId(Long corpId);
 }

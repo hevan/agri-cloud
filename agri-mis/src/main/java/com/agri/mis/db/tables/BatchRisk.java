@@ -15,11 +15,12 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function13;
+import org.jooq.Function14;
+import org.jooq.Identity;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row13;
+import org.jooq.Row14;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -55,7 +56,7 @@ public class BatchRisk extends TableImpl<BatchRiskRecord> {
     /**
      * The column <code>public.batch_risk.id</code>.
      */
-    public final TableField<BatchRiskRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<BatchRiskRecord, Long> ID = createField(DSL.name("id"), SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>public.batch_risk.product_id</code>.
@@ -78,9 +79,9 @@ public class BatchRisk extends TableImpl<BatchRiskRecord> {
     public final TableField<BatchRiskRecord, String> RISK_CATEGORY = createField(DSL.name("risk_category"), SQLDataType.VARCHAR(50), this, "");
 
     /**
-     * The column <code>public.batch_risk.discription</code>.
+     * The column <code>public.batch_risk.description</code>.
      */
-    public final TableField<BatchRiskRecord, String> DISCRIPTION = createField(DSL.name("discription"), SQLDataType.VARCHAR(1000), this, "");
+    public final TableField<BatchRiskRecord, String> DESCRIPTION = createField(DSL.name("description"), SQLDataType.VARCHAR(1000), this, "");
 
     /**
      * The column <code>public.batch_risk.solution</code>.
@@ -116,6 +117,11 @@ public class BatchRisk extends TableImpl<BatchRiskRecord> {
      * The column <code>public.batch_risk.corp_id</code>.
      */
     public final TableField<BatchRiskRecord, Long> CORP_ID = createField(DSL.name("corp_id"), SQLDataType.BIGINT, this, "");
+
+    /**
+     * The column <code>public.batch_risk.name</code>.
+     */
+    public final TableField<BatchRiskRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(100), this, "");
 
     private BatchRisk(Name alias, Table<BatchRiskRecord> aliased) {
         this(alias, aliased, null);
@@ -153,6 +159,11 @@ public class BatchRisk extends TableImpl<BatchRiskRecord> {
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
+    }
+
+    @Override
+    public Identity<BatchRiskRecord, Long> getIdentity() {
+        return (Identity<BatchRiskRecord, Long>) super.getIdentity();
     }
 
     @Override
@@ -200,18 +211,18 @@ public class BatchRisk extends TableImpl<BatchRiskRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row13 type methods
+    // Row14 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row13<Long, Long, Long, String, String, String, String, BigDecimal, Long, String, LocalDate, LocalDateTime, Long> fieldsRow() {
-        return (Row13) super.fieldsRow();
+    public Row14<Long, Long, Long, String, String, String, String, BigDecimal, Long, String, LocalDate, LocalDateTime, Long, String> fieldsRow() {
+        return (Row14) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function13<? super Long, ? super Long, ? super Long, ? super String, ? super String, ? super String, ? super String, ? super BigDecimal, ? super Long, ? super String, ? super LocalDate, ? super LocalDateTime, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function14<? super Long, ? super Long, ? super Long, ? super String, ? super String, ? super String, ? super String, ? super BigDecimal, ? super Long, ? super String, ? super LocalDate, ? super LocalDateTime, ? super Long, ? super String, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -219,7 +230,7 @@ public class BatchRisk extends TableImpl<BatchRiskRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function13<? super Long, ? super Long, ? super Long, ? super String, ? super String, ? super String, ? super String, ? super BigDecimal, ? super Long, ? super String, ? super LocalDate, ? super LocalDateTime, ? super Long, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function14<? super Long, ? super Long, ? super Long, ? super String, ? super String, ? super String, ? super String, ? super BigDecimal, ? super Long, ? super String, ? super LocalDate, ? super LocalDateTime, ? super Long, ? super String, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }

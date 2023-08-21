@@ -2,6 +2,7 @@ package com.agri.mis.domain;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 
 //简洁代码
@@ -26,4 +27,7 @@ public class MarkProduct {
     private String imageUrl;//图片地址
     private String calcUnit;//计算单位
     private String description;//类型
+
+    @Transient
+    private MarkCategory markCategory;
 }

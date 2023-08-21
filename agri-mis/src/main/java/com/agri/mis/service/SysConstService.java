@@ -21,8 +21,11 @@ public class SysConstService {
 
     public Mono<Object> findById(Long id) {
 
-        return sysConstRepository.findById(id).zipWith(sysConstItemRepository.findAllByConstId(id)).map(
-                t -> {return t.getT1().setListItem((List<SysConstItem>) t.getT2()})
+        return sysConstRepository.findById(id).zipWith(Mono.from(sysConstItemRepository.findAllByConstId(id))).map(
+                t -> {
+                    t.getT1().setListItem((List<SysConstItem>) t.getT2());
+                    return t;
+                }
         );
     }
 

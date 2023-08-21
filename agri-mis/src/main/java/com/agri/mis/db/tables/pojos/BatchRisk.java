@@ -23,7 +23,7 @@ public class BatchRisk implements Serializable {
     private Long batchId;
     private String cycleName;
     private String riskCategory;
-    private String discription;
+    private String description;
     private String solution;
     private BigDecimal feeAmount;
     private Long createdUserId;
@@ -31,6 +31,7 @@ public class BatchRisk implements Serializable {
     private LocalDate occurDate;
     private LocalDateTime createdAt;
     private Long corpId;
+    private String name;
 
     public BatchRisk() {}
 
@@ -40,7 +41,7 @@ public class BatchRisk implements Serializable {
         this.batchId = value.batchId;
         this.cycleName = value.cycleName;
         this.riskCategory = value.riskCategory;
-        this.discription = value.discription;
+        this.description = value.description;
         this.solution = value.solution;
         this.feeAmount = value.feeAmount;
         this.createdUserId = value.createdUserId;
@@ -48,6 +49,7 @@ public class BatchRisk implements Serializable {
         this.occurDate = value.occurDate;
         this.createdAt = value.createdAt;
         this.corpId = value.corpId;
+        this.name = value.name;
     }
 
     public BatchRisk(
@@ -56,21 +58,22 @@ public class BatchRisk implements Serializable {
         Long batchId,
         String cycleName,
         String riskCategory,
-        String discription,
+        String description,
         String solution,
         BigDecimal feeAmount,
         Long createdUserId,
         String createdBy,
         LocalDate occurDate,
         LocalDateTime createdAt,
-        Long corpId
+        Long corpId,
+        String name
     ) {
         this.id = id;
         this.productId = productId;
         this.batchId = batchId;
         this.cycleName = cycleName;
         this.riskCategory = riskCategory;
-        this.discription = discription;
+        this.description = description;
         this.solution = solution;
         this.feeAmount = feeAmount;
         this.createdUserId = createdUserId;
@@ -78,6 +81,7 @@ public class BatchRisk implements Serializable {
         this.occurDate = occurDate;
         this.createdAt = createdAt;
         this.corpId = corpId;
+        this.name = name;
     }
 
     /**
@@ -156,17 +160,17 @@ public class BatchRisk implements Serializable {
     }
 
     /**
-     * Getter for <code>public.batch_risk.discription</code>.
+     * Getter for <code>public.batch_risk.description</code>.
      */
-    public String getDiscription() {
-        return this.discription;
+    public String getDescription() {
+        return this.description;
     }
 
     /**
-     * Setter for <code>public.batch_risk.discription</code>.
+     * Setter for <code>public.batch_risk.description</code>.
      */
-    public BatchRisk setDiscription(String discription) {
-        this.discription = discription;
+    public BatchRisk setDescription(String description) {
+        this.description = description;
         return this;
     }
 
@@ -275,6 +279,21 @@ public class BatchRisk implements Serializable {
         return this;
     }
 
+    /**
+     * Getter for <code>public.batch_risk.name</code>.
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * Setter for <code>public.batch_risk.name</code>.
+     */
+    public BatchRisk setName(String name) {
+        this.name = name;
+        return this;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
@@ -314,11 +333,11 @@ public class BatchRisk implements Serializable {
         }
         else if (!this.riskCategory.equals(other.riskCategory))
             return false;
-        if (this.discription == null) {
-            if (other.discription != null)
+        if (this.description == null) {
+            if (other.description != null)
                 return false;
         }
-        else if (!this.discription.equals(other.discription))
+        else if (!this.description.equals(other.description))
             return false;
         if (this.solution == null) {
             if (other.solution != null)
@@ -362,6 +381,12 @@ public class BatchRisk implements Serializable {
         }
         else if (!this.corpId.equals(other.corpId))
             return false;
+        if (this.name == null) {
+            if (other.name != null)
+                return false;
+        }
+        else if (!this.name.equals(other.name))
+            return false;
         return true;
     }
 
@@ -374,7 +399,7 @@ public class BatchRisk implements Serializable {
         result = prime * result + ((this.batchId == null) ? 0 : this.batchId.hashCode());
         result = prime * result + ((this.cycleName == null) ? 0 : this.cycleName.hashCode());
         result = prime * result + ((this.riskCategory == null) ? 0 : this.riskCategory.hashCode());
-        result = prime * result + ((this.discription == null) ? 0 : this.discription.hashCode());
+        result = prime * result + ((this.description == null) ? 0 : this.description.hashCode());
         result = prime * result + ((this.solution == null) ? 0 : this.solution.hashCode());
         result = prime * result + ((this.feeAmount == null) ? 0 : this.feeAmount.hashCode());
         result = prime * result + ((this.createdUserId == null) ? 0 : this.createdUserId.hashCode());
@@ -382,6 +407,7 @@ public class BatchRisk implements Serializable {
         result = prime * result + ((this.occurDate == null) ? 0 : this.occurDate.hashCode());
         result = prime * result + ((this.createdAt == null) ? 0 : this.createdAt.hashCode());
         result = prime * result + ((this.corpId == null) ? 0 : this.corpId.hashCode());
+        result = prime * result + ((this.name == null) ? 0 : this.name.hashCode());
         return result;
     }
 
@@ -394,7 +420,7 @@ public class BatchRisk implements Serializable {
         sb.append(", ").append(batchId);
         sb.append(", ").append(cycleName);
         sb.append(", ").append(riskCategory);
-        sb.append(", ").append(discription);
+        sb.append(", ").append(description);
         sb.append(", ").append(solution);
         sb.append(", ").append(feeAmount);
         sb.append(", ").append(createdUserId);
@@ -402,6 +428,7 @@ public class BatchRisk implements Serializable {
         sb.append(", ").append(occurDate);
         sb.append(", ").append(createdAt);
         sb.append(", ").append(corpId);
+        sb.append(", ").append(name);
 
         sb.append(")");
         return sb.toString();

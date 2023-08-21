@@ -9,4 +9,6 @@ import reactor.core.publisher.Flux;
 
 public interface BatchRiskRepository extends ReactiveCrudRepository<BatchRisk,Long>, ReactiveQueryByExampleExecutor<BatchRisk> {
     Flux<BatchRisk> findBy(Example batchRisk, Pageable pageable);
+
+    Flux<BatchRisk> findAllByBatchId(Long batchId);
 }

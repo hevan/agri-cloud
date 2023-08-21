@@ -45,6 +45,29 @@ public class OpenUserController {
         }).defaultIfEmpty(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());
     }
 
+    @RequestMapping(value = "/loginByMobile", method = RequestMethod.POST)
+    public Mono<ResponseEntity<?>> loginByMobile(@RequestBody UserPrincipal request) {
+        return userService.findByMobile(request.getMobile()).map((user) -> {
+            if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+
+                UserPrincipal userPrincipal = new UserPrincipal(user);
+
+                return ResponseEntity.ok(jwtUtil.generateToken(userPrincipal));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        }).switchIfEmpty(userService.add(new User(request.getMobile())).map((newUser)->{
+            if (passwordEncoder.matches(request.getPassword(), newUser.getPassword())) {
+
+                UserPrincipal userPrincipal = new UserPrincipal(newUser);
+
+                return ResponseEntity.ok(jwtUtil.generateToken(userPrincipal));
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        }));
+    }
+
     @RequestMapping(value = "/signup", method = RequestMethod.POST)
     public Mono<User> add(@RequestBody User user) {
         return userService.add(user);
