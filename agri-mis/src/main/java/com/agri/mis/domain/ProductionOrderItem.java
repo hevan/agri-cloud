@@ -1,7 +1,5 @@
 package com.agri.mis.domain;
 
-import com.agri.mis.dto.BatchProductDto;
-import com.agri.mis.dto.ParkBaseDto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -10,6 +8,8 @@ import org.springframework.data.annotation.Transient;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,27 +17,27 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table("batch_base")
-public class BatchBase {
+@Table("production_order_item")
+public class ProductionOrderItem implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     @Id
-    private Long id;//主键ID
-    private Long batchId;//分批处理ID
-    private Long parkBaseId;
-    private Double area;
+    private Long id;
+    private Long productId;
     private Double quantity;
-    private String description;
+    private BigDecimal price;
+    private Long orderId;
     @CreatedDate
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime createdAt;
-
     private Long corpId;
-    private String imageUrl;
-
-
-    @Transient
-    private ParkBaseDto parkBaseDto;
+    private BigDecimal amount;
+    private String productSku;
+    private String description;
 
     @Transient
-    private BatchProductDto batchProductDto;
+    private Product product;
+
 }

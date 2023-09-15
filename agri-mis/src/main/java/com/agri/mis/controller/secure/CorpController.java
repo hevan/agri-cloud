@@ -33,8 +33,8 @@ public class CorpController {
     }
 
     @GetMapping("/pageQuery")
-    public Mono<Page<Corp>> pageQuery(@RequestParam("name") String name, @RequestParam("page") int page, @RequestParam("size") int size) {
-        return corpService.pageQuery(name, PageRequest.of(page, size));
+    public Mono<Page<Corp>> pageQuery(Corp corp, @RequestParam("page") int page, @RequestParam("size") int size) {
+        return corpService.pageQuery(corp, PageRequest.of(page, size));
     }
 
     @PostMapping

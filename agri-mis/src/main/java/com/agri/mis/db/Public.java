@@ -48,8 +48,6 @@ import com.agri.mis.db.tables.MarkProductMarket;
 import com.agri.mis.db.tables.MisAccountBill;
 import com.agri.mis.db.tables.MisAccountTitle;
 import com.agri.mis.db.tables.MisBankAccount;
-import com.agri.mis.db.tables.MisProductionOrder;
-import com.agri.mis.db.tables.MisProductionOrderItem;
 import com.agri.mis.db.tables.MisStockPlace;
 import com.agri.mis.db.tables.MisStockPlaceItem;
 import com.agri.mis.db.tables.MisStockPlaceItemSub;
@@ -57,6 +55,9 @@ import com.agri.mis.db.tables.Oauth2Authorization;
 import com.agri.mis.db.tables.Oauth2RegisteredClient;
 import com.agri.mis.db.tables.PlanPark;
 import com.agri.mis.db.tables.Product;
+import com.agri.mis.db.tables.ProductSku;
+import com.agri.mis.db.tables.ProductionOrder;
+import com.agri.mis.db.tables.ProductionOrderItem;
 import com.agri.mis.db.tables.PurchaseOrder;
 import com.agri.mis.db.tables.PurchaseOrderItem;
 import com.agri.mis.db.tables.SaleOrder;
@@ -313,16 +314,6 @@ public class Public extends SchemaImpl {
     public final MisBankAccount MIS_BANK_ACCOUNT = MisBankAccount.MIS_BANK_ACCOUNT;
 
     /**
-     * The table <code>public.mis_production_order</code>.
-     */
-    public final MisProductionOrder MIS_PRODUCTION_ORDER = MisProductionOrder.MIS_PRODUCTION_ORDER;
-
-    /**
-     * The table <code>public.mis_production_order_item</code>.
-     */
-    public final MisProductionOrderItem MIS_PRODUCTION_ORDER_ITEM = MisProductionOrderItem.MIS_PRODUCTION_ORDER_ITEM;
-
-    /**
      * The table <code>public.mis_stock_place</code>.
      */
     public final MisStockPlace MIS_STOCK_PLACE = MisStockPlace.MIS_STOCK_PLACE;
@@ -356,6 +347,21 @@ public class Public extends SchemaImpl {
      * The table <code>public.product</code>.
      */
     public final Product PRODUCT = Product.PRODUCT;
+
+    /**
+     * The table <code>public.product_sku</code>.
+     */
+    public final ProductSku PRODUCT_SKU = ProductSku.PRODUCT_SKU;
+
+    /**
+     * The table <code>public.production_order</code>.
+     */
+    public final ProductionOrder PRODUCTION_ORDER = ProductionOrder.PRODUCTION_ORDER;
+
+    /**
+     * The table <code>public.production_order_item</code>.
+     */
+    public final ProductionOrderItem PRODUCTION_ORDER_ITEM = ProductionOrderItem.PRODUCTION_ORDER_ITEM;
 
     /**
      * The table <code>public.purchase_order</code>.
@@ -449,8 +455,6 @@ public class Public extends SchemaImpl {
             Sequences.PARK_ID_SEQ,
             Sequences.PRODUCT_BATCH_ID_SEQ,
             Sequences.PRODUCT_MARKET_ID_SEQ,
-            Sequences.PRODUCTION_ORDER_ID_SEQ,
-            Sequences.PRODUCTION_ORDER_ITEM_ID_SEQ,
             Sequences.USER_DOCUMENT_ID_SEQ
         );
     }
@@ -502,8 +506,6 @@ public class Public extends SchemaImpl {
             MisAccountBill.MIS_ACCOUNT_BILL,
             MisAccountTitle.MIS_ACCOUNT_TITLE,
             MisBankAccount.MIS_BANK_ACCOUNT,
-            MisProductionOrder.MIS_PRODUCTION_ORDER,
-            MisProductionOrderItem.MIS_PRODUCTION_ORDER_ITEM,
             MisStockPlace.MIS_STOCK_PLACE,
             MisStockPlaceItem.MIS_STOCK_PLACE_ITEM,
             MisStockPlaceItemSub.MIS_STOCK_PLACE_ITEM_SUB,
@@ -511,6 +513,9 @@ public class Public extends SchemaImpl {
             Oauth2RegisteredClient.OAUTH2_REGISTERED_CLIENT,
             PlanPark.PLAN_PARK,
             Product.PRODUCT,
+            ProductSku.PRODUCT_SKU,
+            ProductionOrder.PRODUCTION_ORDER,
+            ProductionOrderItem.PRODUCTION_ORDER_ITEM,
             PurchaseOrder.PURCHASE_ORDER,
             PurchaseOrderItem.PURCHASE_ORDER_ITEM,
             SaleOrder.SALE_ORDER,

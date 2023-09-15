@@ -96,16 +96,6 @@ public class Sequences {
     public static final Sequence<Long> PRODUCT_MARKET_ID_SEQ = Internal.createSequence("product_market_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
 
     /**
-     * The sequence <code>public.production_order_id_seq</code>
-     */
-    public static final Sequence<Long> PRODUCTION_ORDER_ID_SEQ = Internal.createSequence("production_order_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
-     * The sequence <code>public.production_order_item_id_seq</code>
-     */
-    public static final Sequence<Long> PRODUCTION_ORDER_ITEM_ID_SEQ = Internal.createSequence("production_order_item_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);
-
-    /**
      * The sequence <code>public.user_document_id_seq</code>
      */
     public static final Sequence<Long> USER_DOCUMENT_ID_SEQ = Internal.createSequence("user_document_id_seq", Public.PUBLIC, SQLDataType.BIGINT.nullable(false), null, null, null, null, false, null);

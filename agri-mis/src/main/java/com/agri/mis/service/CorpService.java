@@ -183,7 +183,7 @@ public class CorpService {
        return  addressRepository.deleteById(corp.getAddressId()).flatMap(s->corpRepository.delete(corp));
     }
 
-    public Mono<Page<Corp>> pageQuery(String name, PageRequest pageRequest) {
+    public Mono<Page<Corp>> pageQuery(Corp corpParam, PageRequest pageRequest) {
 
 
         com.agri.mis.db.tables.Corp ct = com.agri.mis.db.tables.Corp.CORP;
@@ -191,8 +191,12 @@ public class CorpService {
 
         Condition where = DSL.trueCondition();
 
-        if(StringUtils.hasLength(name)){
-            where = where.and(ct.NAME.like("%" + name +"%"));
+        if(null != corpParam.getCreatedUserId()){
+            where = where.and(ct.CREATED_USER_ID.eq(corpParam.getCreatedUserId()));
+        }
+
+        if(StringUtils.hasLength(corpParam.getName())){
+            where = where.and(ct.NAME.like("%" + corpParam.getName() +"%"));
         }
         var dataSql = dslContext.select(
                 ct.ID,

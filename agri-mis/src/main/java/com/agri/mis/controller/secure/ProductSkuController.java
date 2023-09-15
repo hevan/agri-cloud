@@ -1,12 +1,10 @@
-package com.agri.mis.controller.open;
+package com.agri.mis.controller.secure;
 
 
-import com.agri.mis.domain.Category;
-import com.agri.mis.service.CategoryService;
+import com.agri.mis.domain.ProductSku;
+import com.agri.mis.service.ProductSkuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,32 +13,32 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @Slf4j
-@RequestMapping("/open/category")
-public class OpenCategoryController {
+@RequestMapping("/secure/productSku")
+public class ProductSkuController {
 
     @Autowired
-    private CategoryService categoryService;
+    private ProductSkuService categoryService;
 
 
     @GetMapping("/{id}")
-    public Mono<ResponseEntity<Category>> find(@PathVariable Long id) {
+    public Mono<ResponseEntity<ProductSku>> find(@PathVariable Long id) {
         return categoryService.findById(id)
                 .map(ResponseEntity::ok)
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/findAll")
-    public Flux<Category> findAll(Long corpId) {
-        return categoryService.findAllByCorpId(corpId);
+    public Flux<ProductSku> findAllByProductId(Long productId) {
+        return categoryService.findAllByProductId(productId);
     }
 
     @PostMapping
-    public Mono<Category> save( @RequestBody Category category) {
+    public Mono<ProductSku> save( @RequestBody ProductSku category) {
         return categoryService.add(category);
     }
 
     @PutMapping("/{id}")
-    public Mono<Category> update(@PathVariable Long id, @RequestBody Category category) {
+    public Mono<ProductSku> update(@PathVariable Long id, @RequestBody ProductSku category) {
         return categoryService.update(id, category);
     }
 

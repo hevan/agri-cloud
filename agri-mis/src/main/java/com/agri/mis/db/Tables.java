@@ -48,8 +48,6 @@ import com.agri.mis.db.tables.MarkProductMarket;
 import com.agri.mis.db.tables.MisAccountBill;
 import com.agri.mis.db.tables.MisAccountTitle;
 import com.agri.mis.db.tables.MisBankAccount;
-import com.agri.mis.db.tables.MisProductionOrder;
-import com.agri.mis.db.tables.MisProductionOrderItem;
 import com.agri.mis.db.tables.MisStockPlace;
 import com.agri.mis.db.tables.MisStockPlaceItem;
 import com.agri.mis.db.tables.MisStockPlaceItemSub;
@@ -57,6 +55,9 @@ import com.agri.mis.db.tables.Oauth2Authorization;
 import com.agri.mis.db.tables.Oauth2RegisteredClient;
 import com.agri.mis.db.tables.PlanPark;
 import com.agri.mis.db.tables.Product;
+import com.agri.mis.db.tables.ProductSku;
+import com.agri.mis.db.tables.ProductionOrder;
+import com.agri.mis.db.tables.ProductionOrderItem;
 import com.agri.mis.db.tables.PurchaseOrder;
 import com.agri.mis.db.tables.PurchaseOrderItem;
 import com.agri.mis.db.tables.SaleOrder;
@@ -298,16 +299,6 @@ public class Tables {
     public static final MisBankAccount MIS_BANK_ACCOUNT = MisBankAccount.MIS_BANK_ACCOUNT;
 
     /**
-     * The table <code>public.mis_production_order</code>.
-     */
-    public static final MisProductionOrder MIS_PRODUCTION_ORDER = MisProductionOrder.MIS_PRODUCTION_ORDER;
-
-    /**
-     * The table <code>public.mis_production_order_item</code>.
-     */
-    public static final MisProductionOrderItem MIS_PRODUCTION_ORDER_ITEM = MisProductionOrderItem.MIS_PRODUCTION_ORDER_ITEM;
-
-    /**
      * The table <code>public.mis_stock_place</code>.
      */
     public static final MisStockPlace MIS_STOCK_PLACE = MisStockPlace.MIS_STOCK_PLACE;
@@ -341,6 +332,21 @@ public class Tables {
      * The table <code>public.product</code>.
      */
     public static final Product PRODUCT = Product.PRODUCT;
+
+    /**
+     * The table <code>public.product_sku</code>.
+     */
+    public static final ProductSku PRODUCT_SKU = ProductSku.PRODUCT_SKU;
+
+    /**
+     * The table <code>public.production_order</code>.
+     */
+    public static final ProductionOrder PRODUCTION_ORDER = ProductionOrder.PRODUCTION_ORDER;
+
+    /**
+     * The table <code>public.production_order_item</code>.
+     */
+    public static final ProductionOrderItem PRODUCTION_ORDER_ITEM = ProductionOrderItem.PRODUCTION_ORDER_ITEM;
 
     /**
      * The table <code>public.purchase_order</code>.
