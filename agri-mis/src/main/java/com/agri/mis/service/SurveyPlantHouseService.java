@@ -3,9 +3,7 @@ package com.agri.mis.service;
 import com.agri.mis.domain.SurveyPlantHouse;
 import com.agri.mis.repository.SurveyPlantHouseRepository;
 import lombok.val;
-import org.jooq.Condition;
-import org.jooq.DSLContext;
-import org.jooq.Record1;
+import org.jooq.*;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.lang.Record;
 import java.math.BigDecimal;
 
 import static org.jooq.impl.DSL.sum;
@@ -59,16 +58,15 @@ public class SurveyPlantHouseService {
         if(StringUtils.hasLength(county)){
             where = where.and(TB_SURVEY_PLANT.COUNTY.eq(county));
         }
-        var dataSql  = dslContext.select(sum(TB_SURVEY_PLANT.AREA)).from(TB_SURVEY_PLANT).where(where);
-
-       return  Mono.from(dataSql)
-                .map(r -> {
-                    if(null == r.getValue(0)){
-                        return new BigDecimal(0.0);
-                    }else {
-                        return r.getValue(0, BigDecimal.class);
-                    }
-                });
+        var dataSql = dslContext.select(sum(TB_SURVEY_PLANT.AREA.cast(Double.class))) .from(TB_SURVEY_PLANT) .where(where);
+           return  Mono.from(dataSql)
+                    .map(r -> {
+                        if(null == r.getValue(0)){
+                            return new BigDecimal(0.0);
+                        }else {
+                            return r.getValue(0, BigDecimal.class);
+                        }
+                    });
     }
 
     public Mono<Page<SurveyPlantHouse>> pageQuery(SurveyPlantHouse surveyPlantHouseParam, PageRequest pageRequest) {
